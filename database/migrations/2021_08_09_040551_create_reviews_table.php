@@ -23,6 +23,7 @@ class CreateReviewsTable extends Migration
             $table->integer('location_type')->nullable();
             $table->integer('location_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -19,6 +19,7 @@ class CreateLessonsUsersTable extends Migration
             $table->integer('id_user')->unsigned();
             $table->integer('learned')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

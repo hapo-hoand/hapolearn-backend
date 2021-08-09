@@ -4,11 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lesson extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
+    protected $fillable = [
+        'id_course',
+        'title',
+        'desc'
+    ];
+    
     public function course()
     {
         return $this->belongsTo(Course::class, 'id_course');

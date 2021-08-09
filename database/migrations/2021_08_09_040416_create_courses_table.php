@@ -23,6 +23,7 @@ class CreateCoursesTable extends Migration
             $table->integer('price')->nullable();
             $table->integer('learner')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

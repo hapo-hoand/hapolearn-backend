@@ -21,6 +21,7 @@ class AlterUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('desc')->nullable();
             $table->integer('role')->nullable();
+            $table->softDeletes();
         });
     }
 
@@ -31,8 +32,6 @@ class AlterUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('users');
     }
 }
