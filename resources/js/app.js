@@ -31,4 +31,8 @@ const app = new Vue({
     el: '#app',
 });
 
+<<<<<<< HEAD
 require('./main');
+=======
+require('./main');
+>>>>>>> d73a89f (add master page + scss + js)
