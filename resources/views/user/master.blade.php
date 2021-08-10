@@ -36,10 +36,6 @@
                                         <li class="nav-item">
                                             <a class="nav-link item-menu" href="#">All Course</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link item-menu" href="#">Profile</a>
-                                        </li>
-
                                         @if (@Auth::check() == false)
                                             <li class="nav-item">
                                                 <a class="nav-link item-menu" id="login" href="/login">Login/Register</a>
@@ -48,14 +44,11 @@
                                             <li class="nav-item" style="display: flex; align-items: center;">
                                                 <img src="{{ asset('images/'.@Auth::user()->avatar)}}" alt="">
                                                 <a class="nav-link item-menu" id="logout" href="{{ Route('logout') }}">Logout</a>
-                                                {{-- <a class="nav-link item-menu" href="#">{{ @Auth::user()->name }} </a>
-                                                <ul class="navbar-nav menu d-none">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link item-menu" id="logout" href="/logout">Logout</a>
-                                                    </li>
-                                                </ul> --}}
                                             </li>
                                         @endif
+                                        <li class="nav-item">
+                                            <a class="nav-link item-menu" href="#">Profile</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

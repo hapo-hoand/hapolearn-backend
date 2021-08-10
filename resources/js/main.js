@@ -53,12 +53,12 @@ $(".close-mess").click(function () {
 
 $(document).ready(function () {
   if ($("#login-accout input").hasClass("is-invalid")) {
-      $("#modal-login").modal("show");
-      $("#login-href").trigger("click");
+    $("#modal-login").modal("show");
+    $("#login-href").trigger("click");
   }
 
   if ($("#register-accout input").hasClass("is-invalid")) {
-      $("#modal-login").modal("show");
-      $("#register-href").trigger("click");
+    $("#modal-login").modal("show");
+    $("#register-href").trigger("click");
   }
 });
