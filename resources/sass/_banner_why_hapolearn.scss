@@ -1,0 +1,163 @@
+.banner-why-hapolearn {
+  background-image: url("../assets/images/banner_2.png");
+  height: auto;
+  position: relative;
+  padding: 50px 0;
+  @include style-img;
+
+  .img-keyboard,
+  .img-laptop {
+    img {
+      @include style-img;
+    }
+  }
+
+  .img-laptop {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    align-items: flex-end;
+
+    img {
+      height: 400px;
+    }
+  }
+
+  .img-keyboard {
+    width: 400px;
+    height: 478px;
+    position: absolute;
+    top: -30%;
+  }
+}
+
+.text-why-hapo {
+  color: $white_color;
+
+  .big-text {
+    font-size: 60px;
+    font-weight: 600;
+    padding: 10px 0;
+    -webkit-text-stroke-width: 2px;
+  }
+}
+
+.lesson {
+  font-size: 18px;
+
+  .icon {
+    color: $white_color;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .banner-why-hapolearn {
+    .img-keyboard {
+      width: 220px;
+      height: 330px;
+      top: -30%;
+    }
+
+    .img-laptop {
+      width: 100%;
+      height: 300px;
+      display: flex;
+      align-items: flex-end;
+      margin: 50px 0 0 0;
+
+      img {
+        height: 80%;
+        margin-bottom: -30px;
+      }
+    }
+  }
+
+  .lesson-content.container {
+    max-width: 100%;
+  }
+
+  .lesson {
+    font-size: 16px;
+
+    p.text-lesson {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+
+    .icon {
+      font-size: 16px;
+    }
+  }
+
+  .text-why-hapo {
+    .big-text {
+      width: 100%;
+      font-size: 50px;
+      position: absolute;
+      top: -60%;
+      left: 50%;
+    }
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .lesson {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+
+    .icon {
+      font-size: 16px;
+    }
+
+    p.text-lesson {
+      font-size: 14px;
+    }
+  }
+
+  .banner-why-hapolearn {
+    padding: 10px 0;
+
+    .img-laptop {
+      margin: 0;
+      align-items: center;
+
+      img {
+        height: 100%;
+        margin-bottom: 10px;
+      }
+    }
+
+    .img-keyboard {
+      top: -20%;
+    }
+  }
+
+  .text-why-hapo {
+    display: inline-block;
+    
+    .big-text {
+      position: relative;
+      float: right;
+      text-align: left;
+      font-size: 40px;
+      padding: 30px 0;
+      width: 60%;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  .lesson-content {
+    .row {
+      display: block;
+    }
+
+    .custom-col {
+      max-width: 100%;
+    }
+  }
+}

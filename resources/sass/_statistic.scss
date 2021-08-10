@@ -1,0 +1,41 @@
+.statistic {
+  padding-bottom: 70px;
+}
+
+.content-statistic {
+  text-align: center;
+
+  span {
+    display: block;
+    line-height: 70px;
+    font-size: 60px;
+    margin: 20px 0;
+  }
+
+  .title {
+    font-weight: 700;
+    color: $color_footer;
+  }
+
+  .number {
+    color: $warning_color;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .content-statistic {
+    span {
+      font-size: 40px;
+      line-height: 50px;
+    }
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .content-statistic {
+    .span {
+      font-size: 30px;
+      line-height: 40px;
+    }
+  }
+}

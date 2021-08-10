@@ -1,0 +1,136 @@
+.slider {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.carousel-item {
+  width: 100%;
+  height: auto;
+
+  .item {
+    width: 100%;
+    display: inline-block;
+  }
+}
+
+.item {
+  padding: 0 5px;
+  
+  .comment {
+    background: $white_color;
+    border: 0.5px solid $color_border;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 4% 2%;
+    height: auto;
+    display: flex;
+    box-shadow: 0px 0px 10px $color_box;
+  }
+
+  span.line {
+    display: block;
+    height: auto;
+    width: 10px;
+    background-color: $color_border;
+    margin: 0 15px;
+  }
+}
+
+.info {
+  margin-top: 10px;
+  display: flex;
+  padding: 5px 10px;
+
+  .avt-author {
+    padding: 5px;
+  }
+
+  .data {
+    margin-left: 10px;
+
+    span {
+      display: block;
+    }
+  }
+}
+
+.comment {
+  position: relative;
+
+  &::after, 
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+  }
+}
+
+.comment:after {
+  border-top: 15px solid $white_color;
+}
+
+.comment:before {
+  border-top: 15px solid $color_box;
+}
+
+.text-detail-feedback {
+  display: block;
+  font-size: 25px;
+  width: 80%;
+  margin: auto;
+}
+
+.slick-prev,
+.slick-next {
+  z-index: 1;
+  top: 28% !important;
+}
+
+.slick-prev:before, 
+.slick-next:before {
+  content: "" !important;
+  background-size: cover;
+  background-position:center;
+  background-repeat: no-repeat;
+  width: 25px;
+  display: block;
+  height: 25px;
+}
+
+.slick-prev:before {
+  background-image: url("../assets/images/less.png");
+}
+
+.slick-next:before {
+  background-image: url("../assets/images/greater.png");
+}
+.slick-next {
+  right: 17px !important;
+}
+
+.slick-prev {
+  left: 13px !important;
+}
+
+.col-courses.col-slide {
+  padding: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .text-detail-feedback {
+    width: 75%;
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 415px) {
+  .text-detail-feedback {
+    width: 100%;
+    font-size: 16px;
+  }
+}

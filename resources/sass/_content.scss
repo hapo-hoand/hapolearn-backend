@@ -1,0 +1,269 @@
+.main-content {
+  margin-top: -70px;
+  }
+
+.card {
+  text-align: center;
+  border-radius: 20px;
+  background: $white_color;
+  box-shadow: 0px 0px 10px $color_box;
+
+  .thumbnail {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 30px;
+    height: 200px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .lg-html {
+    background-color: $blue_color;
+  }
+
+  .lg-laravel {
+    background-color: $red_color;
+  }
+
+  .lg-php {
+    background-color: $indigo_color;
+  }
+
+  .lg-css {
+    background-color: $info_color;
+  }
+
+  .lg-rails {
+    background-color: $danger_color;
+  }
+
+  .lg-java {
+    background-color: $primary_color;
+  }
+
+  .card-title {
+    color: $warning_color;
+    font-weight: bold;
+  }
+
+  a.link-course {
+    color: $white_color;
+    border: 0 !important;
+    border-color: transparent !important;
+    outline: 0 !important;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 20px;
+    background: $warning_color;
+    box-shadow: inset 0px 1.5px 2px $color_link_course;
+    font-weight: 600;
+
+    &:hover {
+      color: black;
+      cursor: pointer;
+    }
+  }
+}
+
+div.courses,
+.txt-feed-back {
+  text-align: center;
+  position: relative;
+
+  .title {
+    font-size: 80px;
+    color: $blue_charcoal;
+    -webkit-text-stroke-width: 2px;
+  }
+}
+
+div.course-view {
+  margin-top: 0;
+  
+  .view {
+    margin-top: 50px;
+    margin-bottom: 80px;
+
+    a {
+      position: relative;
+      font-size: 27px;
+      -webkit-text-stroke-width: 2px;
+      line-height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .icon-arrow { 
+      margin-left: 10px;
+      margin-top: 10px;
+    }
+  }
+}
+
+span.other-course,
+.title-feedback {
+  width: auto;
+  display: inline-block;
+  margin: 30px 0 60px 0;
+  text-align: center;
+
+  span.line {
+    width: auto;
+    display: block;
+    height: 6px;
+    background-color: $warning_color;
+    border: 2px solid $warning_color;
+    border-radius: 2px;
+  }
+
+  i.icon {
+    size: 10px;
+    color: $warning_color;
+  }
+
+  a.link-view {
+    text-decoration: none;
+    color: #90AB26;
+    font-size: 40px;
+    transition: 0.4s;
+
+    .icon-arrow {
+      background-image: url("../assets/images/arrow_right.png");
+      width: 35px;
+      height: 20px;
+      background-size: cover;
+      background-position:center;
+    }
+
+    &:hover {
+      font-size: 43px;
+    }
+  }
+}
+
+.card-body {
+  padding: 2.25rem 1.25rem;
+
+  p.card-text {
+    height: 100px;
+    overflow: hidden;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+}
+  
+.courses, 
+.feed-back {
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 768px) {
+  .card-body {
+    p.card-text {
+      height: 90px;
+    }
+  }
+
+  span.other-course {
+    a.link-view {
+      font-size: 28px;
+
+      .icon-arrow {
+        width: 30px;
+        height: 20px;
+      }
+    }
+  }
+
+  div.courses,
+  .txt-feed-back {
+    .title {
+      font-size: 50px;
+    }
+  }
+
+  .main-content {
+    margin-top: -80px;
+  }
+
+  .col-courses {
+    padding: 0 8px;
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+
+  .card-text {
+    font-size: 15px;
+  }
+
+  div.courses,
+  .txt-feed-back {
+    .title {
+      font-size: 50px;
+    }
+  }
+
+  .card {
+    .thumbnail {
+      height: 150px;
+    }
+  }  
+}
+
+@media screen and (max-width: 414px) {
+  .main-content {
+    margin-top: -150px;
+  }
+
+  .col-courses {
+    padding: 0 4px;
+  }
+
+  .card {
+    margin: 30px 60px;
+  }
+
+   span.other-course {
+      a.link-view {
+        font-size: 25px;
+
+        .icon-arrow {
+          width: 25px;
+          height: 15px;
+        }
+        
+        &:hover {
+          font-size: 27px;
+        }
+      }
+    }
+
+  div.courses,
+  .txt-feed-back {
+    .title {
+      font-size: 40px;
+    }
+  }
+
+  .card {
+    .thumbnail {
+      height: 170px;
+    }
+  }
+
+  .card-body {
+    p.card-text {
+      height: 95px;
+    }
+  }
+}

@@ -1,0 +1,162 @@
+body {
+  font-family: $font_utm;
+}
+.custom-menu {
+  position: relative;
+}
+
+.navbar {
+  padding: 0 50px;
+
+  button.btn-menu[aria-expanded="true"] > span.close {
+    display: inline;
+    color: black;
+  }
+
+  button.btn-menu[aria-expanded="true"] > span.navbar-toggler-icon {
+    display: none;
+  }
+
+  button.btn-menu[aria-expanded="false"] > span.close {
+    display: none;
+  }
+}
+
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: $white_color;
+
+  .btn-menu {
+    position: absolute;
+    top: 13px;
+    left: 0;
+    border: 0;
+    outline: 0;
+  }
+
+  a.item-menu {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    -webkit-text-stroke-width: 1px;
+    border-color: transparent !important;
+    outline: 0 !important;
+  }
+}
+
+.btn-menu.rotate {
+  transition: 0.5s;
+  transform: rotate(180deg);
+}
+
+ul.menu {
+  li.nav-item {
+    margin: 0;
+
+    .nav-link {
+      border-color: transparent !important;
+      outline: 0 !important;
+      border-radius: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+      font-weight: bold;
+      margin: 0 5px;
+
+      &:hover {
+        color: $white_color;
+        background-color: $warning_color;
+      }
+    }
+  }
+
+  .item-active {
+    color: $white_color;
+    background-color: $warning_color;
+  }
+}
+
+ul.menu li.nav-item .item-active {
+  color: $white_color;
+}
+
+.top-content {
+  padding: 70px 0;
+  background-image: linear-gradient(0deg, $gray_color, $white_color);
+}
+
+.fixed {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .header {
+    position: relative;
+  }
+
+  .navbar {
+    display: flex;
+    padding: 0;
+
+    .logo {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .header {
+    position: fixed;
+  }
+  
+  .navbar {
+    padding: 0;
+  }
+
+  ul.menu {
+    li.nav-item {
+      .nav-link {
+        font-size: 14px;
+        color: black;
+        background-color: $white_color;
+        -webkit-text-stroke-width: 0px;
+
+        &:hover {
+          color: $warning_color;
+          background-color: $white_color;
+        }
+      }
+    }
+
+    .item-active {
+      background-color: $white_color;
+    }
+  }
+
+  ul.menu li.nav-item .item-active {
+    color: $warning_color;
+  }
+  
+  .header {
+    padding: 0;
+
+    img {
+      display: block;
+      width: 150px;
+      height: 30px;
+      margin: 10px auto;
+    }
+  }
+
+  .top-content {
+    background-image: linear-gradient(0deg, $gray_color, $gray_color);
+  }
+}

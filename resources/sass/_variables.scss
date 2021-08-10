@@ -17,3 +17,44 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+$white_color: #ffffff;
+$blue_color: #3f6185;
+$blue_charcoal: #11114e;
+$red_color: #dc594c;
+$color_hover_gg: #cc3426;
+$indigo_color: #556598;
+$info_color: #24abe2;
+$danger_color: #e14e40;
+$primary_color: #1b75bb;
+$warning_color: #b2d235;
+$gray_color: #e5e5e5;
+$color_text_box: #6a9967;
+$color_box: #ccc;
+$color_link_course: #6F8710;
+$color_btn_slide: #969494;
+$color_border: #e2e2e2;
+$color_footer: #505353;
+$color_end: #454545;
+$color_google: #DC4E41;
+$color_face_book: #3B5999;
+$bg_mess: #F1F0F0;
+$color_small_mess: #7F7F7F;
+$color_btn: #3184F7;
+$color_messenger: #2774DF;
+$font_utm: "utm_bryantlgregular";
+$font_san_serif: sans-serif;
+$font_ui: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font_open_san: 'Open Sans', sans-serif;
+
+@mixin text-banner-hapo {
+  line-height: 60px;
+  font-size: 50px;
+}
+
+@mixin style-img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

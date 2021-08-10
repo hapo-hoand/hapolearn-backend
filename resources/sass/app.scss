@@ -1,8 +1,28 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+@font-face {
+  font-family: "utm_bryantlgregular";
+  src: url("../assets/fonts/utm_bryantlg-webfont.woff2") format("woff2"),
+    url("../assets/fonts/utm_bryantlg-webfont.woff") format("woff");
+}
+
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+@import "header";
+@import "banner_hapo_learn";
+@import "content";
+@import "banner_why_hapolearn";
+@import "feedback";
+@import "banner_learning";
+@import "statistic";
+@import "footer";
+@import "login";
+@import "messenger";
