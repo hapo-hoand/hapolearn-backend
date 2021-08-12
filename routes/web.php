@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\LoginController;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::post('/login/store', [LoginController::class, 'store'])->name('account.store');
+Route::post('/login/findUser', [LoginController::class, 'findUser'])->name('account.findUser');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Auth::routes();

@@ -3,7 +3,7 @@
   margin: 0 auto;
 }
 
-.carousel-item {
+.slide-item {
   width: 100%;
   height: auto;
 
@@ -103,11 +103,11 @@
 }
 
 .slick-prev:before {
-  background-image: url("../assets/images/less.png");
+  background-image: url("../assets/images/less.png") !important;
 }
 
 .slick-next:before {
-  background-image: url("../assets/images/greater.png");
+  background-image: url("../assets/images/greater.png") !important;
 }
 .slick-next {
   right: 17px !important;

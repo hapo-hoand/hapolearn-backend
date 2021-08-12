@@ -24,5 +24,11 @@
         "vue": "^2.6.12",
         "vue-loader": "^15.9.8",
         "vue-template-compiler": "^2.6.12"
+    },
+    "dependencies": {
+        "slick": "^1.12.2",
+        "slick-carousel": "^1.8.1",
+        "sweetalert2": "^11.1.2",
+        "ui": "^0.2.4"
     }
 }
