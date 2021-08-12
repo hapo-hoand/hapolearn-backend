@@ -36,6 +36,6 @@ class StoreCheckExistEmailRequest implements Rule
      */
     public function message()
     {
-        return 'This email has already used';
+        return 'This email has already used!';
     }
 }

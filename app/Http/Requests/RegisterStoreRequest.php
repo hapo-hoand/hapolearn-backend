@@ -25,7 +25,7 @@ class RegisterStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'registerUsername' => ['required', 'alpha'],
+            'registerUsername' => ['required'],
             'registerEmail' => ['required', new StoreCheckExistEmailRequest],
             'registerPassword' => 'required',
             'registerRepeatpassword' => 'required|same:registerPassword'
@@ -36,7 +36,6 @@ class RegisterStoreRequest extends FormRequest
     {
         return [
             'registerUsername.required' => 'Enter your name',
-            'registerUsername.alpha' => 'Invalid name',
             'registerEmail.required' => 'Enter your email',
             'registerPassword.required' => 'Enter your password',
             'registerRepeatpassword.required' => 'Enter your confirm password',
