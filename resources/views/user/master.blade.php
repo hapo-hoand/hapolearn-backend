@@ -31,23 +31,23 @@
                                     id="navbarNavDropdown">
                                     <ul class="navbar-nav menu align-items-center">
                                         <li class="nav-item">
-                                            <a class="nav-link item-menu item-active" href="#">Home</a>
+                                            <a class="nav-link item-menu item-active" href="{{ route('home') }}">Home</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link item-menu" href="#">All Course</a>
+                                            <a class="nav-link item-menu" href="{{ route('allcourse') }}">All Course</a>
                                         </li>
                                         @if (@Auth::check() == false)
                                             <li class="nav-item">
                                                 <a class="nav-link item-menu" id="login" href="/login">Login/Register</a>
                                             </li>
                                         @else
-                                            <li class="nav-item" style="display: flex; align-items: center;">
+                                            <li class="nav-item">
                                                 <img src="{{ asset('images/'.@Auth::user()->avatar)}}" alt="">
-                                                <a class="nav-link item-menu" id="logout" href="{{ Route('logout') }}">Logout</a>
+                                                <a class="nav-link item-menu" id="logout" href="/logout">Logout</a>
                                             </li>
                                         @endif
                                         <li class="nav-item">
-                                            <a class="nav-link item-menu" href="#">Profile</a>
+                                            <a class="nav-link item-menu" href="/profile">Profile</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        @if (@Auth::check() == false)
+        @if (!@Auth::check())
             <div class="modal fade" id="modal-login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog custom-modal">
                     <div class="modal-content">
@@ -176,36 +176,36 @@
                                     @csrf
                                         <div class="form-group">
                                             <label for="register-username" class="form-label custom-label font-weight-bold">User Name:</label>
-                                            <input type="text" class="form-control custom-input-text @error('registerUsername') is-invalid @enderror" id="registerUsername" name="registerUsername" aria-describedby="emailHelp">
+                                            <input type="text" class="form-control custom-input-text @error('register_username') is-invalid @enderror" id="registerUsername" name="register_username" aria-describedby="emailHelp">
                                             <label class="text-danger form-label custom-label font-weight-bold">
-                                                @error('registerUsername')
+                                                @error('register_username')
                                                     {{ $message }}
                                                 @enderror
                                             </label>
                                         </div>
                                         <div class="form-group">
                                             <label for="register-email" class="form-label custom-label font-weight-bold">Email:</label>
-                                            <input type="email" class="form-control custom-input-text @error('registerEmail') is-invalid @enderror" id="registerEmail" name="registerEmail">
+                                            <input type="email" class="form-control custom-input-text @error('register_email') is-invalid @enderror" id="registerEmail" name="register_email">
                                             <label class="text-danger form-label custom-label font-weight-bold">
-                                                @error('registerEmail')
+                                                @error('register_email')
                                                     {{ $message }}
                                                 @enderror
                                             </label>
                                         </div>
                                         <div class="form-group">
                                             <label for="register-pass" class="form-label custom-label font-weight-bold">Password:</label>
-                                            <input type="password" class="form-control custom-input-text @error('registerPassword') is-invalid @enderror" id="registerPassword" name="registerPassword">
+                                            <input type="password" class="form-control custom-input-text @error('register_password') is-invalid @enderror" id="registerPassword" name="register_password">
                                             <label class="text-danger form-label custom-label font-weight-bold">
-                                                @error('registerPassword')
+                                                @error('register_password')
                                                     {{ $message }}
                                                 @enderror
                                             </label>
                                         </div>
                                         <div class="form-group">
                                             <label for="registerrepeatpass" class="form-label custom-label font-weight-bold">Repeat Password:</label>
-                                            <input type="password" class="form-control custom-input-text @error('registerRepeatpassword') is-invalid @enderror" id="registerRepeatpass" name="registerRepeatpassword">
+                                            <input type="password" class="form-control custom-input-text @error('register_repeatpassword') is-invalid @enderror" id="registerRepeatpass" name="register_repeatpassword">
                                             <label class="text-danger form-label custom-label font-weight-bold">
-                                                @error('registerRepeatpassword')
+                                                @error('register_repeatpassword')
                                                 {{ $message }}
                                                 @enderror
                                             </label>
@@ -248,11 +248,14 @@
         <script src="{{ asset('js/app.js') }}"></script>
         @include('sweetalert::alert')
         @yield('js');
-        @if($errors->any())
-            <script>
-                  $("#modal-login").modal("show");
-            </script>
+        @if (!@Auth::check())
+            @if($errors->any())
+                <script>
+                    $("#modal-login").modal("show");
+                </script>
+            @endif
         @endif
+       
     </body>
-    
+
 </html>

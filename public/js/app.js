@@ -1846,11 +1846,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var slick_carousel_slick_slick__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window.Vue = require('vue').default;
 
 /**
@@ -1875,8 +1878,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window
 
 
 __webpack_require__(/*! ./main */ "./resources/js/main.js");
-
-
 
 window.Swal = Swal;
 
@@ -1932,48 +1933,48 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   \******************************/
 /***/ (() => {
 
-$(".item-menu").click(function () {
-  $(".item-menu").removeClass("item-active");
-  $(this).addClass("item-active");
-  $(".btn-menu").attr("aria-expanded", "false");
-  $(".btn-menu").addClass("collapsed");
-  $(".custom-menu").removeClass("show");
-});
-$(".btn-menu").click(function () {
-  $(this).toggleClass("rotate");
-});
-$(".autoplay").slick({
-  dots: false,
-  slidesToShow: 2,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 3000,
-  speed: 1500,
-  responsive: [{
-    breakpoint: 1024,
-    settings: {
-      slidesToShow: 1,
-      slidesToScroll: 1
-    }
-  }]
-});
 $(function () {
   $(".example-popover").popover({
     container: "body"
   });
-});
-$("#login").click(function (e) {
-  e.preventDefault();
-  $("#modal-login").modal("show");
-});
-$(".close-modal").click(function () {
-  $("#modal-login").modal("hide");
-});
-$(".messenger").click(function () {
-  $(".wrap-mess").toggleClass("show");
-});
-$(".close-mess").click(function () {
-  $(".wrap-mess").toggleClass("show");
+  $(".autoplay").slick({
+    dots: false,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    speed: 1500,
+    responsive: [{
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }]
+  });
+  $(".item-menu").click(function () {
+    $(".item-menu").removeClass("item-active");
+    $(this).addClass("item-active");
+    $(".btn-menu").attr("aria-expanded", "false");
+    $(".btn-menu").addClass("collapsed");
+    $(".custom-menu").removeClass("show");
+  });
+  $(".btn-menu").click(function () {
+    $(this).toggleClass("rotate");
+  });
+  $("#login").click(function (e) {
+    e.preventDefault();
+    $("#modal-login").modal("show");
+  });
+  $(".close-modal").click(function () {
+    $("#modal-login").modal("hide");
+  });
+  $(".messenger").click(function () {
+    $(".wrap-mess").toggleClass("show");
+  });
+  $(".close-mess").click(function () {
+    $(".wrap-mess").toggleClass("show");
+  });
 });
 $(document).ready(function () {
   if ($("#login-accout input").hasClass("is-invalid")) {
