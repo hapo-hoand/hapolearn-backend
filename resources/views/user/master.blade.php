@@ -36,7 +36,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link item-menu" href="{{ route('allcourse') }}">All Course</a>
                                         </li>
-                                        @if (@Auth::check() == false)
+                                        @if (!@Auth::check())
                                             <li class="nav-item">
                                                 <a class="nav-link item-menu" id="login" href="{{ route('account.signin') }}">Login/Register</a>
                                             </li>
