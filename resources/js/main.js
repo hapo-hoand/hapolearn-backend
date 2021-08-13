@@ -49,9 +49,7 @@ $(function () {
   $(".close-mess").click(function () {
     $(".wrap-mess").toggleClass("show");
   });
-});
-
-$(document).ready(function () {
+  
   if ($("#login-accout input").hasClass("is-invalid")) {
     $("#modal-login").modal("show");
     $("#login-href").trigger("click");
@@ -60,5 +58,9 @@ $(document).ready(function () {
   if ($("#register-accout input").hasClass("is-invalid")) {
     $("#modal-login").modal("show");
     $("#register-href").trigger("click");
+  }
+
+  if ($('#checksignin').hasClass('error')) {
+    $("#modal-login").modal("show");
   }
 });

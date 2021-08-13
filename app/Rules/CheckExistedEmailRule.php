@@ -5,7 +5,7 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use App\Models\User;
 
-class CustomStoreCheckExistEmailRequest implements Rule
+class CheckExistedEmailRule implements Rule
 {
     public function passes($attribute, $value)
     {

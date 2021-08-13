@@ -1,11 +1,6 @@
 @extends('user.master')
 
 @section('css')
-    <style> 
-        .allcourse { 
-            margin-top: 80px;
-        }
-    </style>
 @endsection
 
 @section('content')

@@ -38,12 +38,11 @@
                                         </li>
                                         @if (@Auth::check() == false)
                                             <li class="nav-item">
-                                                <a class="nav-link item-menu" id="login" href="/login">Login/Register</a>
+                                                <a class="nav-link item-menu" id="login" href="{{ route('account.signin') }}">Login/Register</a>
                                             </li>
                                         @else
                                             <li class="nav-item">
-                                                <img src="{{ asset('images/'.@Auth::user()->avatar)}}" alt="">
-                                                <a class="nav-link item-menu" id="logout" href="/logout">Logout</a>
+                                                <a class="nav-link item-menu" id="logout" href="{{ route('account.signout') }}">Logout</a>
                                             </li>
                                         @endif
                                         <li class="nav-item">
@@ -128,8 +127,9 @@
                           
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="login-accout" role="tabpanel" aria-labelledby="login-href">
-                                <form class="login-content" method="POST" action="{{ Route('account.findUser') }}">
+                                <form class="login-content" method="POST" action="{{ Route('account.signin') }}">
                                     @csrf
+                                    <input type="hidden" id="checksignin" class="@if (\Session::has('Error')) ? error : '' @endif ">
                                     <div class="form-group">
                                         <label for="username" class="form-label custom-label font-weight-bold">User Name:</label>
                                         <input type="text" class="form-control custom-input-text @error('username') is-invalid @enderror" id="username" name="username" aria-describedby="emailHelp">
@@ -248,14 +248,6 @@
         <script src="{{ asset('js/app.js') }}"></script>
         @include('sweetalert::alert')
         @yield('js');
-        @if (!@Auth::check())
-            @if($errors->any())
-                <script>
-                    $("#modal-login").modal("show");
-                </script>
-            @endif
-        @endif
-       
     </body>
 
 </html>

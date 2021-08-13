@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\CustomStoreCheckExistEmailRequest;
+use App\Rules\CheckExistedEmailRule;
 
 class RegisterStoreRequest extends FormRequest
 {
@@ -26,9 +26,9 @@ class RegisterStoreRequest extends FormRequest
     {
         return [
             'register_username' => ['required'],
-            'register_email' => ['required', new CustomStoreCheckExistEmailRequest],
+            'register_email' => ['required', new CheckExistedEmailRule],
             'register_password' => 'required',
-            'register_repeatpassword' => 'required|same:registerPassword'
+            'register_repeatpassword' => 'required|same:register_password'
         ];
     }
 
