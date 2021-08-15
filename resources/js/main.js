@@ -63,4 +63,22 @@ $(function () {
   if ($('#checksignin').hasClass('error')) {
     $("#modal-login").modal("show");
   }
+
+  $('#btnFilter').click(function (e) { 
+    e.preventDefault();
+    $('.list-course').toggleClass('margin-top');
+  })
+
+  $("#btnClear").click(function (e) { 
+    e.preventDefault();
+    $(".form-filter option").removeAttr('selected')
+      .filter('[value=""]')
+      .attr('selected', true)
+  })
+
+  $( ".star" ).each(function() {
+    for(var i = 0; i < $(this).attr('data-rate'); i++) {
+      $(this).find('span').eq(i).css('color', '#FFD567')
+    }
+  });
 });

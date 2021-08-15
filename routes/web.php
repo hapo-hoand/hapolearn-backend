@@ -3,7 +3,9 @@
 use App\Http\Controllers\User\CourseController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\LoginController;
+use App\Http\Controllers\User\UserController;
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,10 +22,13 @@ use RealRashid\SweetAlert\Facades\Alert;
 |
 */
 
-Route::get('/', [HomeController::class, 'home']);
+Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/home', [HomeController::class, 'home'])->name('home');
 Route::post('/signin/store', [LoginController::class, 'store'])->name('account.store');
 Route::post('/signin', [LoginController::class, 'signin'])->name('account.signin');
 Route::get('/signout', [LoginController::class, 'signout'])->name('account.signout');
 Route::get('/home/allcourses', [CourseController::class, 'index'])->name('allcourse');
+Route::get('/profile', [UserController::class, 'index'])->name('profile');
+Route::get('/search', [CourseController::class, 'search'])->name('search');
+Route::get('/home/course', [CourseController::class, 'findbyID'])->name('course');
 Auth::routes();

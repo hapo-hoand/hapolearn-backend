@@ -37,7 +37,7 @@ class LoginController extends Controller
         if ($request->validated()) {
             if ($this->verificationAccount($request->all())) {
                 Auth::login(Auth::user(), true);
-                return redirect(route('home'));
+                return redirect()->back();
             } else {
                 Alert::error('Error Login', 'Invalid username or password');
                 return redirect()->back()->with('Error', 'Invalid username or password');
