@@ -23,7 +23,7 @@ class LoginController extends Controller
         ]);
     }
 
-    public function check(array $data)
+    public function verificationAccount(array $data)
     {
         return Auth::attempt([
             'email' => $data['username'],
@@ -35,8 +35,8 @@ class LoginController extends Controller
     public function signin(UserStoreRequest $request)
     {
         if ($request->validated()) {
-            if ($this->check($request->all())) {
-                Auth::login(Auth::user());
+            if ($this->verificationAccount($request->all())) {
+                Auth::login(Auth::user(), true);
                 return redirect(route('home'));
             } else {
                 Alert::error('Error Login', 'Invalid username or password');

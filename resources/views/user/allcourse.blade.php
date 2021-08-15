@@ -1,8 +1,5 @@
 @extends('user.master')
 
-@section('css')
-@endsection
-
 @section('content')
     <div class="main-content container p-md-0 allcourse">
         <div class="row">
@@ -55,7 +52,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('js')
 @endsection

@@ -1,8 +1,5 @@
 @extends('user.master')
 
-@section('css')
-@endsection
-
 @section('content')
     <div class="banner-hapo-learn">
         <div class="row w-100 m-0">
@@ -322,7 +319,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('js')
 @endsection
