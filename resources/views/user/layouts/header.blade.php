@@ -11,7 +11,7 @@
                 <a class="navbar-brand" href="#"><img src="{{ asset('images/logo_hapolearn.png') }}" class="img-fluid" alt="hapo"></a>
             </div>
             <div class="col-lg-8 col-md-12 text-center col-sm-12 col-12">
-                <div class="collapse custom-menu navbar-collapse justify-content-lg-end justify-content-md-center p-md-2"
+                <div class="collapse custom-menu navbar-collapse justify-content-lg-end justify-content-sm-center p-md-2"
                     id="navbarNavDropdown">
                     <ul class="navbar-nav menu align-items-center">
                         <li class="nav-item">
