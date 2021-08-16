@@ -1,8 +1,5 @@
 @extends('user.master')
 
-@section('css')
-@endsection
-
 @section('content')
     <div class="banner-hapo-learn">
         <div class="row w-100 m-0">
@@ -155,7 +152,7 @@
         </div>
         <div class="row mx-auto my-auto p-lg-3 p-md-5 p-sm-5 justify-content-center">
             <section class="autoplay slider">
-                <div class="carousel-item active">
+                <div class="carousel-item slide-item active">
                     <div class="col-courses col-slide">
                         <div class="item">
                             <div class="comment">
@@ -177,7 +174,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item slide-item">
                     <div class="col-courses col-slide">
                         <div class="item">
                             <div class="comment">
@@ -199,7 +196,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item slide-item">
                     <div class="col-courses col-slide">
                         <div class="item">
                             <div class="comment">
@@ -221,7 +218,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item slide-item">
                     <div class="col-courses col-slide">
                         <div class="item">
                             <div class="comment">
@@ -243,7 +240,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item slide-item">
                     <div class="col-courses col-slide">
                         <div class="item">
                             <div class="comment">
@@ -265,7 +262,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item slide-item">
                     <div class="col-courses col-slide">
                         <div class="item">
                             <div class="comment">
@@ -322,7 +319,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('js')
 @endsection

@@ -3,83 +3,64 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\RegisterStoreRequest;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function create(array $data)
     {
-        return view('user.login');
+        return User::create([
+            'name' => $data['register_username'],
+            'email' => $data['register_email'],
+            'password' => Hash::make($data['register_password']),
+            'role' => User::ROLE['student']
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function verificationAccount(array $data)
     {
-        //
+        return Auth::attempt([
+            'email' => $data['username'],
+            'password' => $data['password'],
+            'role' => User::ROLE['student']
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function signin(UserStoreRequest $request)
     {
-        //
+        if ($request->validated()) {
+            if ($this->verificationAccount($request->all())) {
+                Auth::login(Auth::user(), true);
+                return redirect()->back();
+            } else {
+                Alert::error('Error Login', 'Invalid username or password');
+                return redirect()->back()->with('Error', 'Invalid username or password');
+            }
+        } else {
+            return redirect()->back()->withInput();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function store(RegisterStoreRequest $request)
     {
-        //
+        if ($request->validated()) {
+            $this->create($request->all());
+            Alert::success('Success', 'Sign Up Success');
+            return redirect(route('home'));
+        } else {
+            return redirect()->back()->withInput();
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function signout()
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        Auth::logout();
+        return redirect(route('home'));
     }
 }

@@ -4,11 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 
-class HomeController extends Controller
+class UserController extends Controller
 {
-    public function home()
+    public function index()
     {
         return view('user.home');
     }
