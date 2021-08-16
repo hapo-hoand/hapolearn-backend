@@ -15,10 +15,10 @@
                     id="navbarNavDropdown">
                     <ul class="navbar-nav menu align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link item-menu item-active" href="{{ route('home') }}">Home</a>
+                            <a class="nav-link item-menu {{ Route::currentRouteName() == 'home' ? 'item-active' : '' }} " href="{{ route('home') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link item-menu" href="{{ route('allcourse') }}">All Course</a>
+                            <a class="nav-link item-menu {{ Route::currentRouteName() == 'allcourse' ? 'item-active' : '' }}" href="{{ route('allcourse') }}">All Course</a>
                         </li>
                         @if (!@Auth::check())
                             <li class="nav-item">
@@ -30,7 +30,7 @@
                             </li>
                         @endif
                         <li class="nav-item">
-                            <a class="nav-link item-menu" href="/profile">Profile</a>
+                            <a class="nav-link item-menu {{Route::currentRouteName() == 'profile' ? 'item-active' : '' }}" href="/profile">Profile</a>
                         </li>
                     </ul>
                 </div>
