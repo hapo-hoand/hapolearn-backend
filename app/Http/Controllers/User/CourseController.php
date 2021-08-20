@@ -35,8 +35,13 @@ class CourseController extends Controller
     // else
     // dd(3);
     // dd($request['choice']);
-        $courses = Course::select('courses.*')
-        ->Filter($request)
+        $courses = Course::select('courses.*')->has('reviews')
+        ->withCount([
+            'reviews AS time_learning' => function($query) {
+                $query->select(DB::raw("AVG(rate)"));
+            }
+        ])
+        // ->Filter($request)
             // ->Keysearch($request)
             // ->OrderByNumberLessons($request['number_lesson'])
             // ->OrderByNumberLearner($request['number_learner'])
@@ -50,7 +55,7 @@ class CourseController extends Controller
             // ->TimeLearning()
             // ->wherehas('lessons')
             ->paginate(10);
-    //  dd($courses);
+     dd($courses);
         $teachers = User::Where('role', User::ROLE['teacher'])->get();
         $tags = Tag::all();
         return view('user.allcourse', compact('courses', 'teachers', 'tags'));

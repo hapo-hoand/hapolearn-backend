@@ -51,7 +51,7 @@ class Course extends Model
 
     public function reviews()
     {
-        return $this->hasMany(Review::class, 'location_id')->where('location_type', Review::LOCATION_TYPE['course']);
+        return $this->belongsToMany(User::class, 'reviews', 'id_course', 'id_user')->withPivot('content', 'time', 'rate');
     }
 
     // Create attribute
