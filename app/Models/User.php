@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     use SoftDeletes;
 
-    const ROLE = ['student' => 0, 'teacher' => 1];
+    const ROLE = ['student' => 1, 'teacher' => 0];
 
     /**
      * The attributes that are mass assignable.
@@ -50,4 +50,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'users_courses', 'id_user','id_course');
+    }
 }

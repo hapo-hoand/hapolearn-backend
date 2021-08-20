@@ -1,108 +1,187 @@
 .allcourse {
-	background-color: $bg_allcourses;
-	margin-top: 100px;
+  background-color: $bg_allcourses;
+  margin-top: 100px;
+  font-family: $font_open_san;
 
-	.img-lesson {
-		max-width: 100%;
-	}
+  .col-lessons {
+    margin-bottom: 30px;
+  }
 
-	.desc {
-		.title {
-			font-size: 25px;
-			line-height: 30px;
-			font-weight: 700;
-		}
+  .img-lesson {
+    max-width: 100%;
+  }
 
-		.detail {
-			font-size: 18px;
-			line-height: 25px;
-			font-weight: 400;
-		}
+  .desc {
+    .title {
+      font-size: 25px;
+      line-height: 30px;
+      font-weight: 700;
+    }
 
-		.link-lesson {
-			float: right;
-			font-size: 18px;
-		}
-	}
+    .detail {
+      font-size: 18px;
+      line-height: 25px;
+      font-weight: 400;
+      height: 130px;
+      overflow: hidden;
+      word-break: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+    }
 
-	.custom-card {
-		padding: 20px;
-	}
+    .link-lesson {
+      float: right;
+      font-size: 18px;
+    }
+  }
 
-	.info-course {
-		margin-top: 30px;
-		padding-top: 15px;
-		border-top: 1px solid #f1f1f1;
-		margin-left: -20px;
-		margin-right: -20px;
+  .custom-card {
+    padding: 20px;
+  }
 
-		.number {
-			font-size: 30px;
-			line-height: 35px;
-			font-weight: 700;
-		}
+  .info-course {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #f1f1f1;
+    margin-left: -20px;
+    margin-right: -20px;
 
-		span {
-			margin: 0;
-		}
-	}
+    .number {
+      font-size: 30px;
+      line-height: 35px;
+      font-weight: 700;
+    }
 
-	.search {
-		padding: 35px 0;
+    span {
+      margin: 0;
+    }
+  }
 
-		.filter {
-			background-color: $white_color;
-			border: 1px solid #ced4da;
-			margin-right: 20px;
-			font-size: 16px;
-			line-height: 20px;
-			font-weight: 700;
-		}
-	}
+  .search {
+    padding: 35px 0 30px;
 
-	.input-group-search {
-		max-width: 100%;
-		width: 35%;
+    .btn-filter {
+      background-color: $white_color;
+      border: 1px solid #ced4da;
+      margin-right: 10px;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 700;
+    }
 
-		.input-text {
-			clip-path: inset(-10px 0 -10px -10px);
-			border-right: 0;
-		}
+    .btn-search { 
+      background-color: $warning_color;
+      color: $white_color;
+    }
+  }
 
-		.btn-search {
-			background-color: $white_color;
-			border: 1px solid #ced4da;
-			border-left: 0;
-			border-top-right-radius: 0.25rem;
-			border-bottom-right-radius: 0.25rem;
-			outline: 0;
-			clip-path: inset(-5px -5px -5px 0);
-		}
+  .input-group-search {
+    max-width: 100%;
+    width: 35%;
 
-		&:focus-within {
-			.btn-search {
-				box-shadow: 0 0px 4px 2px #9bc9fb;
-			}
-		}
-	}
+    .input-text {
+      clip-path: inset(-10px 0 -10px -10px);
+      border-right: 0;
+      height: auto;
+    }
+
+    .btn-search-icon {
+      background-color: $white_color;
+      border: 1px solid #ced4da;
+      border-left: 0;
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+      outline: 0;
+      clip-path: inset(-5px -5px -5px 0);
+    }
+
+    &:focus-within {
+      .btn-search-icon {
+          box-shadow: 0 0px 4px 2px #9bc9fb;
+      }
+    }
+  }
+}
+
+.filter {
+  display: flex;
+}
+
+.option {
+  padding-top: 1rem;
+}
+
+.list-course.margin-top {
+  margin-top: 30px;
+}
+
+.list-course {
+  font-family: $font_utm;
+}
+
+.text-filter {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  margin: 20px 25px 20px 5px;
+}
+
+.form-filter {
+  display: inline-block;
+
+  .label-filter-custom {
+    width: 130px;
+    margin: 0 5px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid #E5E6E7;
+    padding: 8px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .status {
+    display: none;
+  }
+
+  .status:checked ~ label {
+    background-color: $warning_color;
+    color: $white_color;
+  }
+
+  .custom-select {
+    width: 170px;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+}
+
+.pagination {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
 
 @media only screen and (max-width: 768px) {
-	.allcourse {
-		margin-top: 0;
+    .allcourse {
+        margin-top: 0;
 
-		.input-group-search {
-			width: 60%;
-		}
-	}
+        .input-group-search {
+            width: 60%;
+        }
+    }
 }
 
 @media only screen and (max-width: 414px) {
-	.allcourse {
-		margin-top: 65px;
+    .allcourse {
+        margin-top: 65px;
 
-		.input-group-search {
-				width: 50%;
-		}
-	}
+        .input-group-search {
+            width: 50%;
+        }
+    }
 }

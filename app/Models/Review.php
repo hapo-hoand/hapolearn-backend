@@ -17,7 +17,8 @@ class Review extends Model
         'content',
         'time',
         'rate',
-        'location'
+        'location_type',
+        'location_id'
     ];
     
     const LOCATION_TYPE = ['course' => 0, 'lesson' => 1];

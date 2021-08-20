@@ -19,7 +19,7 @@ class Lesson extends Model
     
     public function course()
     {
-        return $this->belongsTo(Course::class, 'id_course');
+        return $this->belongsTo(Course::class);
     }
 
     public function users()

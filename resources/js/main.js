@@ -63,4 +63,17 @@ $(function () {
   if ($('#checksignin').hasClass('error')) {
     $("#modal-login").modal("show");
   }
+
+  $('#btnFilter').click(function (e) { 
+    e.preventDefault();
+    $('.list-course').toggleClass('margin-top');
+  })
+
+  $("#btnClear").click(function (e) { 
+    e.preventDefault();
+    $(".status").prop("checked", false);
+    $(".form-filter option").removeAttr('selected')
+      .filter('[value=""]')
+      .attr('selected', true)
+  })
 });
