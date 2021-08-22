@@ -14,13 +14,9 @@ use function GuzzleHttp\Promise\all;
 
 class CourseController extends Controller
 {
-    const PAGINATE_NUMBER = 10;
     public function index()
     {
-        $courses = Course::select('courses.*')
-        ->wherehas('lessons')
-        ->TimeLearning()
-        ->paginate(10);
+        $courses = Course::query()->paginate(config('variable.pagination'));
         $teachers = User::Where('role', User::ROLE['teacher'])->get();
         $tags = Tag::all();
         return view('user.allcourse', compact('courses', 'teachers', 'tags'));
@@ -28,40 +24,15 @@ class CourseController extends Controller
 
     public function search(Request $request)
     {
-    
-    // if (isset($request['choice'])) {
-    //     dd($request['choice']);
-    // }
-    // else
-    // dd(3);
-    // dd($request['choice']);
-        $courses = Course::select('courses.*')->has('reviews')
-        ->withCount([
-            'reviews AS time_learning' => function($query) {
-                $query->select(DB::raw("AVG(rate)"));
-            }
-        ])
-        // ->Filter($request)
-            // ->Keysearch($request)
-            // ->OrderByNumberLessons($request['number_lesson'])
-            // ->OrderByNumberLearner($request['number_learner'])
-            // ->SearchByTeacher($request['teacher'])
-            // ->OrderByStatusCourse($request['choice'])
-            // ->SearchByTags($request['tags'])
-            // ->OrderByTimeLearning($request['time_learning'])
-            // ->whereHas('tags', function ($subquery) use ($request) {
-            //     $subquery->where('id_tag', $request['tags']);
-            // })
-            // ->TimeLearning()
-            // ->wherehas('lessons')
-            ->paginate(10);
-     dd($courses);
+        $data = $request->all();
+        $courses = Course::query()->filter($data)->paginate(config('variable.pagination'));
         $teachers = User::Where('role', User::ROLE['teacher'])->get();
         $tags = Tag::all();
         return view('user.allcourse', compact('courses', 'teachers', 'tags'));
     }
 
-    public function findbyID() {
+    public function getCourse()
+    {
         return view('user.course');
     }
 }

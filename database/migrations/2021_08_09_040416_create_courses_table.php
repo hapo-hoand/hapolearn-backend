@@ -18,7 +18,7 @@ class CreateCoursesTable extends Migration
             $table->string('name')->nullable();
             $table->string('intro')->nullable();
             $table->string('desc')->nullable();
-            $table->string('time')->nullable();
+            $table->float('time', 8, 2)->nullable();
             $table->string('image')->nullable();
             $table->integer('price')->nullable();
             $table->integer('learner')->nullable();

@@ -29,11 +29,6 @@
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
     }
-
-    .link-lesson {
-      float: right;
-      font-size: 18px;
-    }
   }
 
   .custom-card {
@@ -43,7 +38,7 @@
   .info-course {
     margin-top: 30px;
     padding-top: 15px;
-    border-top: 1px solid #f1f1f1;
+    border-top: 1px solid $color_border_info_course;
     margin-left: -20px;
     margin-right: -20px;
 
@@ -63,7 +58,7 @@
 
     .btn-filter {
       background-color: $white_color;
-      border: 1px solid #ced4da;
+      border: 1px solid $color_border_filter;
       margin-right: 10px;
       font-size: 16px;
       line-height: 20px;
@@ -83,12 +78,12 @@
     .input-text {
       clip-path: inset(-10px 0 -10px -10px);
       border-right: 0;
-      height: auto;
+      height: 40px;
     }
 
     .btn-search-icon {
       background-color: $white_color;
-      border: 1px solid #ced4da;
+      border: 1px solid $color_border_filter;
       border-left: 0;
       border-top-right-radius: 0.25rem;
       border-bottom-right-radius: 0.25rem;
@@ -98,7 +93,7 @@
 
     &:focus-within {
       .btn-search-icon {
-          box-shadow: 0 0px 4px 2px #9bc9fb;
+          box-shadow: 0 0px 4px 2px $color_shadow_custom;
       }
     }
   }
@@ -136,7 +131,7 @@
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;
-    border: 1px solid #E5E6E7;
+    border: 1px solid $color_border_label_filter;
     padding: 8px 0;
     cursor: pointer;
     border-radius: 5px;
@@ -145,6 +140,10 @@
 
   .status {
     display: none;
+
+    ~ label {
+      background-color: $color_border_label_filter;
+    }
   }
 
   .status:checked ~ label {
@@ -161,27 +160,80 @@
 
 .pagination {
   margin: 0;
+  padding-bottom: 40px;
+}
+
+.page-item {
+  .page-link { 
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: 700;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 0 3px;
+    color: $warning_color;
+    background-color: $white_color;
+    border: 1px solid $warning_color;
+    font-family: $font_open_san;
+  }
+
+  .next,
+  .previous {
+    padding: 10px 20px;
+  }
+}
+
+.page-item.active {
+  .page-link {
+    color: $white_color;
+    background-color: $warning_color;
+    border-color: $warning_color;
+  }
+}
+
+.rate {
   display: flex;
-  justify-content: center;
-  padding: 20px;
+  align-items: 170%;
+  align-items: center;
+
+  .star {
+    display: block;
+    width: 100%;
+    text-align: left;
+
+    span {
+      font-size: 20px;
+      color: $color_border_label_filter;
+    }
+
+    .active {
+      color: $color_star;
+    }
+  }
+
+}
+
+.link-lesson {
+  float: right;
+  font-size: 18px;
 }
 
 @media only screen and (max-width: 768px) {
-    .allcourse {
-        margin-top: 0;
+  .allcourse {
+    margin-top: 0;
 
-        .input-group-search {
-            width: 60%;
-        }
+    .input-group-search {
+      width: 60%;
     }
+  }
 }
 
 @media only screen and (max-width: 414px) {
-    .allcourse {
-        margin-top: 65px;
+  .allcourse {
+    margin-top: 65px;
 
-        .input-group-search {
-            width: 50%;
-        }
+    .input-group-search {
+      width: 50%;
     }
+  }
 }

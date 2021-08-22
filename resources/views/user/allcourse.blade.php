@@ -7,8 +7,7 @@
                 <div class="search d-flex justify-content-center justify-content-sm-start">
                     <button type="button" class="btn btn-filter collapsed" id="btnFilter" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="true" aria-controls="collapseFilter"><i class="fas fa-sliders-h"></i> Filter </button>
                     <div class="input-group md-form form-sm form-1 input-group-search">
-                        <input class="form-control my-0 py-1 input-text" name="key" value="{{ request()->get("key") }}" type="text" placeholder="Search" aria-label="Search">
-                        
+                        <input class="form-control my-0 py-1 input-text" name="key" value="{{ request("key") }}" type="text" placeholder="Search" aria-label="Search">
                         <div class="input-group-prepend">
                             <span class="input-group-text btn btn-search-icon" id="basic-text1"><i class="fas fa-search text-black"
                                 aria-="true"></i>
@@ -26,56 +25,56 @@
                         <div class="option">
                             <div class="d-block">
                                 <div class="form-group form-filter">
-                                    <input type="radio" name="choice" class="status" value="0" id="old" />
-                                    <label for="old" class="form-label custom-label label-filter-custom item-active"> Latest </label>
+                                    <input type="radio" name="status" checked class="status" value={{ config('variable.status.lastest') }}  id="oldStatus" {{ request('status') == config('variable.status.lastest') ? 'checked' : config('variable.status.null') }}/>
+                                    <label for="oldStatus" class="form-label custom-label label-filter-custom"> Lastest </label>
                                 </div>
                                 <div class="form-group form-filter">
-                                    <input type="radio" name="choice" class="status" value="1" id="new"/>
-                                    <label for="new" class="form-label custom-label label-filter-custom"> Oldest </label>
+                                    <input type="radio" name="status" class="status" value={{ config('variable.status.oldest') }}  id="newStatus" {{ request('status') == config('variable.status.oldest') ? 'checked' : config('variable.status.null') }}/>
+                                    <label for="newStatus" class="form-label custom-label label-filter-custom"> Oldest </label>
                                 </div>
                                 <div class="form-group form-filter">
                                     <select name="teacher" class="custom-select" id="teacher">
-                                        <option value="" > Teacher </option>
+                                        <option value={{ config('variable.null') }} > Teacher </option>
                                         @foreach ($teachers as $teacher)
-                                            <option value="{{ $teacher->id }}" {{ request("teacher") == $teacher->id  ? "selected" : "" }} >{{ $teacher->name }}</option>
+                                            <option value="{{ $teacher->id }}" {{ request("teacher") == $teacher->id  ? "selected" : config('variable.null') }} >{{ $teacher->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <div class="form-group form-filter">
                                     <select name="number_learner" class="custom-select" id="numberLerner">
-                                        <option value=""> Number of learner </option>
-                                        <option value="1" {{ request("number_learner") == 1  ? "selected" : "" }}>Ascending</option>
-                                        <option value="0" {{ request("number_learner") == 0  ? "selected" : "" }}>Descending</option>
+                                        <option value="{{ config('variable.orderBy.null') }}" {{ request("number_learner") ? config('variable.orderBy.null') : 'selected'   }} > Number of learner </option>
+                                        <option value="{{ config('variable.orderBy.asc') }}" {{ request("number_learner") == config('variable.orderBy.asc')  ? "selected" : config('variable.orderBy.null') }}>Ascending</option>
+                                        <option value="{{ config('variable.orderBy.desc') }}"  {{ request("number_learner") == config('variable.orderBy.desc')  ? "selected" : config('variable.orderBy.null') }}>Descending</option>
                                     </select>
                                 </div>
                                 <div class="form-group form-filter">
                                     <select name="time_learning" class="custom-select" id="timeLearning">
-                                        <option value="" selected  > Study time </option>
-                                        <option value="1" {{ request("time_learning") == 1  ? "selected" : "" }}>Ascending</option>
-                                        <option value="0" {{ request("time_learning") == 0  ? "selected" : "" }}>Descending</option>
+                                        <option value="{{ config('variable.orderBy.null') }}" {{ request("time_learning") ? 'selected' : config('variable.orderBy.null')  }} > Study time </option>
+                                        <option value="{{ config('variable.orderBy.asc') }}"  {{ request("time_learning") == config('variable.orderBy.asc')  ? "selected" : "" }}>Ascending</option>
+                                        <option value="{{ config('variable.orderBy.desc') }}"  {{ request("time_learning") == config('variable.orderBy.desc')  ? "selected" : "" }}>Descending</option>
                                     </select>
                                 </div>
                                 <div class="form-group form-filter">
                                     <select name="number_lesson" class="custom-select" id="numberLesson">
-                                        <option value="" selected> Number of lessons </option>
-                                        <option value="1" {{ request("number_lesson") == 1  ? "selected" : "" }}>Ascending</option>
-                                        <option value="0" {{ request("number_lesson") == 0  ? "selected" : "" }}>Descending</option>
+                                        <option value={{ config('variable.orderBy.null') }} {{ request("number_lesson") ? "selected" : config('variable.orderBy.null') }}> Number of lessons </option>
+                                        <option value={{ config('variable.orderBy.asc') }} {{ request("number_lesson") == config('variable.orderBy.asc')  ? "selected" : "" }}>Ascending</option>
+                                        <option value={{ config('variable.orderBy.desc') }} {{ request("number_lesson") == config('variable.orderBy.desc')  ? "selected" : "" }}>Descending</option>
                                     </select>
                                 </div>
                                 <div class="form-group form-filter">
                                     <select name="tags" class="custom-select" id="tags">
-                                        <option value=""> Tags </option>
+                                        <option value={{ config('variable.orderBy.null') }}> Tags </option>
                                         @foreach ($tags as $tag)
-                                            <option value="{{ $tag->id }}" {{ request("tags") == $tag->id  ? "selected" : "" }}>{{ $tag->name }}</option>
+                                            <option value="{{ $tag->id }}" {{ request("tags") == $tag->id  ? "selected" : config('variable.orderBy.null') }}>{{ $tag->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group form-filter">
                                     <select name="reviews" class="custom-select" id="reviews">
-                                        <option value="" selected> Reviews </option>
-                                        <option value="1">Ascending</option>
-                                        <option value="0">Descending</option>
+                                        <option value={{ config('variable.orderBy.null') }} {{ request("reviews") ? "selected" : config('variable.orderBy.null') }}> Reviews </option>
+                                        <option value={{ config('variable.orderBy.asc') }}  {{ request("reviews") == config('variable.orderBy.asc')  ? "selected" : "" }}>Ascending</option>
+                                        <option value={{ config('variable.orderBy.desc') }}  {{ request("reviews") == config('variable.orderBy.desc')  ? "selected" : "" }}>Descending</option>
                                     </select>
                                 </div>
                                 <button type="button" class="btn mx-3 btn-clear btn-danger" id="btnClear"> Clear </button>
@@ -83,12 +82,12 @@
                         </div>
                     </div>
                 </div>
-            </form>    
+            </form>
 
             <div class="row list-course margin-top">
 
                 @foreach ($courses as $course)
-               
+
                 <div class="col-12 col-sm-6 col-courses col-lessons">
                     <div class="card custom-card">
                         <div class="logo">
@@ -98,11 +97,18 @@
                                 </div>
                                 <div class="col-9 text-left desc">
                                     <p class="font-weight-bold title">{{ $course->name }}</p>
-                                    <p class="detail">
-                                        {{ $course->intro }}
-                                    </p>
-                                    <a href="#" class="btn link-course link-lesson">More</a>
+                                    <p class="detail">{{ $course->intro }}</p>
                                 </div>
+                            </div>
+                            <div class="rate">
+                                <div class="star" data-rate="{{  ceil($course->rate) }}">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                </div>
+                                <a href="#" class="btn link-course link-lesson">More</a>
                             </div>
                         </div>
                         <div class="card-body p-0">
@@ -123,13 +129,10 @@
                         </div>
                     </div>
                 </div>
-                    
+
                 @endforeach
-
             </div>
-
-            {{ $courses->appends(request()->input())->links() }}
-
+            {{ $courses->links('user.layouts.pagination') }}
         </div>
     </div>
 @endsection

@@ -71,9 +71,14 @@ $(function () {
 
   $("#btnClear").click(function (e) { 
     e.preventDefault();
-    $(".status").prop("checked", false);
     $(".form-filter option").removeAttr('selected')
       .filter('[value=""]')
       .attr('selected', true)
   })
+
+  $( ".star" ).each(function() {
+    for(var i = 0; i < $(this).attr('data-rate'); i++) {
+      $(this).find('span').eq(i).css('color', '#FFD567')
+    }
+  });
 });
