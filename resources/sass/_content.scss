@@ -50,7 +50,11 @@
     color: $warning_color;
     font-weight: bold;
   }
+}
 
+.card,
+.get-this-course,
+.link-lesson {
   a.link-course {
     color: $white_color;
     border: 0 !important;

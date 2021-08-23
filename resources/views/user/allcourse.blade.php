@@ -108,7 +108,7 @@
                                     <span><i class="fas fa-star"></i></span>
                                     <span><i class="fas fa-star"></i></span>
                                 </div>
-                                <a href="#" class="btn link-course link-lesson">More</a>
+                                <a href="/home/course/{{ $course->id }}" class="btn link-course link-lesson">More</a>
                             </div>
                         </div>
                         <div class="card-body p-0">

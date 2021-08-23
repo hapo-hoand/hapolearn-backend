@@ -31,8 +31,15 @@ class CourseController extends Controller
         return view('user.allcourse', compact('courses', 'teachers', 'tags'));
     }
 
-    public function getCourse()
+    public function getCourse($id)
     {
-        return view('user.course');
+        $course = Course::query()
+        ->with(['lessons' => function($query) {
+            $query->selectRaw(DB::raw('title'));
+        }])
+        ->find($id);
+
+        // dd($course);
+        return view('user.course', ['course' => $course]);
     }
 }

@@ -30,5 +30,5 @@ Route::get('/signout', [LoginController::class, 'signout'])->name('account.signo
 Route::get('/home/allcourses', [CourseController::class, 'index'])->name('allcourse');
 Route::get('/profile', [UserController::class, 'index'])->name('profile');
 Route::get('/search', [CourseController::class, 'search'])->name('search');
-Route::get('/home/course', [CourseController::class, 'findbyID'])->name('course');
+Route::get('/home/course/{id}', [CourseController::class, 'getCourse'])->name('course');
 Auth::routes();

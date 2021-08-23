@@ -1,0 +1,213 @@
+.path {
+  padding: 10px 15px;
+  font-family: $font_utm;
+  @include font-size-16-20();
+}
+
+.course {
+  font-family: $font_utm;
+  padding-top: 35px;
+
+  .tab-content {
+    padding: 0 10px;
+  }
+}
+
+.big-image {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  background: $blue_color;
+  max-width: 100%;
+  height: 439px;
+  border-radius: 10px;
+
+  img {
+    width: 476px;
+    height: 265px;
+  }
+}
+
+.custom-course-row {
+  background: $white_color;
+  border: 1px solid $color_border_row;
+  box-sizing: border-box;
+  height: 439px;
+  border-radius: 5px;
+
+  .text-describe-course {
+    padding: 10px 0;
+    font-weight: 700;
+    color: $color_footer;
+    border-bottom: 1px solid $warning_color;
+    @include font-size-25-30();
+  }
+
+  .content-describe-course {
+    font-weight: 700;
+    color: $color_text_desc;
+    @include font-size-18-25();
+  }
+}
+
+.margin-bottom-row {
+  margin-bottom: 20px;
+}
+
+.custom-col-padding {
+  padding: 0 20px;
+}
+
+.custom-col-course {
+  border: 1px solid $color_border_row;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.tab-course {
+  display: block;
+  border-bottom: 2px solid #dadada;
+  text-align: left;
+
+  .tab-item {
+    margin-right: 70px;
+    margin-bottom: -1px;
+    display: inline;
+
+    .active {
+      background: transparent;
+      color: #b2d235;
+      border-bottom: 2px solid #b2d235;
+    }
+
+    a {
+      color: $color_footer;
+      padding: 20px 0;
+      font-weight: 700;
+      display: inline-block;
+      background: transparent;
+      margin-right: 20px;
+      text-transform: none;
+      @include font-size-20-25();
+    }
+  }
+}
+
+.search-lesson {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $color_border_row;
+
+  .search {
+    padding: 35px 0;
+  }
+
+  .input-group {
+    flex: 1;
+    @include font-size-16-20();
+  }
+
+  .get-this-course {
+    flex: 1;
+
+    a.link-course {
+      padding: 10px 25px;
+      margin-right: 20px;
+      @include font-size-18-22();
+    }
+  }
+}
+
+.view-all {
+  a.link-course {
+    font-weight: 700;
+    padding: 10px 25px;
+    margin: 20px 0;
+    @include font-size-18-22();
+  }
+}
+
+.list-lessons {
+  .item-lesson {
+    display: flex;
+    padding: 20px 5px;
+    font-weight: 700;
+    color: $color_footer;
+    border-bottom: 1px solid $color_line;
+    @include font-size-18-22();
+
+    .number {
+      width: 5%;
+    }
+
+    .desc-lesson {
+      width: 75%;
+    }
+
+    .link-lesson {
+      width: 20%;
+      display: flex;
+      align-items: center;
+
+      a.link-course {
+        padding: 6px 25px;
+        font-weight: 700;
+        @include font-size-15-18();
+      }
+    }
+  }
+
+  .other-courses {
+    @include font-size-16-20();
+
+    .desc-lesson {
+      width: 95%;
+    }
+  }
+}
+
+.desc-lesson {
+  a {
+    color: $color_footer;
+
+    &:hover {
+      color: $warning_color;
+    }
+  }
+}
+
+.row-info {
+  height: auto;
+
+  .data-course {
+    display: flex;
+    align-items: center;
+    padding: 40px 0;
+    font-weight: 400;
+    border-bottom: 1px solid $color_line;
+    @include font-size-25-30;
+
+    .icon {
+      flex: 1;
+    }
+
+    .info-data {
+      flex: 1;
+      font-weight: 700;
+    }
+
+    i {
+      font-size: 30px;
+    }
+  }
+}
+
+.text-other-course {
+  font-weight: 700;
+  color: $white_color;
+  background-color: $warning_color;
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+  @include font-size-25-30();
+}
