@@ -76,8 +76,9 @@ $(function () {
       .attr('selected', true)
   })
 
-  $( ".star" ).each(function() {
-    for(var i = 0; i < $(this).attr('data-rate'); i++) {
+  $(".star" ).each(function() {
+    var n = $(this).attr('data-rate');
+    for(var i = 0; i < n; i++) {
       $(this).find('span').eq(i).css('color', '#FFD567')
     }
   });

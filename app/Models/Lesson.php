@@ -12,7 +12,7 @@ class Lesson extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'id_course',
+        'course_id',
         'title',
         'desc'
     ];
@@ -24,6 +24,6 @@ class Lesson extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'lessons_user', 'id_lesson', 'id_user');
+        return $this->belongsToMany(User::class, 'lessons_user', 'lesson_id', 'user_id');
     }
 }

@@ -12,8 +12,8 @@ class Review extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'id_course',
-        'id_user',
+        'course_id',
+        'user_id',
         'content',
         'time',
         'rate'
@@ -21,11 +21,11 @@ class Review extends Model
 
     public function users()
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'user_id');
     }
     
     public function courses()
     {
-        return $this->belongsTo(Course::class, 'location_id');
+        return $this->belongsTo(Course::class, 'course_id');
     }
 }

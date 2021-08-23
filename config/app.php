@@ -232,4 +232,6 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
     ],
 
+    'date_format' => 'm/d/Y',
+    'date_format_js' => 'mm/dd/yy',
 ];

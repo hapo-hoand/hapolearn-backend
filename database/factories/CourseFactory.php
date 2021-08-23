@@ -25,10 +25,9 @@ class CourseFactory extends Factory
             'name' => $this->faker->name(),
             'intro' => $this->faker->text(),
             'desc' => $this->faker->text(),
-            'time' => '80 hours',
             'image' => 'html.png',
             'price' => $this->faker->randomFloat(0.01, 0, 100000),
-            'learner' => '80'
+            'teacher_id' => rand(1, 5)
         ];
     }
 }

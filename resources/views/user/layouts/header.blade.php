@@ -30,7 +30,7 @@
                             </li>
                         @endif
                         <li class="nav-item">
-                            <a class="nav-link item-menu {{Route::currentRouteName() == 'profile' ? 'item-active' : '' }}" href="/profile">Profile</a>
+                            <a class="nav-link item-menu {{ Route::currentRouteName() == 'profile' ? 'item-active' : '' }}" href="/profile">Profile</a>
                         </li>
                     </ul>
                 </div>

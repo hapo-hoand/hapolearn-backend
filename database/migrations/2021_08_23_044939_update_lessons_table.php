@@ -4,19 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnTimeToLessonsTable extends Migration
+class UpdateLessonsTable extends Migration
 {
     public function up()
     {
         Schema::table('lessons', function (Blueprint $table) {
-            $table->float('time', 8, 2)->nullable();
+            $table->text('desc')->change();
+            $table->renameColumn('id_course', 'course_id');
         });
     }
 
     public function down()
     {
         Schema::table('lessons', function (Blueprint $table) {
-            $table->dropColumn('time');
+            $table->string('desc')->change();
+            $table->renameColumn('course_id', 'id_course');
         });
     }
 }

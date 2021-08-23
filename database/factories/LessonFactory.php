@@ -23,7 +23,7 @@ class LessonFactory extends Factory
     public function definition()
     {
         return [
-            'id_course' => Course::all()->random()->id,
+            'course_id' => Course::all()->random()->id,
             'title' => $this->faker->title,
             'desc' => $this->faker->text()
         ];
