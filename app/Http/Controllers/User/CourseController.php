@@ -16,7 +16,7 @@ class CourseController extends Controller
     public function index()
     {
         $courses = Course::query()->paginate(config('variable.pagination'));
-        $teachers = User::Where('role', User::ROLE['teacher'])->get();
+        $teachers = User::where('role', User::ROLE['teacher'])->get();
         $tags = Tag::all();
         return view('user.allcourse', compact('courses', 'teachers', 'tags'));
     }
@@ -24,8 +24,9 @@ class CourseController extends Controller
     public function search(Request $request)
     {
         $data = $request->all();
+        // dd($data);
         $courses = Course::query()->filter($data)->paginate(config('variable.pagination'));
-        $teachers = User::Where('role', User::ROLE['teacher'])->get();
+        $teachers = User::where('role', User::ROLE['teacher'])->get();
         $tags = Tag::all();
         return view('user.allcourse', compact('courses', 'teachers', 'tags'));
     }

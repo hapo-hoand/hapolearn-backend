@@ -75,12 +75,12 @@ class Course extends Model
 
     public function scopeFilter($query, $data)
     {
-        if (isset($data['key']) && $data['key'] != null) {
+        if (isset($data['key'])) {
             $query->where('courses.name', 'like', '%' . $data['key'] . '%')
                 ->orWhere('courses.intro', 'like', '%' . $data['key'] . '%');
         }
 
-        if (isset($data['number_lesson']) && ($data['number_lesson']) != null) {
+        if (isset($data['number_lesson'])) {
             if ($data['number_lesson'] == config('variable.orderBy.desc')) {
                 $query->withCount('lessons')->orderBy('lessons_count', 'desc');
             } else {
@@ -88,7 +88,7 @@ class Course extends Model
             }
         }
 
-        if (isset($data['number_learner']) && ($data['number_learner']) != null) {
+        if (isset($data['number_learner'])) {
             if ($data['number_learner'] == config('variable.orderBy.desc')) {
                 $query->withCount('students')->orderBy('students_count', 'desc');
             } else {
@@ -96,17 +96,17 @@ class Course extends Model
             }
         }
 
-        if (isset($data['teacher']) && ($data['teacher']) != null) {
+        if (isset($data['teacher'])) {
                 $query->whereIn('teacher_id', [$data['teacher']]);
         }
 
-        if (isset($data['tags']) && ($data['tags']) != null) {
+        if (isset($data['tags'])) {
             $query->whereHas('tags', function ($subquery) use ($data) {
                 $subquery->where('tag_id', $data['tags']);
             });
         }
 
-        if (isset($data['time_learning']) && ($data['time_learning']) != null) {
+        if (isset($data['time_learning'])) {
             $query->withCount([
                 'lessons AS time_learning' => function ($query) {
                     $query->select(DB::raw("SUM(lessons.time)"));
@@ -120,7 +120,7 @@ class Course extends Model
             }
         }
 
-        if (isset($data['reviews']) && ($data['reviews']) != null) {
+        if (isset($data['reviews'])) {
             $query->withCount([
                 'reviews AS courese_rate' => function ($query) {
                     $query->select(DB::raw("AVG(reviews.rate)"))

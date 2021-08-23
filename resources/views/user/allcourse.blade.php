@@ -43,36 +43,36 @@
 
                                 <div class="form-group form-filter">
                                     <select name="number_learner" class="custom-select" id="numberLerner">
-                                        <option value="{{ config('variable.orderBy.null') }}" {{ request("number_learner") ? config('variable.orderBy.null') : 'selected'   }} > Number of learner </option>
-                                        <option value="{{ config('variable.orderBy.asc') }}" {{ request("number_learner") == config('variable.orderBy.asc')  ? "selected" : config('variable.orderBy.null') }}>Ascending</option>
-                                        <option value="{{ config('variable.orderBy.desc') }}"  {{ request("number_learner") == config('variable.orderBy.desc')  ? "selected" : config('variable.orderBy.null') }}>Descending</option>
+                                        <option value="" {{ request("number_learner") ? '' : 'selected'   }} > Number of learner </option>
+                                        <option value="{{ config('variable.orderBy.asc') }}" {{ request("number_learner") == config('variable.orderBy.asc')  ? "selected" : '' }}>Ascending</option>
+                                        <option value="{{ config('variable.orderBy.desc') }}"  {{ request("number_learner") == config('variable.orderBy.desc')  ? "selected" : '' }}>Descending</option>
                                     </select>
                                 </div>
                                 <div class="form-group form-filter">
                                     <select name="time_learning" class="custom-select" id="timeLearning">
-                                        <option value="{{ config('variable.orderBy.null') }}" {{ request("time_learning") ? 'selected' : config('variable.orderBy.null')  }} > Study time </option>
+                                        <option value="" {{ request("time_learning") ? 'selected' : ''  }} > Study time </option>
                                         <option value="{{ config('variable.orderBy.asc') }}"  {{ request("time_learning") == config('variable.orderBy.asc')  ? "selected" : "" }}>Ascending</option>
                                         <option value="{{ config('variable.orderBy.desc') }}"  {{ request("time_learning") == config('variable.orderBy.desc')  ? "selected" : "" }}>Descending</option>
                                     </select>
                                 </div>
                                 <div class="form-group form-filter">
                                     <select name="number_lesson" class="custom-select" id="numberLesson">
-                                        <option value={{ config('variable.orderBy.null') }} {{ request("number_lesson") ? "selected" : config('variable.orderBy.null') }}> Number of lessons </option>
+                                        <option value={{ request("number_lesson") ? "selected" : '' }}> Number of lessons </option>
                                         <option value={{ config('variable.orderBy.asc') }} {{ request("number_lesson") == config('variable.orderBy.asc')  ? "selected" : "" }}>Ascending</option>
                                         <option value={{ config('variable.orderBy.desc') }} {{ request("number_lesson") == config('variable.orderBy.desc')  ? "selected" : "" }}>Descending</option>
                                     </select>
                                 </div>
                                 <div class="form-group form-filter">
                                     <select name="tags" class="custom-select" id="tags">
-                                        <option value={{ config('variable.orderBy.null') }}> Tags </option>
+                                        <option value=> Tags </option>
                                         @foreach ($tags as $tag)
-                                            <option value="{{ $tag->id }}" {{ request("tags") == $tag->id  ? "selected" : config('variable.orderBy.null') }}>{{ $tag->name }}</option>
+                                            <option value="{{ $tag->id }}" {{ request("tags") == $tag->id  ? "selected" : '' }}>{{ $tag->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group form-filter">
                                     <select name="reviews" class="custom-select" id="reviews">
-                                        <option value={{ config('variable.orderBy.null') }} {{ request("reviews") ? "selected" : config('variable.orderBy.null') }}> Reviews </option>
+                                        <option value={{ request("reviews") ? "selected" : '' }}> Reviews </option>
                                         <option value={{ config('variable.orderBy.asc') }}  {{ request("reviews") == config('variable.orderBy.asc')  ? "selected" : "" }}>Ascending</option>
                                         <option value={{ config('variable.orderBy.desc') }}  {{ request("reviews") == config('variable.orderBy.desc')  ? "selected" : "" }}>Descending</option>
                                     </select>
