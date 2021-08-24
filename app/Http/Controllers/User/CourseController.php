@@ -8,8 +8,6 @@ use App\Models\Lesson;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use function GuzzleHttp\Promise\all;
 
 class CourseController extends Controller
 {
@@ -18,16 +16,15 @@ class CourseController extends Controller
         $courses = Course::query()->paginate(config('variable.pagination'));
         $teachers = User::where('role', User::ROLE['teacher'])->get();
         $tags = Tag::all();
-        return view('user.allcourse', compact('courses', 'teachers', 'tags'));
+        return view('user.course.index', compact('courses', 'teachers', 'tags'));
     }
 
     public function search(Request $request)
     {
         $data = $request->all();
-        // dd($data);
         $courses = Course::query()->filter($data)->paginate(config('variable.pagination'));
         $teachers = User::where('role', User::ROLE['teacher'])->get();
         $tags = Tag::all();
-        return view('user.allcourse', compact('courses', 'teachers', 'tags'));
+        return view('user.course.index', compact('courses', 'teachers', 'tags'));
     }
 }

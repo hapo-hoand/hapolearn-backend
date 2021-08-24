@@ -20,7 +20,8 @@ class Course extends Model
         'time',
         'image',
         'price',
-        'learner'
+        'learner',
+        'teacher_id'
     ];
 
     public function users()
@@ -82,17 +83,17 @@ class Course extends Model
 
         if (isset($data['number_lesson'])) {
             if ($data['number_lesson'] == config('variable.orderBy.desc')) {
-                $query->withCount('lessons')->orderBy('lessons_count', 'desc');
+                $query->withCount('lessons')->orderByDesc('lessons_count');
             } else {
-                $query->withCount('lessons')->orderBy('lessons_count', 'asc');
+                $query->withCount('lessons')->orderBy('lessons_count', 'Asc');
             }
         }
 
         if (isset($data['number_learner'])) {
             if ($data['number_learner'] == config('variable.orderBy.desc')) {
-                $query->withCount('students')->orderBy('students_count', 'desc');
+                $query->withCount('students')->orderByDesc('students_count');
             } else {
-                $query->withCount('students')->orderBy('students_count', 'asc');
+                $query->withCount('students')->orderBy('students_count', 'Asc');
             }
         }
 
@@ -114,9 +115,9 @@ class Course extends Model
             ]);
 
             if ($data['time_learning'] == config('variable.orderBy.desc')) {
-                $query->orderBy('time_learning', 'desc');
+                $query->orderByDesc('time_learning');
             } else {
-                $query->orderBy('time_learning', 'asc');
+                $query->orderBy('time_learning', 'Asc');
             }
         }
 
@@ -129,17 +130,17 @@ class Course extends Model
             ]);
 
             if ($data['reviews'] == config('variable.orderBy.desc')) {
-                $query->orderBy('courese_rate', 'desc');
+                $query->orderByDesc('courese_rate');
             } else {
-                $query->orderBy('courese_rate', 'asc');
+                $query->orderBy('courese_rate', 'Asc');
             }
         }
 
         if (isset($data['status'])) {
             if ($data['status'] == config('variable.status.oldest')) {
-                $query->orderBy('courses.id', 'DESC');
+                $query->orderByDesc('courses.id');
             }
-            $query->orderBy('courses.id', 'ASC');
+            $query->orderBy('courses.id', 'Asc');
         }
         
         return null;
