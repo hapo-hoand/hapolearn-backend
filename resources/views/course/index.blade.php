@@ -1,4 +1,4 @@
-@extends('user.master')
+@extends('master')
 
 @section('content')
     <div class="allcourse">
@@ -87,10 +87,10 @@
             <div class="row list-course margin-top">
 
                 @foreach ($courses as $course)
-                    @include('user.course._course')
+                    @include('course._course')
                 @endforeach
             </div>
-            {{ $courses->links('user.layouts.pagination') }}
+            {{ $courses->links('layouts.pagination') }}
         </div>
     </div>
 @endsection

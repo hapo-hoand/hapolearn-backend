@@ -85,7 +85,7 @@ class Course extends Model
             if ($data['number_lesson'] == config('variable.orderBy.desc')) {
                 $query->withCount('lessons')->orderByDesc('lessons_count');
             } else {
-                $query->withCount('lessons')->orderBy('lessons_count', 'Asc');
+                $query->withCount('lessons')->orderBy('lessons_count');
             }
         }
 
@@ -93,7 +93,7 @@ class Course extends Model
             if ($data['number_learner'] == config('variable.orderBy.desc')) {
                 $query->withCount('students')->orderByDesc('students_count');
             } else {
-                $query->withCount('students')->orderBy('students_count', 'Asc');
+                $query->withCount('students')->orderBy('students_count');
             }
         }
 
@@ -117,7 +117,7 @@ class Course extends Model
             if ($data['time_learning'] == config('variable.orderBy.desc')) {
                 $query->orderByDesc('time_learning');
             } else {
-                $query->orderBy('time_learning', 'Asc');
+                $query->orderBy('time_learning');
             }
         }
 
@@ -132,7 +132,7 @@ class Course extends Model
             if ($data['reviews'] == config('variable.orderBy.desc')) {
                 $query->orderByDesc('courese_rate');
             } else {
-                $query->orderBy('courese_rate', 'Asc');
+                $query->orderBy('courese_rate');
             }
         }
 
@@ -140,7 +140,7 @@ class Course extends Model
             if ($data['status'] == config('variable.status.oldest')) {
                 $query->orderByDesc('courses.id');
             }
-            $query->orderBy('courses.id', 'Asc');
+            $query->orderBy('courses.id');
         }
         
         return null;
