@@ -15,6 +15,6 @@ class Tag extends Model
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class, 'id_course');
+        return $this->belongsToMany(Course::class, 'course_id');
     }
 }

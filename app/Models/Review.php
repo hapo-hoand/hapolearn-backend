@@ -12,27 +12,20 @@ class Review extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'id_course',
-        'id_user',
+        'course_id',
+        'user_id',
         'content',
         'time',
-        'rate',
-        'location'
+        'rate'
     ];
-    
-    const LOCATION_TYPE = ['course' => 0, 'lesson' => 1];
 
     public function users()
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'user_id');
     }
     
-    public function location()
+    public function courses()
     {
-        if ('location_type' == self::LOCATION_TYPE['course']) {
-            return $this->belongsTo(Course::class, 'location_id');
-        } elseif ('location_type' == self::LOCATION_TYPE['lesson']) {
-            return $this->belongsTo(Lesson::class, 'location_id');
-        }
+        return $this->belongsTo(Course::class, 'course_id');
     }
 }

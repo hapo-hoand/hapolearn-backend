@@ -29,4 +29,5 @@ Route::post('/signin', [LoginController::class, 'signin'])->name('account.signin
 Route::get('/signout', [LoginController::class, 'signout'])->name('account.signout');
 Route::get('/home/allcourses', [CourseController::class, 'index'])->name('allcourse');
 Route::get('/profile', [UserController::class, 'index'])->name('profile');
+Route::get('/search', [CourseController::class, 'search'])->name('search');
 Auth::routes();

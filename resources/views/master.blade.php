@@ -13,19 +13,19 @@
     <body>
         <div class="wrapper">
             <div class="container-fluid p-0">
-                @include('user.layouts.header')
+                @include('layouts.header')
                
                 @yield('content')
 
-                @include('user.layouts.footer')
+                @include('layouts.footer')
             </div>
         </div>
 
         @if (!@Auth::check())
-           @include('user.layouts.modallogin')
+           @include('layouts.modallogin')
         @endif
 
-        @include('user.layouts.chatbox')
+        @include('layouts.chatbox')
        
         <script src="{{ asset('js/app.js') }}"></script>
         @include('sweetalert::alert')
