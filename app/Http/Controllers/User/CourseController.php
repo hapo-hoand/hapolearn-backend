@@ -27,4 +27,11 @@ class CourseController extends Controller
         $tags = Tag::all();
         return view('user.course.index', compact('courses', 'teachers', 'tags'));
     }
+
+    public function getCourse($id)
+    {
+        $course = Course::with(['lessons', 'tags'])->find($id);
+        $other_course = Course::inRandomOrder()->take(5)->get();
+        return view('user.course.detail', compact('course', 'other_course'));
+    }
 }
