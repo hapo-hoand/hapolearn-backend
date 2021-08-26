@@ -2,6 +2,6 @@ import 'slick-carousel/slick/slick';
 import swal from 'sweetalert2';
 
 require('./bootstrap');
-require('./main');
+require('./main')
 
-window.Swal = Swal;
+window.swal = swal

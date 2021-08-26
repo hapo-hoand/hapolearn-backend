@@ -29,6 +29,7 @@ body {
   left: 0;
   z-index: 100;
   background-color: $white_color;
+  height: 112px;
 
   .btn-menu {
     position: absolute;
@@ -147,7 +148,8 @@ ul.menu li.nav-item .item-active {
   
   .header {
     padding: 0;
-
+    height: auto;
+    
     img {
       display: block;
       width: 150px;

@@ -7,6 +7,7 @@ use Faker\Provider\cs_CZ\DateTime;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserFactory extends Factory
 {
@@ -28,7 +29,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => hash('md5', 1),
+            'password' => Hash::make('1'),
             'remember_token' => Str::random(10),
             'avatar' => 'avt_1.png',
             'birthday' => Carbon::createFromFormat(config('app.date_format'), '11/22/2000')->format('Y-m-d'),

@@ -51,6 +51,11 @@ $color_star: #FFD567;
 $color_text_desc: #949292;
 $color_border_row: #D1D1D1;
 $color_line: #E2E0E0;
+$color_tag: #5D8BD0;
+$color_experience: #BDB9B9;
+$color_border_google: #F44336;
+$color_border_face: #1976D2;
+$color_border_slack: #E91E63;
 $font_utm: "utm_bryantlgregular";
 $font_san_serif: sans-serif;
 $font_ui: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -95,5 +100,10 @@ $font_open_san: 'Open Sans', sans-serif;
 
 @mixin font-size-15-18 {
   font-size: 15px;
+  line-height: 18px;
+}
+
+@mixin font-size-14-17 {
+  font-size: 14px;
   line-height: 18px;
 }

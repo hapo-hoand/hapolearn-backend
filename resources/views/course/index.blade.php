@@ -1,11 +1,11 @@
-@extends('user.master')
+@extends('master')
 
 @section('content')
     <div class="allcourse">
         <div class="container">
             <form action="{{ route('search') }}" method="get" name="advance_search">
                 <div class="search d-flex justify-content-center justify-content-sm-start">
-                    <button type="button" class="btn btn-filter collapsed" id="btnFilter" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="true" aria-controls="collapseFilter"><i class="fas fa-sliders-h"></i> Filter </button>
+                    <button type="button" class="btn btn-filter collapsed" id="btnFilter" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="true" aria-controls="collapseFilter"><i class="fas fa-sliders-h"></i> <span> Filter </span></button>
                     <div class="input-group md-form form-sm form-1 input-group-search">
                         <input class="form-control my-0 py-1 input-text" name="key" value="{{ request("key") }}" type="text" placeholder="Search" aria-label="Search">
                         <div class="input-group-prepend">
@@ -87,10 +87,10 @@
             <div class="row list-course margin-top">
 
                 @foreach ($courses as $course)
-                    @include('user.course._course')
+                    @include('course._course')
                 @endforeach
             </div>
-            {{ $courses->links('user.layouts.pagination') }}
+            {{ $courses->links('layouts.pagination') }}
         </div>
     </div>
 @endsection

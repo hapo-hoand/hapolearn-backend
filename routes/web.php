@@ -27,7 +27,13 @@ Route::post('/signin/store', [LoginController::class, 'store'])->name('account.s
 Route::post('/signin', [LoginController::class, 'signin'])->name('account.signin');
 Route::get('/signout', [LoginController::class, 'signout'])->name('account.signout');
 Route::get('/home/allcourses', [CourseController::class, 'index'])->name('allcourse');
-Route::get('/profile', [UserController::class, 'index'])->name('profile');
 Route::get('/search', [CourseController::class, 'search'])->name('search');
 Route::get('/home/course/{id}', [CourseController::class, 'getCourse'])->name('course.detail');
+Route::post('/searchlesson', [CourseController::class, 'filterLesson'])->name('course.filter.lesson');
+
+
+Route::group(['middleware' => 'checksigin'], function() {
+    Route::get('/takethiscourse/{id}', [CourseController::class, 'following'])->name('course.takethiscourse');
+    Route::get('/cancelingcourse/{id}', [CourseController::class, 'unfollow'])->name('course.cancelingcourse');
+});
 Auth::routes();
