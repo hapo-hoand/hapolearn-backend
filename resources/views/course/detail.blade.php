@@ -14,7 +14,7 @@
                         <div class="col">
                             <div class="col-courses">
                                 <div class="big-image">
-                                    <img src="{{ asset('images/html.png') }}" alt="Card image cap">  
+                                    <img src="{{ asset('images/html.png') }}" alt="Card image cap">
                                 </div>
                             </div>
                         </div>
@@ -34,22 +34,22 @@
                                         <a id="review-href" class="nav-link" data-toggle="tab" role="tab"  href="#review">Review</a>
                                     </li>
                                 </ul>
-                                  
+
                                 <div class="tab-content">
                                     <div class="tab-pane fade show active" id="lesson" role="tabpanel" aria-labelledby="lesson-href">
                                         <div class="search-lesson">
-                                            <form action="{{ route('course.filter.lesson') }}" method="post" name="advance_search">
+                                            <form action="lesson/search" method="post" name="advance_search">
                                                 <div class="search d-flex justify-content-center justify-content-sm-start">
                                                     <div class="input-group input-group-search">
-                                                        <input class="form-control input-text" id="nameLesson" name="key" value="{{ request("key") }}" type="text" placeholder="Search" aria-label="Search">
-                                                        <input type="hidden" id="CourseID" name="course_id" value="{{ $course->id }}">
+                                                        <input class="form-control input-text" id="nameLesson" name="key" value="{{ request('key') }}" type="text" placeholder="Search" aria-label="Search">
+                                                        <input type="hidden" id="courseId" name="course_id" value="{{ $course->id }}">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text btn btn-search-icon"><i class="fas fa-search text-black"
                                                                 aria-="true"></i>
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <button class="btn btn-filter mx-3 btn-search btn-search-lesson" type="submit"  id="btnSearchLesson"> Search </button>
+                                                    <button class="btn btn-filter mx-3 btn-search btn-search-lesson" type="button"  id="btnSearchLesson"> Search </button>
                                                 </div>
                                             </form>
                                             <div class="get-this-course text-right">
@@ -61,7 +61,7 @@
                                             </div>
                                         </div>
                                         <div class="list-lessons margin-bottom">
-                                            <?php 
+                                            <?php
                                                 if (request("page")) {
                                                     $stt = request("page");
                                                 }
@@ -172,13 +172,13 @@
                                         <i class="fas fa-tags"></i> Tags
                                     </span>
                                     <span class="info-data color-tags">
-                                        : 
+                                        :
                                         @foreach ($course->tags as $tag)
                                             @if ($loop->last)
                                                 #{{ $tag->name }}
                                             @else
-                                                #{{ $tag->name }}, 
-                                            @endif    
+                                                #{{ $tag->name }},
+                                            @endif
                                         @endforeach
                                     </span>
                                 </div>
@@ -212,7 +212,7 @@
                                     </div>
                                     <?php $i = $i + 1 ?>
                                     @endforeach
-                                    
+
                                     <div class="get-this-course text-center view-all">
                                         <a href="{{ route('allcourse') }}" class="btn link-course">View all ours courses</a>
                                     </div>

@@ -3,12 +3,9 @@
 use App\Http\Controllers\User\CourseController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\LoginController;
-use App\Http\Controllers\User\UserController;
-use App\Models\Course;
-use App\Models\User;
+use App\Http\Controllers\LessonController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +26,7 @@ Route::get('/signout', [LoginController::class, 'signout'])->name('account.signo
 Route::get('/home/allcourses', [CourseController::class, 'index'])->name('allcourse');
 Route::get('/search', [CourseController::class, 'search'])->name('search');
 Route::get('/home/course/{id}', [CourseController::class, 'getCourse'])->name('course.detail');
+Route::post('lesson/search', [LessonController::class, 'search'])->name('search.name');
 Route::post('/searchlesson', [CourseController::class, 'filterLesson'])->name('course.filter.lesson');
 
 

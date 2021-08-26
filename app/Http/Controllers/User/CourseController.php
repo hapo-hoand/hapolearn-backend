@@ -52,18 +52,14 @@ class CourseController extends Controller
     {
         $id = $request->id;
         $name = $request->name;
-        if ($name == '') {
-            $course = course::with('lessons')->find($id);
-        } else {
-            $course = course::with(['lessons' => function ($query) use ($name) {
+
+        $course = Course::with('lessons')->find($id);
+        if ($name) {
+            $course = Course::with(['lessons' => function ($query) use ($name) {
                 $query->where('title', 'like', '%' . $name . '%');
             }])->find($id);
-            
         }
-        
-       
-        // dd($lessons);
-      
+
         return response()->json($course->lessons);
     }
 

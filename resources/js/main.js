@@ -30,7 +30,7 @@ $(function () {
     $(".btn-menu").addClass("collapsed")
     $(".custom-menu").removeClass("show")
   });
-  
+
   $(".btn-menu").click(function () {
     $(this).toggleClass("rotate");
   });
@@ -51,7 +51,7 @@ $(function () {
   $(".close-mess").click(function () {
     $(".wrap-mess").toggleClass("show");
   });
-  
+
   if ($("#login-accout input").hasClass("is-invalid")) {
     $("#modal-login").modal("show");
     $("#login-href").trigger("click");
@@ -66,12 +66,12 @@ $(function () {
     $("#modal-login").modal("show");
   }
 
-  $('#btnFilter').click(function (e) { 
+  $('#btnFilter').click(function (e) {
     e.preventDefault();
     $('.list-course').toggleClass('margin-top');
   })
 
-  $("#btnClear").click(function (e) { 
+  $("#btnClear").click(function (e) {
     e.preventDefault();
     $(".form-filter option").removeAttr('selected')
       .filter('[value=""]')
@@ -104,37 +104,28 @@ $(function () {
 
   $('#nameLesson').on('keyup',function(){
     $value = $(this).val();
-    $id = $('#CourseID').val();
+    $id = $('#courseId').val();
     $.ajax({
-      type: 'post',
+      type: 'POST',
       url: "/searchlesson",
       data: {
-          'name': $value,
-          'id': $id
+        'name': $value,
+        'id': $id
       },
       dataType: 'json',
-      success:function(data){
-        var array = JSON.stringify(data);
-        var lesson = JSON.parse(array);
-        var n = lesson.lenght;
-        var a = '';
-        // console.log(array[0]['title']);
-        jsonData = JSON.parse(data);
-        console.log(jsonData.length);
-        // for(var i = 0; i < JSON.parse(lesson).lenght; i++) {
-        //   a += '<div class="number text-center">';
-        //   a += i + 1;
-        //   a += '</div>';
-        //   a += '<div class="desc-lesson">'
-        //   a += '<a href="#">' + lesson[i]['desc'] +  '</a>';
-        //   a += '</div>'
-        //   a += '<div class="text-right link-lesson">';
-        //   a += '<a href="#" class="btn link-course">Learn</a>'
-        //   a += '</div>'
-        //   console.log(lesson[i]['desc']);
-        // }
+      success:function(data) {
+        console.log("DATA::: ", data);
+        let test = data[0];
 
-        $('#item-lesson').html(a);
+        let html = '';
+        data.forEach(lesson => {
+          html += generateLessonHtml(lesson);
+          console.log(html);
+        });
+        // for(var i = 0; i < JSON.parse(lesson).lenght; i++) {
+
+
+        $('#item-lesson').html(html);
       }
     });
   })
@@ -143,7 +134,7 @@ $(function () {
     e.preventDefault();
     $id = $('#CourseID').val();
     $cost = $('.price .info-data').attr('data-value');
-    
+
     if ($cost == '0') {
       $price = '';
       window.location.href = "/takethiscourse/" + $id
@@ -166,3 +157,17 @@ $(function () {
     }
   })
 });
+
+function generateLessonHtml(lessonData) {
+  let html = '';
+  html += '<div class="number text-center">';
+  html += lessonData.id;
+  html += '</div>';
+  html += '<div class="desc-lesson">'
+  html += '<a href="#">' + lessonData.desc +  '</a>';
+  html += '</div>'
+  html += '<div class="text-right link-lesson">';
+  html += '<a href="#" class="btn link-course">Learn</a>'
+  html += '</div>'
+  return html;
+}
