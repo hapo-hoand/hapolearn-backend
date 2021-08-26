@@ -35,5 +35,6 @@ Route::post('/searchlesson', [CourseController::class, 'filterLesson'])->name('c
 Route::group(['middleware' => 'checksigin'], function() {
     Route::get('/takethiscourse/{id}', [CourseController::class, 'following'])->name('course.takethiscourse');
     Route::get('/cancelingcourse/{id}', [CourseController::class, 'unfollow'])->name('course.cancelingcourse');
+    Route::get('/home/course/{course_id}/lesson/{id}', [CourseController::class, 'getLesson'])->name('course.lesson');
 });
 Auth::routes();

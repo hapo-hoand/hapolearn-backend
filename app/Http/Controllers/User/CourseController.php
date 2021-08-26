@@ -55,15 +55,9 @@ class CourseController extends Controller
         if ($name == '') {
             $course = course::with('lessons')->find($id);
         } else {
-            $course = course::with(['lessons' => function ($query) use ($name) {
-                $query->where('title', 'like', '%' . $name . '%');
-            }])->find($id);
-            
+            $course = course::filterlesson($name)->find($id);
         }
-        
-       
-        // dd($lessons);
-      
+
         return response()->json($course->lessons);
     }
 
@@ -75,15 +69,7 @@ class CourseController extends Controller
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
         $course->setRelation('lessons', $course->lessons()->paginate(config('variable.pagination')));
         $other_course = Course::inRandomOrder()->take(5)->get();
-        $result = 0;
-
-        if (Auth()->check()) {
-            $user = Auth()->user()->id;
-            $checkused = Course::checkusedcourse($user)->find($id);
-            if ($checkused->used > 0) {
-                $result = 1;
-            }
-        }
+        $result = $this->checktakeincourse($id);
         return redirect()->back()->with(compact('course', 'other_course', 'result'));
     }
 
@@ -95,6 +81,12 @@ class CourseController extends Controller
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
         $course->setRelation('lessons', $course->lessons()->paginate(config('variable.pagination')));
         $other_course = Course::inRandomOrder()->take(5)->get();
+        $result = $this->checktakeincourse($id);
+        return redirect()->back()->with(compact('course', 'other_course', 'result'));
+    }
+
+    public function checktakeincourse($id)
+    {
         $result = 0;
 
         if (Auth()->check()) {
@@ -104,6 +96,18 @@ class CourseController extends Controller
                 $result = 1;
             }
         }
-        return redirect()->back()->with(compact('course', 'other_course', 'result'));
+        return $result;
+    }
+
+    public function getLesson($course_id, $id)
+    {   
+        $result = $this->checktakeincourse($course_id);
+        if ($result == 0) {
+            Alert::warning('warning', 'You have not taken this course yet');
+            return back();
+        }
+        else {
+            return $this->getCourse($course_id);;
+        }
     }
 }

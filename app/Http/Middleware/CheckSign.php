@@ -21,7 +21,6 @@ class CheckSign
         if (Auth::check()) {
             return $next($request);
         }
-      
         return back()->with('Error', 'Warning Login');
     }
 }

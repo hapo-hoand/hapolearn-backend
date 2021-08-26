@@ -152,4 +152,11 @@ class Course extends Model
             $query->where('user_id', $user);
         }]);
     }
+
+    public function scopeFilterLesson($query, $data)
+    {
+        return $query->with(['lessons' => function ($query) use ($data) {
+            $query->where('title', 'like', '%' . $data . '%');
+        }]);
+    }
 }

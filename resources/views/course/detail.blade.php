@@ -80,7 +80,7 @@
                                                     <a href="#">{{ $lesson->title }}</a>
                                                     </div>
                                                     <div class="text-right link-lesson">
-                                                        <a href="#" class="btn link-course">Learn</a>
+                                                        <a href="{{ route('course.lesson', ['course_id' => $course->id, 'id' => $lesson->id]) }}" class="btn link-course">Learn</a>
                                                     </div>
                                                 </div>
                                                 <?php $i++ ?>

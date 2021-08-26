@@ -114,13 +114,13 @@ $(function () {
       },
       dataType: 'json',
       success:function(data){
-        var array = JSON.stringify(data);
-        var lesson = JSON.parse(array);
-        var n = lesson.lenght;
-        var a = '';
+        // var array = JSON.stringify(data);
+        // var lesson = JSON.parse(array);
+        // var n = lesson.lenght;
+        // var a = '';
         // console.log(array[0]['title']);
-        jsonData = JSON.parse(data);
-        console.log(jsonData.length);
+        // jsonData = JSON.parse(data);
+        console.log(data);
         // for(var i = 0; i < JSON.parse(lesson).lenght; i++) {
         //   a += '<div class="number text-center">';
         //   a += i + 1;

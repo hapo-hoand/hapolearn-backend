@@ -1,5 +1,5 @@
 import 'slick-carousel/slick/slick';
-import swal from 'sweetalert2';
+import swal from 'sweetalert2/dist/sweetalert2.js';
 
 require('./bootstrap');
 require('./main')
