@@ -1,3 +1,4 @@
+const { ajax } = require("jquery");
 const { countBy, result } = require("lodash");
 
 $(function () {
@@ -30,7 +31,7 @@ $(function () {
     $(".btn-menu").addClass("collapsed")
     $(".custom-menu").removeClass("show")
   });
-  
+
   $(".btn-menu").click(function () {
     $(this).toggleClass("rotate");
   });
@@ -51,7 +52,7 @@ $(function () {
   $(".close-mess").click(function () {
     $(".wrap-mess").toggleClass("show");
   });
-  
+
   if ($("#login-accout input").hasClass("is-invalid")) {
     $("#modal-login").modal("show");
     $("#login-href").trigger("click");
@@ -66,24 +67,17 @@ $(function () {
     $("#modal-login").modal("show");
   }
 
-  $('#btnFilter').click(function (e) { 
+  $('#btnFilter').click(function (e) {
     e.preventDefault();
     $('.list-course').toggleClass('margin-top');
   })
 
-  $("#btnClear").click(function (e) { 
+  $("#btnClear").click(function (e) {
     e.preventDefault();
     $(".form-filter option").removeAttr('selected')
       .filter('[value=""]')
       .attr('selected', true)
   })
-
-  $(".star" ).each(function() {
-    var n = $(this).attr('data-rate');
-    for(var i = 0; i < n; i++) {
-      $(this).find('span').eq(i).css('color', '#FFD567')
-    }
-  });
 
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     if ($('#teacher').hasClass('active')) {
@@ -95,58 +89,31 @@ $(function () {
       $('.custom-col-course').removeClass('border-transparent')
     }
   });
-
+  loadstarcolor();
   $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
 
-  $('#nameLesson').on('keyup',function(){
-    $value = $(this).val();
-    $id = $('#CourseID').val();
-    $.ajax({
-      type: 'post',
-      url: "/searchlesson",
-      data: {
-          'name': $value,
-          'id': $id
-      },
-      dataType: 'json',
-      success:function(data){
-        // var array = JSON.stringify(data);
-        // var lesson = JSON.parse(array);
-        // var n = lesson.lenght;
-        // var a = '';
-        // console.log(array[0]['title']);
-        // jsonData = JSON.parse(data);
-        console.log(data);
-        // for(var i = 0; i < JSON.parse(lesson).lenght; i++) {
-        //   a += '<div class="number text-center">';
-        //   a += i + 1;
-        //   a += '</div>';
-        //   a += '<div class="desc-lesson">'
-        //   a += '<a href="#">' + lesson[i]['desc'] +  '</a>';
-        //   a += '</div>'
-        //   a += '<div class="text-right link-lesson">';
-        //   a += '<a href="#" class="btn link-course">Learn</a>'
-        //   a += '</div>'
-        //   console.log(lesson[i]['desc']);
-        // }
+  $value = $(this).val();
+  $id = $('#courseId').val();
+  loadlesson($value, $id);
+  loadreviews($id);
 
-        $('#item-lesson').html(a);
-      }
-    });
+  $('#btnSearchLesson').on('click',function(){
+    $value = $('#nameLesson').val();
+    $id = $('#courseId').val();
+    loadlesson($value, $id);
   })
 
   $('#takecourse').on('click', function(e) {
     e.preventDefault();
-    $id = $('#CourseID').val();
-    $cost = $('.price .info-data').attr('data-value');
-    
-    if ($cost == '0') {
+    var id = $('#courseId').val()
+    var cost = $('.price .info-data').attr('data-value');
+    if (cost == 0) {
       $price = '';
-      window.location.href = "/takethiscourse/" + $id
+      window.location.href = "/takethiscourse/" + id
     }
     else {
       $price = $cost + '$';
@@ -160,9 +127,149 @@ $(function () {
         confirmButtonText: 'Yes'
       }).then((result) => {
         if (result['isConfirmed']){
-          window.location.href = "/takethiscourse/" + $id
+          window.location.href = "/takethiscourse/" + id
+        }
+      })
+    }
+  })
+
+  $("#btnComment").on('click', function(e) {
+    e.preventDefault();
+    $id = $('#courseId').val();
+    loadreviews($id)
+   
+  })
+
+  $('#send').on('click', function(e) {
+    e.preventDefault();
+    var content = $('#content').val();
+    var vote = $("input[name='vote']:checked").val();
+    if (content || vote) {
+      $.ajax({
+        type: 'POST',
+        url: "/storereview",
+        data: {
+          'id': $id,
+          'content': content,
+          'vote': vote
+        },
+        dataType: 'json',
+        success:function(data) {
+          console.log(data)
+          if (data == 1) {
+            loadreviews($id);
+          }
         }
       })
     }
   })
 });
+
+function loadreviews($id) {
+  $.ajax({
+    type: 'POST',
+    url: "/getreviews",
+    data: {
+      'id': $id
+    },
+    dataType: 'json',
+    success:function(data) {
+      console.log("DATA::: ", data);
+      let html = '';
+      data.reviews.forEach(reviews => {
+        html += generateReviews(reviews)
+      })
+      $('#listReviews').html(html);
+      $('#numberReview').html(data.number_review + ' Reviews')
+      $('#number-vote').html(data.totalrating + ' rating')
+      loadstarcolor();
+    }
+  })
+}
+
+function loadlesson($value, $id) {
+  $.ajax({
+    type: 'POST',
+    url: "/searchlesson",
+    data: {
+      'name': $value,
+      'id': $id
+    },
+    dataType: 'json',
+    context: this,
+    success:function(data) {
+      console.log("DATA::: ", data);
+      let html = '';
+      let i = 1;
+      data.lessons.forEach(lesson => {
+        html += generateLessonHtml(lesson, i);
+        console.log(html);
+        i++;
+      });
+      $('#list-lessons').html(html);
+      loadstarcolor();
+     
+      var checktakein = $('#list-lessons').attr('data-check');
+      console.log(checktakein);
+       if (checktakein == 0) {
+        $('.list-lessons .item-lesson .link-lesson').css('display', 'none');
+      }
+      else { 
+        $('.list-lessons .item-lesson .link-lesson').css('display', 'block');
+      }
+    }
+  });
+}
+
+function generateLessonHtml(lessonData, i) {
+  let html = '';
+  html += '<div class="item-lesson">'
+  html += '<div class="number text-center">';
+  html += i;
+  html += '</div>';
+  html += '<div class="desc-lesson">'
+  html += '<a href="#">' + lessonData.title +  '</a>';
+  html += '</div>'
+  html += '<div class="text-right link-lesson">';
+  html += '<a href="#" class="btn link-course">Learn</a>'
+  html += '</div>'
+  html += '</div>'
+  return html;
+}
+
+function generateReviews(reviewData) {
+  var n = reviewData.pivot.rate;
+  let html = '';
+  html += '<div class="mentor reviews">'
+  html += '<div class="info">';
+  html += '<div class="avt">'
+  html += '<img src="http://127.0.0.1:8000/images/' + reviewData.avatar + '" alt="">';
+  html += '</div>'
+  html += '<div class="detail d-block d-lg-flex w-100">';
+  html += '<span class="name custom-font-bold">' + reviewData.name + '</span>'
+  html += '<div class="star" data-rate="' + reviewData.pivot.rate + '">';
+  for (var i = 0; i < n; i++) {
+    html += '<span><i class="fas fa-star"></i></span>';
+  }
+  html += '</div>'
+  html += '<div class="time">' + new Date(reviewData.pivot.time).toDateString() + '</div>'
+  html += '</div>'
+  html += '</div>'
+  html += '<div class="content-describe-course describe-mentor">'
+  if (reviewData.pivot.content == null) {
+    reviewData.pivot.content = '';
+  }
+  html += '<p>' + reviewData.pivot.content + '</p>'
+  html += '</div>'
+  html += '</div>'
+  return html;
+}
+
+function loadstarcolor () {
+  $(".star" ).each(function() {
+    var n = $(this).attr('data-rate');
+    for(var i = 0; i < n; i++) {
+      $(this).find('span').eq(i).css('color', '#FFD567')
+    }
+  });
+}

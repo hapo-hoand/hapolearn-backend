@@ -9,6 +9,7 @@ use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CourseController extends Controller
@@ -36,36 +37,16 @@ class CourseController extends Controller
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
         $course->setRelation('lessons', $course->lessons()->paginate(config('variable.pagination')));
         $other_course = Course::inRandomOrder()->take(5)->get();
-        $result = 0;
+        $result = $this->checktakeincourse($id);
 
-        if (Auth()->check()) {
-            $user = Auth()->user()->id;
-            $checkused = Course::checkusedcourse($user)->find($id);
-            if ($checkused->used > 0) {
-                $result = 1;
-            }
-        }
         return view('course.detail', compact('course', 'other_course', 'result'));
-    }
-
-    public function filterLesson(Request $request)
-    {
-        $id = $request->id;
-        $name = $request->name;
-        if ($name == '') {
-            $course = course::with('lessons')->find($id);
-        } else {
-            $course = course::filterlesson($name)->find($id);
-        }
-
-        return response()->json($course->lessons);
     }
 
     public function following($id)
     {
         $course_id = Course::find($id);
-        $student = Auth()->user()->id;
-        $course_id->students()->attach($student);
+        $user_id = Auth()->user()->id;
+        $course_id->students()->attach($user_id);
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
         $course->setRelation('lessons', $course->lessons()->paginate(config('variable.pagination')));
         $other_course = Course::inRandomOrder()->take(5)->get();
@@ -76,8 +57,8 @@ class CourseController extends Controller
     public function unfollow($id)
     {
         $course_id = Course::find($id);
-        $student = Auth()->user()->id;
-        $course_id->students()->detach($student);
+        $user_id = Auth()->user()->id;
+        $course_id->students()->detach($user_id);
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
         $course->setRelation('lessons', $course->lessons()->paginate(config('variable.pagination')));
         $other_course = Course::inRandomOrder()->take(5)->get();
@@ -99,15 +80,10 @@ class CourseController extends Controller
         return $result;
     }
 
-    public function getLesson($course_id, $id)
-    {   
-        $result = $this->checktakeincourse($course_id);
-        if ($result == 0) {
-            Alert::warning('warning', 'You have not taken this course yet');
-            return back();
-        }
-        else {
-            return $this->getCourse($course_id);;
-        }
+    public function getreviews(Request $request)
+    {
+        $id = $request->id;
+        $course = Course::with('reviews')->getnumberreviews()->getnumberrate()->find($id);
+        return response()->json($course);
     }
 }

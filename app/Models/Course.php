@@ -74,6 +74,16 @@ class Course extends Model
         return $this->reviews()->avg('rate');
     }
 
+    public function getNumberReviewAttribute()
+    {
+        return $this->reviews()->count();
+    }
+
+    public function getRateNumberAttribute()
+    {
+        return $this->reviews()->wherePivot('rate', '<>', null)->count();
+    }
+
     public function scopeFilter($query, $data)
     {
         if (isset($data['key'])) {
@@ -158,5 +168,28 @@ class Course extends Model
         return $query->with(['lessons' => function ($query) use ($data) {
             $query->where('title', 'like', '%' . $data . '%');
         }]);
+    }
+
+    public function scopeGetNumberReviews($query)
+    {
+        return $query->withCount([
+            'reviews AS number_review' => function ($query) {
+                $query->select(DB::raw("COUNT('course_id')"))
+                ->groupBy('courses.id');;
+        }]);
+    }
+
+    public function scopeGetNumberRate($query)
+    {
+        return $query->withCount([
+            'reviews as avg_rate' => function($query) {
+                $query->select(DB::raw('AVG(reviews.rate)'))
+                ->where('rate', '<>', null)
+                ->groupBy('courses.id');
+            }, 'reviews as totalrating' => function($query) { 
+                $query->where('rate', '<>', null)
+                ->groupBy('courses.id');
+            }
+        ]);
     }
 }

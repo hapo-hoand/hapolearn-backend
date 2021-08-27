@@ -14,7 +14,7 @@
                         <div class="col">
                             <div class="col-courses">
                                 <div class="big-image">
-                                    <img src="{{ asset('images/html.png') }}" alt="Card image cap">  
+                                    <img src="{{ asset('images/html.png') }}" alt="Card image cap">
                                 </div>
                             </div>
                         </div>
@@ -34,59 +34,34 @@
                                         <a id="review-href" class="nav-link" data-toggle="tab" role="tab"  href="#review">Review</a>
                                     </li>
                                 </ul>
-                                  
+
                                 <div class="tab-content">
                                     <div class="tab-pane fade show active" id="lesson" role="tabpanel" aria-labelledby="lesson-href">
                                         <div class="search-lesson">
-                                            <form action="{{ route('course.filter.lesson') }}" method="post" name="advance_search">
+                                            <form action="#" method="post" name="advance_search">
                                                 <div class="search d-flex justify-content-center justify-content-sm-start">
                                                     <div class="input-group input-group-search">
-                                                        <input class="form-control input-text" id="nameLesson" name="key" value="{{ request("key") }}" type="text" placeholder="Search" aria-label="Search">
-                                                        <input type="hidden" id="CourseID" name="course_id" value="{{ $course->id }}">
+                                                        <input class="form-control input-text" id="nameLesson" name="key" value="{{ request('key') }}" type="text" placeholder="Search" aria-label="Search">
+                                                        <input type="hidden" id="courseId" name="course_id" value="{{ $course->id }}">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text btn btn-search-icon"><i class="fas fa-search text-black"
                                                                 aria-="true"></i>
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <button class="btn btn-filter mx-3 btn-search btn-search-lesson" type="submit"  id="btnSearchLesson"> Search </button>
+                                                    <button class="btn btn-filter mx-3 btn-search btn-search-lesson" type="button"  id="btnSearchLesson"> Search </button>
                                                 </div>
                                             </form>
                                             <div class="get-this-course text-right">
                                                 @if ($result == 1)
                                                     <a href="{{ route('course.cancelingcourse', ['id' => $course->id]) }}" id="canceling" class="btn link-course cancel">Take Out This Course </a>
                                                 @else
-                                                    <a href="{{ route('course.takethiscourse', ['id' => $course->id]) }}" id="takecourse" class="btn link-course">Take This Course</a>
+                                                    <a href="#" id="takecourse" class="btn link-course">Take This Course</a>
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="list-lessons margin-bottom">
-                                            <?php 
-                                                if (request("page")) {
-                                                    $stt = request("page");
-                                                }
-                                                else {
-                                                    $stt = 1;
-                                                }
-
-                                                $i = ($stt-1)*config('variable.pagination') + 1;
-                                            ?>
-                                            @foreach ($course->lessons as $lesson)
-                                                <div class="item-lesson" id="item-lesson">
-                                                    <div class="number text-center">
-                                                       {{ $i }}.
-                                                    </div>
-                                                    <div class="desc-lesson">
-                                                    <a href="#">{{ $lesson->title }}</a>
-                                                    </div>
-                                                    <div class="text-right link-lesson">
-                                                        <a href="{{ route('course.lesson', ['course_id' => $course->id, 'id' => $lesson->id]) }}" class="btn link-course">Learn</a>
-                                                    </div>
-                                                </div>
-                                                <?php $i++ ?>
-                                            @endforeach
+                                        <div class="list-lessons margin-bottom" id="list-lessons" data-check="{{ $result }}">                                         
                                         </div>
-                                        {{ $course->lessons->links('layouts.pagination') }}
                                     </div>
                                     <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teacher-href">
                                         <div class="custom-course-row main-teacher">
@@ -120,6 +95,84 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-href">
+                                        <div class="custom-course-row main-teacher pb-5">
+                                            <div class="text-describe-course custom-font-bold" id="numberReview"></div>
+                                            <div class="rating row">
+                                                <div class="total-rating col-12 col-lg-5">
+                                                    <div class="rate rate-course">
+                                                        <div class="rate-course-number text-center">
+                                                            <span class="number-rate custom-font-bold">{{  number_format($course->rate, 1) }}</span>
+                                                            <div class="star" data-rate="{{  ceil($course->rate) }}">
+                                                                <span><i class="fas fa-star"></i></span>
+                                                                <span><i class="fas fa-star"></i></span>
+                                                                <span><i class="fas fa-star"></i></span>
+                                                                <span><i class="fas fa-star"></i></span>
+                                                                <span><i class="fas fa-star"></i></span>
+                                                            </div>
+                                                            <span class="number-vote" id="number-vote"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="rating-detail custom-course-row col-12 col-lg-7">
+                                                    <div class="item-lesson other-courses item-rate">
+                                                        <div class="number text-center"> 5 star </div>
+                                                        <span class="bar"></span>
+                                                        <div class="number text-center vote-number"> 1 </div>
+                                                    </div>
+                                                    <div class="item-lesson other-courses item-rate">
+                                                        <div class="number text-center"> 4 star </div>
+                                                        <span class="bar"></span>
+                                                        <div class="number text-center vote-number"> 1 </div>
+                                                    </div>
+                                                    <div class="item-lesson other-courses item-rate">
+                                                        <div class="number text-center"> 3 star </div>
+                                                        <span class="bar"></span>
+                                                        <div class="number text-center vote-number"> 1 </div>
+                                                    </div>
+                                                    <div class="item-lesson other-courses item-rate">
+                                                        <div class="number text-center"> 2 star </div>
+                                                        <span class="bar"></span>
+                                                        <div class="number text-center vote-number"> 1 </div>
+                                                    </div>
+                                                    <div class="item-lesson other-courses item-rate">
+                                                        <div class="number text-center"> 1 star </div>
+                                                        <span class="bar"></span>
+                                                        <div class="number text-center vote-number"> 1 </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list-mentor" id="listReviews">
+                                            </div>
+                                            <div class="text-describe-course custom-font-bold leave-review">
+                                                Leave a Review
+                                            </div>
+
+                                            <div class="m-3">
+                                                <div class="message-add-review my-3">Message</div>
+                                                <input type="hidden" name="rating_value" class="rating_value">
+                                                <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                                <textarea name="content" id="content" cols="30" rows="5" class="form-control mb-3"></textarea>
+                                                <div class="vote-star-review d-flex align-items-center">
+                                                    <div class="add-review custom-font-bold">vote : </div>
+                                                    <div class="vote">
+                                                        <input type="radio" id="star-five" name="vote" class="vote-option" value="{{ config('variable.rate.five_star') }}"/>
+                                                        <label for="star-five" title="text">5 stars</label>
+                                                        <input type="radio" id="star-four" name="vote" class="vote-option" value="{{ config('variable.rate.four_star') }}"/>
+                                                        <label for="star-four" title="text">4 stars</label>
+                                                        <input type="radio" id="star-three" name="vote" class="vote-option" value="{{ config('variable.rate.three_star') }}" />
+                                                        <label for="star-three" title="text">3 stars</label>
+                                                        <input type="radio" id="star-two" name="vote" class="vote-option" value="{{ config('variable.rate.two_star') }}" />
+                                                        <label for="star-two" title="text">2 stars</label>
+                                                        <input type="radio" id="star-one" name="vote" class="vote-option" value="{{ config('variable.rate.one_star') }}" />
+                                                        <label for="star-one" title="text">1 star</label>
+                                                    </div>
+                                                    <div class="message-add-review">( stars)</div>
+                                                </div>
+                                                <div class="link-lesson">
+                                                    <a href="#" class="btn link-course" id="send">Send</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -172,13 +225,13 @@
                                         <i class="fas fa-tags"></i> Tags
                                     </span>
                                     <span class="info-data color-tags">
-                                        : 
+                                        :
                                         @foreach ($course->tags as $tag)
                                             @if ($loop->last)
                                                 #{{ $tag->name }}
                                             @else
-                                                #{{ $tag->name }}, 
-                                            @endif    
+                                                #{{ $tag->name }},
+                                            @endif
                                         @endforeach
                                     </span>
                                 </div>
@@ -212,7 +265,7 @@
                                     </div>
                                     <?php $i = $i + 1 ?>
                                     @endforeach
-                                    
+
                                     <div class="get-this-course text-center view-all">
                                         <a href="{{ route('allcourse') }}" class="btn link-course">View all ours courses</a>
                                     </div>

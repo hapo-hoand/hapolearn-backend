@@ -3,12 +3,11 @@
 use App\Http\Controllers\User\CourseController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\LoginController;
-use App\Http\Controllers\User\UserController;
-use App\Models\Course;
-use App\Models\User;
+use App\Http\Controllers\User\ReviewController;
+use App\Http\Controllers\User\LessonController;
+use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +28,10 @@ Route::get('/signout', [LoginController::class, 'signout'])->name('account.signo
 Route::get('/home/allcourses', [CourseController::class, 'index'])->name('allcourse');
 Route::get('/search', [CourseController::class, 'search'])->name('search');
 Route::get('/home/course/{id}', [CourseController::class, 'getCourse'])->name('course.detail');
-Route::post('/searchlesson', [CourseController::class, 'filterLesson'])->name('course.filter.lesson');
+Route::post('/searchlesson', [LessonController::class, 'search'])->name('course.filter.lesson');
+Route::post('/getreviews', [CourseController::class, 'getreviews'])->name('course.get.reviews');
 
-
+Route::post('/storereview', [ReviewController::class, 'store']);
 Route::group(['middleware' => 'checksigin'], function() {
     Route::get('/takethiscourse/{id}', [CourseController::class, 'following'])->name('course.takethiscourse');
     Route::get('/cancelingcourse/{id}', [CourseController::class, 'unfollow'])->name('course.cancelingcourse');
