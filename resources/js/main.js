@@ -202,7 +202,7 @@ function loadlesson($value, $id) {
       let html = '';
       let i = 1;
       data.lessons.forEach(lesson => {
-        html += generateLessonHtml(lesson, i);
+        html += generateLessonHtml(lesson, i, data.id);
         console.log(html);
         i++;
       });
@@ -221,7 +221,7 @@ function loadlesson($value, $id) {
   });
 }
 
-function generateLessonHtml(lessonData, i) {
+function generateLessonHtml(lessonData, i, course_id) {
   let html = '';
   html += '<div class="item-lesson">'
   html += '<div class="number text-center">';
@@ -231,7 +231,7 @@ function generateLessonHtml(lessonData, i) {
   html += '<a href="#">' + lessonData.title +  '</a>';
   html += '</div>'
   html += '<div class="text-right link-lesson">';
-  html += '<a href="#" class="btn link-course">Learn</a>'
+  html += '<a href="/home/course/' + course_id + '/lesson/' + lessonData.id + '" class="btn link-course">Learn</a>'
   html += '</div>'
   html += '</div>'
   return html;

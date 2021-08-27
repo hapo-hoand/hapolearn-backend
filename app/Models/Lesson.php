@@ -26,4 +26,9 @@ class Lesson extends Model
     {
         return $this->belongsToMany(User::class, 'lessons_user', 'lesson_id', 'user_id');
     }
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
 }

@@ -37,7 +37,7 @@ class CourseController extends Controller
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
         $course->setRelation('lessons', $course->lessons()->paginate(config('variable.pagination')));
         $other_course = Course::inRandomOrder()->take(5)->get();
-        $result = $this->checktakeincourse($id);
+        $result = checktakeincourse($id);
 
         return view('course.detail', compact('course', 'other_course', 'result'));
     }
@@ -50,7 +50,7 @@ class CourseController extends Controller
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
         $course->setRelation('lessons', $course->lessons()->paginate(config('variable.pagination')));
         $other_course = Course::inRandomOrder()->take(5)->get();
-        $result = $this->checktakeincourse($id);
+        $result = checktakeincourse($id);
         return redirect()->back()->with(compact('course', 'other_course', 'result'));
     }
 
@@ -62,22 +62,8 @@ class CourseController extends Controller
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
         $course->setRelation('lessons', $course->lessons()->paginate(config('variable.pagination')));
         $other_course = Course::inRandomOrder()->take(5)->get();
-        $result = $this->checktakeincourse($id);
+        $result = checktakeincourse($id);
         return redirect()->back()->with(compact('course', 'other_course', 'result'));
-    }
-
-    public function checktakeincourse($id)
-    {
-        $result = 0;
-
-        if (Auth()->check()) {
-            $user = Auth()->user()->id;
-            $checkused = Course::checkusedcourse($user)->find($id);
-            if ($checkused->used > 0) {
-                $result = 1;
-            }
-        }
-        return $result;
     }
 
     public function getreviews(Request $request)

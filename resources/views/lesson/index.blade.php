@@ -3,7 +3,7 @@
 @section('content')
     <div class="allcourse">
         <div class="container path">
-            Home > All courses > Course detail
+            Home > All courses > Course detail > Lesson detail
         </div>
     </div>
     <div class="course">
@@ -25,47 +25,41 @@
                             <div class="col-courses custom-col-course">
                                 <ul class="nav nav-tabs row tab-list tab-course" id="example-tabs" role="tablist">
                                     <li class="nav-item col tab-item">
-                                        <a id="lesson-href" class="nav-link active" data-toggle="tab" role="tab"  href="#lesson">Lesson</a>
+                                        <a id="descriptions-href" class="nav-link active" data-toggle="tab" role="tab"  href="#descriptions">Descriptions</a>
                                     </li>
                                     <li class="nav-item col tab-item">
-                                        <a id="teacher-href" class="nav-link" data-toggle="tab" role="tab"  href="#teacher">Teacher</a>
+                                        <a id="teacher-href" class="nav-link" data-toggle="tab" role="tab"  href="#teacher">Teachers</a>
                                     </li>
                                     <li class="nav-item col tab-item">
-                                        <a id="review-href" class="nav-link" data-toggle="tab" role="tab"  href="#review">Review</a>
+                                        <a id="documents-href" class="nav-link" data-toggle="tab" role="tab"  href="#documents">Documents</a>
+                                    </li>
+                                    <li class="nav-item col tab-item">
+                                        <a id="review-href" class="nav-link" data-toggle="tab" role="tab"  href="#review">Reviews</a>
                                     </li>
                                 </ul>
 
                                 <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="lesson" role="tabpanel" aria-labelledby="lesson-href">
-                                        <div class="search-lesson">
-                                            <form action="#" method="post" name="advance_search">
-                                                <div class="search d-flex justify-content-center justify-content-sm-start">
-                                                    <div class="input-group input-group-search">
-                                                        <input class="form-control input-text" id="nameLesson" name="key" value="{{ request('key') }}" type="text" placeholder="Search" aria-label="Search">
-                                                        <input type="hidden" id="courseId" name="course_id" value="{{ $course->id }}">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text btn btn-search-icon"><i class="fas fa-search text-black"
-                                                                aria-="true"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <button class="btn btn-filter mx-3 btn-search btn-search-lesson" type="button"  id="btnSearchLesson"> Search </button>
-                                                </div>
-                                            </form>
-                                            <div class="get-this-course text-right">
-                                                @if ($result == 1)
-                                                    <a href="{{ route('course.cancelingcourse', ['id' => $course->id]) }}" id="canceling" class="btn link-course cancel">Take Out This Course </a>
-                                                @else
-                                                    <a href="#" id="takecourse" class="btn link-course">Take This Course</a>
-                                                @endif
+                                    <div class="tab-pane fade show active" id="descriptions" role="tabpanel" aria-labelledby="descriptions-href">
+                                        <div class="custom-course-row main-teacher">
+                                            <div class="text-describe-course custom-font-bold">
+                                                Descriptions lesson
                                             </div>
-                                            <span class="status">
-                                                <span class="text" style="position: absolute;    left:0;
-                                                right:0;
-                                                margin:0 auto;">50%</span>
-                                            </span>
-                                        </div>
-                                        <div class="list-lessons margin-bottom" id="list-lessons" data-check="{{ $result }}">                                         
+                                            <div class="content-describe-course describe-mentor">
+                                                <p>{{ $lesson->desc }}</p>
+                                            </div>
+                                            <div class="text-describe-course custom-font-bold">
+                                                Requirements
+                                            </div>
+                                            <div class="content-describe-course describe-mentor">
+                                                <p>{{ $lesson->desc }}</p>
+                                            </div>
+
+                                            <div class="tags tags-list">
+                                                Tag : 
+                                                @foreach ($lesson->course->tags as $tag)
+                                                    <span class="tag-item">#{{ $tag->name }}</span>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teacher-href">
@@ -75,7 +69,7 @@
                                             </div>
 
                                             <div class="list-mentor">
-                                                @foreach ($course->teachers as $teacher)
+                                                @foreach ($lesson->course->teachers as $teacher)
                                                 <div class="mentor">
                                                     <div class="info">
                                                         <div class="avt">
@@ -99,6 +93,51 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="tab-pane fade" id="documents" role="tabpanel" aria-labelledby="documents-href">
+                                        <div class="custom-course-row main-teacher">
+                                            <div class="text-describe-course custom-font-bold">
+                                                Program
+                                            </div>
+
+                                            <div class="list-lessons list-documents" id="list-lessons" data-check="{{ $result }}">    
+                                                <div class="item-lesson item-documents">
+                                                    <div class="number text-center"> <img src="{{ asset('images/docs.png') }}" alt="Card image cap" class="mx-2"> Lesson</div>
+                                                    <div class="desc-lesson custom-font-bold">
+                                                        <a href="#" class="mx-3"> Program learn HTML/CSS </a>
+                                                    </div>
+                                                    <div class="text-right link-lesson">
+                                                        <a href="/home/course/' + course_id + '/lesson/' + lessonData.id + '" class="btn link-course">Preview</a>
+                                                    </div>
+                                                </div>     
+                                                <div class="item-lesson item-documents">
+                                                    <div class="number text-center"> <img src="{{ asset('images/pdf.png') }}" alt="Card image cap" class="mx-2"> pdf</div>
+                                                    <div class="desc-lesson custom-font-bold">
+                                                        <a href="#" class="mx-3"> Download course slides </a>
+                                                    </div>
+                                                    <div class="text-right link-lesson">
+                                                        <a href="/home/course/' + course_id + '/lesson/' + lessonData.id + '" class="btn link-course">Preview</a>
+                                                    </div>
+                                                </div>          
+                                                <div class="item-lesson item-documents">
+                                                    <div class="number text-center"> <img src="{{ asset('images/video.png') }}" alt="Card image cap" class="mx-2"> video</div>
+                                                    <div class="desc-lesson custom-font-bold">
+                                                        <a href="#" class="mx-3"> Download course video </a>
+                                                    </div>
+                                                    <div class="text-right link-lesson">
+                                                        <a href="/home/course/' + course_id + '/lesson/' + lessonData.id + '" class="btn link-course">Preview</a>
+                                                    </div>
+                                                </div>                           
+                                            </div>
+
+                                            <form action="{{ route('lesson.upfile') }}" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $lesson->id }}">
+                                                <input type="file" id="document" name="document" />
+                                                <button type="submit">upload</button>
+                                            </form>
+                                           
+                                        </div>
+                                    </div>
                                     <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-href">
                                         <div class="custom-course-row main-teacher pb-5">
                                             <div class="text-describe-course custom-font-bold" id="numberReview"></div>
@@ -106,8 +145,8 @@
                                                 <div class="total-rating col-12 col-lg-5">
                                                     <div class="rate rate-course">
                                                         <div class="rate-course-number text-center">
-                                                            <span class="number-rate custom-font-bold">{{  number_format($course->rate, 1) }}</span>
-                                                            <div class="star" data-rate="{{  ceil($course->rate) }}">
+                                                            <span class="number-rate custom-font-bold">{{  number_format($lesson->course->rate, 1) }}</span>
+                                                            <div class="star" data-rate="{{  ceil($lesson->course->rate) }}">
                                                                 <span><i class="fas fa-star"></i></span>
                                                                 <span><i class="fas fa-star"></i></span>
                                                                 <span><i class="fas fa-star"></i></span>
@@ -155,7 +194,7 @@
                                             <div class="m-3">
                                                 <div class="message-add-review my-3">Message</div>
                                                 <input type="hidden" name="rating_value" class="rating_value">
-                                                <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                                <input type="hidden" name="course_id" value="{{ $lesson->course->id }}">
                                                 <textarea name="content" id="content" cols="30" rows="5" class="form-control mb-3"></textarea>
                                                 <div class="vote-star-review d-flex align-items-center">
                                                     <div class="add-review custom-font-bold">vote : </div>
@@ -186,35 +225,23 @@
                 </div>
 
                 <div class="col-12 col-sm-4">
-                    <div class="row custom-course-row margin-bottom-row">
-                        <div class="col">
-                            <div class="wrapp-content description d-block">
-                                <div class="text-describe-course custom-font-bold">
-                                    Descriptions course
-                                 </div>
-                                 <div class="content-describe-course">
-                                     <p>{{ $course->intro }}</p>
-                                 </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row custom-course-row margin-bottom-row row-info">
                         <div class="col">
                             <div class="wrapp-content d-block ">
+                                <div class="lesson-number data-course">
+                                    <span class="icon">
+                                        <i class="fas fa-desktop"></i> Course
+                                    </span>
+                                    <span class="info-data">
+                                        : {{ $lesson->course->name }}
+                                    </span>
+                                </div>
                                 <div class="learner-number data-course">
                                     <span class="icon">
                                         <i class="fas fa-users"></i> Learners
                                     </span>
                                     <span class="info-data">
-                                        : {{ $course->learner_number }}
-                                    </span>
-                                </div>
-                                <div class="lesson-number data-course">
-                                    <span class="icon">
-                                        <i class="fas fa-list-alt"></i> Lessons
-                                    </span>
-                                    <span class="info-data">
-                                        : {{ $course->lesson_number }}
+                                        : {{ $lesson->course->learner_number }}
                                     </span>
                                 </div>
                                 <div class="time-learning data-course">
@@ -222,7 +249,7 @@
                                         <i class="far fa-clock"></i> Times
                                     </span>
                                     <span class="info-data">
-                                        : {{ $course->time_learning }} hours
+                                        : {{ $lesson->course->time_learning }} hours
                                     </span>
                                 </div>
                                 <div class="tags data-course">
@@ -231,7 +258,7 @@
                                     </span>
                                     <span class="info-data color-tags">
                                         :
-                                        @foreach ($course->tags as $tag)
+                                        @foreach ($lesson->course->tags as $tag)
                                             @if ($loop->last)
                                                 #{{ $tag->name }}
                                             @else
@@ -244,8 +271,8 @@
                                     <span class="icon">
                                         <i class="far fa-money-bill-alt"></i> Price
                                     </span>
-                                    <span class="info-data" data-value = "{{ number_format($course->price) }}">
-                                        :&ensp; {{ ($course->price > 0) ? number_format($course->price).'$' : 'Free' }}
+                                    <span class="info-data" data-value = "{{ number_format($lesson->course->price) }}">
+                                        :&ensp; {{ ($lesson->course->price > 0) ? number_format($lesson->course->price).'$' : 'Free' }}
                                     </span>
                                 </div>
                             </div>

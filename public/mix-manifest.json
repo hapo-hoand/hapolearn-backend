@@ -48,5 +48,8 @@
     "/images/tag.png": "/images/tag.png",
     "/images/times.png": "/images/times.png",
     "/fonts/utm_bryantlg-webfont.woff": "/fonts/utm_bryantlg-webfont.woff",
-    "/fonts/utm_bryantlg-webfont.woff2": "/fonts/utm_bryantlg-webfont.woff2"
+    "/fonts/utm_bryantlg-webfont.woff2": "/fonts/utm_bryantlg-webfont.woff2",
+    "/images/docs.png": "/images/docs.png",
+    "/images/pdf.png": "/images/pdf.png",
+    "/images/video.png": "/images/video.png"
 }

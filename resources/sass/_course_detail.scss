@@ -80,7 +80,7 @@
   text-align: left;
 
   .tab-item {
-    margin-right: 70px;
+    margin-right: 30px;
     margin-bottom: -1px;
     display: inline;
 
@@ -453,5 +453,71 @@
 
   &:hover {
     color: black;
+  }
+}
+
+.status {
+  font-size: 12px;
+  width: 70px;
+  text-align: center;
+  border-radius: 35px;
+  background: red;
+  overflow: hidden;
+  height: 25px;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: green;
+  }
+}
+
+.tags-list {
+  padding: 50px 0;
+  @include font-size-20-25();
+
+  .tag-item {
+    padding: 5px 15px;
+    background-color: $bg_allcourses;
+    border: 1px solid #E4E4E4;
+    margin: 0 5px;
+    border-radius: 5px;
+    color: $color_text_desc;
+    @include font-size-14-17();
+  }
+}
+
+.list-documents {
+  .item-lesson {
+    border: 0;
+    
+    .number {
+      width: 15%;
+    }
+  }
+
+  .item-documents {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid $color_line;
+  }
+}
+
+.item-documents {
+  .number {
+    display: flex;
+    width: 15%;
+    align-items: center;
+    color: $color_experience;
+    @include font-size-14-17();
+    
+  }
+
+  .desc-lesson {
+    @include font-size-18-22();
   }
 }
