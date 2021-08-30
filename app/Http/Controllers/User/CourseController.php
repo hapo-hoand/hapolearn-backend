@@ -19,7 +19,6 @@ class CourseController extends Controller
         $courses = Course::query()->paginate(config('variable.pagination'));
         $teachers = User::where('role', User::ROLE['teacher'])->get();
         $tags = Tag::all();
-        Alert::success('Success', 'Sign Up Success');
         return view('course.index', compact('courses', 'teachers', 'tags'));
     }
 
@@ -32,14 +31,12 @@ class CourseController extends Controller
         return view('course.index', compact('courses', 'teachers', 'tags'));
     }
 
-    public function getCourse($id)
+    public function detail($id)
     {
-        $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
-        $course->setRelation('lessons', $course->lessons()->paginate(config('variable.pagination')));
-        $other_course = Course::inRandomOrder()->take(5)->get();
-        $result = checktakeincourse($id);
-
-        return view('course.detail', compact('course', 'other_course', 'result'));
+        $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->getnumberreviews()->find($id);
+        $otherCourse = Course::inRandomOrder()->take(5)->get();
+        $result =  Course::checkjoined($id);
+        return view('course.detail', compact('course', 'otherCourse', 'result'));
     }
 
     public function following($id)
@@ -48,10 +45,9 @@ class CourseController extends Controller
         $user_id = Auth()->user()->id;
         $course_id->students()->attach($user_id);
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
-        $course->setRelation('lessons', $course->lessons()->paginate(config('variable.pagination')));
-        $other_course = Course::inRandomOrder()->take(5)->get();
-        $result = checktakeincourse($id);
-        return redirect()->back()->with(compact('course', 'other_course', 'result'));
+        $otherCourse = Course::inRandomOrder()->take(5)->get();
+        $result = Course::checkJoined($id);
+        return redirect()->back()->with(compact('course', 'otherCourse', 'result'));
     }
 
     public function unfollow($id)
@@ -60,16 +56,15 @@ class CourseController extends Controller
         $user_id = Auth()->user()->id;
         $course_id->students()->detach($user_id);
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
-        $course->setRelation('lessons', $course->lessons()->paginate(config('variable.pagination')));
-        $other_course = Course::inRandomOrder()->take(5)->get();
-        $result = checktakeincourse($id);
-        return redirect()->back()->with(compact('course', 'other_course', 'result'));
+        $otherCourse = Course::inRandomOrder()->take(5)->get();
+        $result = Course::checkJoined($id);
+        return redirect()->back()->with(compact('course', 'otherCourse', 'result'));
     }
 
     public function getreviews(Request $request)
     {
         $id = $request->id;
-        $course = Course::with('reviews')->getnumberreviews()->getnumberrate()->find($id);
+        $course = Course::with('reviews')->getnumberreviews()->find($id);
         return response()->json($course);
     }
 }

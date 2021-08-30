@@ -99,43 +99,34 @@
                                                 Program
                                             </div>
 
-                                            <div class="list-lessons list-documents" id="list-lessons" data-check="{{ $result }}">    
+                                            <div class="list-lessons list-documents" data-check="{{ $result }}"> 
+                                                @foreach ($lesson->documents as $document)
                                                 <div class="item-lesson item-documents">
-                                                    <div class="number text-center"> <img src="{{ asset('images/docs.png') }}" alt="Card image cap" class="mx-2"> Lesson</div>
+                                                    @if ($document->type == 'docx')
+                                                        <div class="number text-center"> <img src="{{ asset('images/docs.png') }}" alt="Card image cap" class="mx-2"> Lesson</div>
+                                                    @elseif ( $document->type == 'pdf')
+                                                        <div class="number text-center"> <img src="{{ asset('images/pdf.png') }}" alt="Card image cap" class="mx-2"> pdf</div>
+                                                    @else
+                                                        <div class="number text-center"> <img src="{{ asset('images/video.png') }}" alt="Card image cap" class="mx-2"> video</div>
+                                                    @endif
+                                                   
                                                     <div class="desc-lesson custom-font-bold">
-                                                        <a href="#" class="mx-3"> Program learn HTML/CSS </a>
+                                                        <a href="{{ route('lesson.download', ['id' => $lesson->id, 'name' => $document->name]) }}" class="mx-3"> DownLoad Document </a>
                                                     </div>
                                                     <div class="text-right link-lesson">
-                                                        <a href="/home/course/' + course_id + '/lesson/' + lessonData.id + '" class="btn link-course">Preview</a>
+                                                        <a href="{{ route('lesson.preview', ['id' => $lesson->id, 'name' => $document->name]) }}" data-name="{{ $document->name }}" class="btn link-course">Preview</a>
                                                     </div>
-                                                </div>     
-                                                <div class="item-lesson item-documents">
-                                                    <div class="number text-center"> <img src="{{ asset('images/pdf.png') }}" alt="Card image cap" class="mx-2"> pdf</div>
-                                                    <div class="desc-lesson custom-font-bold">
-                                                        <a href="#" class="mx-3"> Download course slides </a>
-                                                    </div>
-                                                    <div class="text-right link-lesson">
-                                                        <a href="/home/course/' + course_id + '/lesson/' + lessonData.id + '" class="btn link-course">Preview</a>
-                                                    </div>
-                                                </div>          
-                                                <div class="item-lesson item-documents">
-                                                    <div class="number text-center"> <img src="{{ asset('images/video.png') }}" alt="Card image cap" class="mx-2"> video</div>
-                                                    <div class="desc-lesson custom-font-bold">
-                                                        <a href="#" class="mx-3"> Download course video </a>
-                                                    </div>
-                                                    <div class="text-right link-lesson">
-                                                        <a href="/home/course/' + course_id + '/lesson/' + lessonData.id + '" class="btn link-course">Preview</a>
-                                                    </div>
-                                                </div>                           
+                                                </div>   
+                                                @endforeach                            
                                             </div>
-
+                                        
                                             <form action="{{ route('lesson.upfile') }}" method="post" enctype="multipart/form-data">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $lesson->id }}">
                                                 <input type="file" id="document" name="document" />
                                                 <button type="submit">upload</button>
                                             </form>
-                                           
+                                            <iframe src="{{ asset('storage/document/5/1630293697.pdf') }}" frameborder="0" width="100%" height="100%"></iframe>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-href">
@@ -146,7 +137,7 @@
                                                     <div class="rate rate-course">
                                                         <div class="rate-course-number text-center">
                                                             <span class="number-rate custom-font-bold">{{  number_format($lesson->course->rate, 1) }}</span>
-                                                            <div class="star" data-rate="{{  ceil($lesson->course->rate) }}">
+                                                            <div class="star" data-rate="{{  floor($lesson->course->avg_rate) }}">
                                                                 <span><i class="fas fa-star"></i></span>
                                                                 <span><i class="fas fa-star"></i></span>
                                                                 <span><i class="fas fa-star"></i></span>
@@ -194,7 +185,7 @@
                                             <div class="m-3">
                                                 <div class="message-add-review my-3">Message</div>
                                                 <input type="hidden" name="rating_value" class="rating_value">
-                                                <input type="hidden" name="course_id" value="{{ $lesson->course->id }}">
+                                                <input type="hidden"  id="courseId" name="course_id" id="" value="{{ $lesson->course->id }}">
                                                 <textarea name="content" id="content" cols="30" rows="5" class="form-control mb-3"></textarea>
                                                 <div class="vote-star-review d-flex align-items-center">
                                                     <div class="add-review custom-font-bold">vote : </div>
@@ -286,7 +277,7 @@
                                 </span>
                                 <div class="col list-lessons">
                                     <?php $i = 1 ?>
-                                    @foreach ($other_course as $row)
+                                    @foreach ($otherCourse as $row)
                                     <div class="item-lesson other-courses">
                                         <div class="number text-center">
                                             {{ $i }}.

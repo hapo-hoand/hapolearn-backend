@@ -54,7 +54,7 @@
                                             </form>
                                             <div class="get-this-course text-right">
                                                 @if ($result == 1)
-                                                    <a href="{{ route('course.cancelingcourse', ['id' => $course->id]) }}" id="canceling" class="btn link-course cancel">Take Out This Course </a>
+                                                    <a href="{{ route('course.cancelingcourse', ['id' => $course->id]) }}" id="canceling" class="btn link-course cancel">Leave</a>
                                                 @else
                                                     <a href="#" id="takecourse" class="btn link-course">Take This Course</a>
                                                 @endif
@@ -106,8 +106,8 @@
                                                 <div class="total-rating col-12 col-lg-5">
                                                     <div class="rate rate-course">
                                                         <div class="rate-course-number text-center">
-                                                            <span class="number-rate custom-font-bold">{{  number_format($course->rate, 1) }}</span>
-                                                            <div class="star" data-rate="{{  ceil($course->rate) }}">
+                                                            <span class="number-rate custom-font-bold" id="number-rate"></span>
+                                                            <div class="star" data-rate="{{  floor($course->avg_rate) }}">
                                                                 <span><i class="fas fa-star"></i></span>
                                                                 <span><i class="fas fa-star"></i></span>
                                                                 <span><i class="fas fa-star"></i></span>
@@ -259,7 +259,7 @@
                                 </span>
                                 <div class="col list-lessons">
                                     <?php $i = 1 ?>
-                                    @foreach ($other_course as $row)
+                                    @foreach ($otherCourse as $row)
                                     <div class="item-lesson other-courses">
                                         <div class="number text-center">
                                             {{ $i }}.

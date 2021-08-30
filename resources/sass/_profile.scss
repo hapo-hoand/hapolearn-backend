@@ -1,0 +1,129 @@
+.profile {
+  font-family: $font_utm;
+
+  .title {
+    border-bottom-color: $warning_color;
+    border-bottom-style: double;
+    font-weight: 700;
+    color: $color_footer;
+    font-size: 38px;
+    line-height: 46px;
+  }
+}
+
+.menu {
+  .detail {
+    border-bottom: 1px solid $color_border_detail;
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    width: 100%;
+    color: $color_footer;
+    @include font-size-18-22();
+
+    i {
+      margin-right: 20px;
+    }
+
+    .birthday {
+      color: $color_icon_birthday;
+    }
+
+    .phone {
+      color: $warning_color;
+    }
+
+    .address {
+      color: $color_icon_address;
+    }
+  }
+
+  .desc {
+    padding: 1rem 0;
+    color: $color_profile_desc;
+    @include font-size-18-25();
+  }
+
+  .avatar {
+    color: $color_footer;
+
+    .name {
+      @include font-size-25-30();
+    }
+
+    .email {
+      @include font-size-18-22();
+    }
+
+    img {
+      max-width: 100%;
+      width: 260px;
+      height: 260px;
+      border: 5px solid #FFFFFF;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo {
+      position: absolute;
+      bottom: 15px;
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      color: $white_color;
+    }
+
+    i {
+      font-size: 30px;
+      margin: 0;
+
+      &:hover {
+        color: $color_profile_desc;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.list-course-joined {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+
+  img {
+    max-width: 100%;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .item-course {
+    margin: 0 15px;
+    text-align: center;
+  }
+}
+
+.edit-profile {
+  padding: 30px 0;
+
+  .custom-input-text {
+    height: 50px;
+  }
+
+  .custom-label {
+    @include font-size-20-25();
+  }
+}
+
+.modal-avt {
+  background-color: $bg_modal;
+  color: $white_color;
+}
+
+.modal.fade .modal-dialog {
+  transition: none;
+  transform: none;
+}

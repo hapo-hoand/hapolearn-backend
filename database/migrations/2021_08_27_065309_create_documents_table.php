@@ -15,8 +15,11 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->
+            $table->integer('lesson_id');
+            $table->string('name')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -116,7 +116,7 @@ $(function () {
       window.location.href = "/takethiscourse/" + id
     }
     else {
-      $price = $cost + '$';
+      $price = cost + '$';
       new swal({
         title: 'Are you sure?',
         text: "This course costs " + $price,
@@ -159,11 +159,78 @@ $(function () {
           if (data == 1) {
             loadreviews($id);
           }
+          $('#content').val("");
+          $("input[name='vote']").prop('checked', false);
         }
       })
     }
   })
 });
+
+$("#photo").on('change', function () {
+  console.log($(this).val())
+  $('#modalupload').modal('show')
+  var countFiles = $(this)[0].files.length;
+
+  var imgPath = $(this)[0].value;
+  var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+  var image_holder = $("#image");
+  image_holder.empty();
+
+  if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+      if (typeof (FileReader) != "undefined") {
+          for (var i = 0; i < countFiles; i++) {
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                  $("<img />", {
+                      "src": e.target.result,
+                          "class": "thumb-image"
+                  }).appendTo(image_holder);
+              }
+              image_holder.show();
+              reader.readAsDataURL($(this)[0].files[i]);
+          }
+      } else {
+          alert("This browser does not support FileReader.");
+      }
+  } else {
+      alert("Pls select only images");
+  }
+});
+
+$('#modalupload').on('hidden.bs.modal', function () {
+  $("#photo").val('');
+});
+
+$('#btn-update-avt').on('click', function() {
+  var file = $('#photo').prop('files')[0];
+  console.log(file);
+  var form_data = new FormData();
+  form_data.append('file', file);
+  $.ajax({
+    type: "post",
+    url: "/updateimg",
+    data: form_data,
+    processData: false,
+    contentType: false,
+    dataType: "json",
+    success: function (response) {
+      console.log(response);
+      if (response == 1) {
+        $('#modalupload').modal('hide');
+        swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+          timer: 1500
+        }).then((result) => {
+        location.reload();
+        })
+      }
+    }
+  });
+})
 
 function loadreviews($id) {
   $.ajax({
@@ -182,6 +249,7 @@ function loadreviews($id) {
       $('#listReviews').html(html);
       $('#numberReview').html(data.number_review + ' Reviews')
       $('#number-vote').html(data.totalrating + ' rating')
+      $('#number-rate').html(parseFloat(data.avg_rate).toFixed(1));
       loadstarcolor();
     }
   })

@@ -173,23 +173,31 @@ class Course extends Model
     public function scopeGetNumberReviews($query)
     {
         return $query->withCount([
-            'reviews AS number_review' => function ($query) {
-                $query->select(DB::raw("COUNT('course_id')"))
-                ->groupBy('courses.id');;
-        }]);
-    }
-
-    public function scopeGetNumberRate($query)
-    {
-        return $query->withCount([
             'reviews as avg_rate' => function($query) {
                 $query->select(DB::raw('AVG(reviews.rate)'))
                 ->where('rate', '<>', null)
                 ->groupBy('courses.id');
-            }, 'reviews as totalrating' => function($query) { 
+            }, 
+            'reviews as totalrating' => function($query) { 
                 $query->where('rate', '<>', null)
+                ->groupBy('courses.id');
+            }, 
+            'reviews AS number_review' => function ($query) {
+                $query->select(DB::raw("COUNT('course_id')"))
                 ->groupBy('courses.id');
             }
         ]);
+    }
+
+    public static function checkJoined($id)
+    {
+        if (Auth()->check()) {
+            $user = Auth()->user()->id;
+            $checkused = Course::checkusedcourse($user)->find($id);
+            if ($checkused->used > 0) {
+                return 1;
+            }
+        }
+        return 0;
     }
 }
