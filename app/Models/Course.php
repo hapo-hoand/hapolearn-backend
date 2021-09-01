@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Course extends Model
@@ -156,9 +157,9 @@ class Course extends Model
         return null;
     }
     
-    public function scopeCheckUsedCourse($query, $user)
+    public function scopeJoined($query, $user)
     {
-        return $query->withCount(['students as used' => function ($query) use ($user) {
+        return $query->withCount(['users as used' => function ($query) use ($user) {
             $query->where('user_id', $user);
         }]);
     }
@@ -173,19 +174,45 @@ class Course extends Model
     public function scopeGetNumberReviews($query)
     {
         return $query->withCount([
-            'reviews as avg_rate' => function($query) {
+            'reviews as avg_rate' => function ($query) {
                 $query->select(DB::raw('AVG(reviews.rate)'))
                 ->where('rate', '<>', null)
                 ->groupBy('courses.id');
-            }, 
-            'reviews as totalrating' => function($query) { 
+            },
+            'reviews as totalrating' => function ($query) {
                 $query->where('rate', '<>', null)
                 ->groupBy('courses.id');
-            }, 
+            },
             'reviews AS number_review' => function ($query) {
                 $query->select(DB::raw("COUNT('course_id')"))
                 ->groupBy('courses.id');
+            },
+            'reviews AS five_star' => function ($query) {
+                $query->select(DB::raw("COUNT('rate')"))
+                ->where('rate', 5)
+                ->groupBy('courses.id');
+            },
+            'reviews AS four_star' => function ($query) {
+                $query->select(DB::raw("COUNT('rate')"))
+                ->where('rate', 4)
+                ->groupBy('courses.id');
+            },
+            'reviews AS three_star' => function ($query) {
+                $query->select(DB::raw("COUNT('rate')"))
+                ->where('rate', 3)
+                ->groupBy('courses.id');
+            },
+            'reviews AS two_star' => function ($query) {
+                $query->select(DB::raw("COUNT('rate')"))
+                ->where('rate', 2)
+                ->groupBy('courses.id');
+            },
+            'reviews AS one_star' => function ($query) {
+                $query->select(DB::raw("COUNT('rate')"))
+                ->where('rate', 1)
+                ->groupBy('courses.id');
             }
+
         ]);
     }
 
@@ -193,11 +220,28 @@ class Course extends Model
     {
         if (Auth()->check()) {
             $user = Auth()->user()->id;
-            $checkused = Course::checkusedcourse($user)->find($id);
+            $checkused = Course::Joined($user)->find($id);
             if ($checkused->used > 0) {
                 return 1;
             }
         }
         return 0;
+    }
+
+    public function scopeStatus($query)
+    {
+        if (Auth::check()) {
+            $query->with(['lessons' => function ($query) {
+                $query->withCount(['documents as learned_docs' => function ($query) {
+                    $query->whereHas('users', function ($query) {
+                        $query->where('user_id', Auth()->user()->id);
+                    });
+                },'documents as total_docs' => function ($query) {
+                    $query->groupBy('lessons.id');
+                }]);
+            }]);
+        }
+
+        return null;
     }
 }

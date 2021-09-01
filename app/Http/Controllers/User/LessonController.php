@@ -7,19 +7,23 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Document;
 use App\Models\Lesson;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use Response;
 
 class LessonController extends Controller
 {
-    public function index($course_id, $id)
+    public function index($courseID, $id)
     {
-        $lesson = Lesson::with(['course' => function($query) {
+        $lesson = Lesson::with(['course' => function ($query) {
             $query->with('teachers', 'reviews')->getnumberreviews();
-        }])->with('documents')->find($id);
+        }])->with(['documents' => function ($query) {
+            $query->with('users');
+        }])->find($id);
         $otherCourse = Course::inRandomOrder()->take(5)->get();
-        $result = Course::CheckJoined($course_id);
+        $result = Course::CheckJoined($courseID);
         if ($result == 1) {
             return view('lesson.index', compact('lesson', 'otherCourse', 'result'));
         }
@@ -31,9 +35,9 @@ class LessonController extends Controller
         $id = $request->id;
         $name = $request->name;
         if ($name == '') {
-            $course = course::with('lessons')->find($id);
+            $course = course::with('lessons')->status()->find($id);
         } else {
-            $course = course::filterlesson($name)->find($id);
+            $course = course::filterlesson($name)->status()->find($id);
         }
 
         return response()->json($course);
@@ -41,7 +45,7 @@ class LessonController extends Controller
 
     public function uploadfile(Request $request)
     {
-        if($request->has('document')) {
+        if ($request->has('document')) {
             $file = $request->file('document');
             $type = $file->getClientOriginalExtension();
             $name = time() . '.' .$type;

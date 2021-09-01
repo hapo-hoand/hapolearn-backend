@@ -8,10 +8,12 @@ use App\Http\Controllers\User\LessonController;
 use App\Http\Controllers\User\UserController;
 use App\Models\Lesson;
 use App\Models\Review;
+use App\Models\User;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,14 +38,16 @@ Route::post('/getreviews', [CourseController::class, 'getreviews'])->name('cours
 Route::post('/upfile', [LessonController::class, 'uploadfile'])->name('lesson.upfile');
 Route::get('/lesson/dowload/{id}/{name}', [LessonController::class, 'download'])->name('lesson.download');
 Route::get('/lesson/preview/{id}/{name}', [LessonController::class, 'preview'])->name('lesson.preview');
-
+Route::get('/learned', [UserController::class, 'leared']);
 Route::post('/storereview', [ReviewController::class, 'store']);
-Route::group(['middleware' => 'checksigin'], function() {
+Route::group(['middleware' => 'checksigin'], function () {
     Route::get('/takethiscourse/{id}', [CourseController::class, 'following'])->name('course.takethiscourse');
     Route::get('/cancelingcourse/{id}', [CourseController::class, 'unfollow'])->name('course.cancelingcourse');
     Route::get('/home/course/{course_id}/lesson/{id}', [LessonController::class, 'index'])->name('course.lesson');
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     Route::post('/update', [UserController::class, 'update'])->name('user.update');
     Route::post('/updateimg', [UserController::class, 'updateImg'])->name('user.update.img');
+    Route::post('/storeDocument', [UserController::class, 'storeDocument'])->name('user.store.document');
+    Route::get('/statusDocument', [UserController::class, 'statusDocument'])->name('user.status.document');
 });
 Auth::routes();

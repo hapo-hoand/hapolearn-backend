@@ -89,6 +89,12 @@ $(function () {
       $('.custom-col-course').removeClass('border-transparent')
     }
   });
+
+  $('.progress-bar').each(function (index, value){
+    $(this).css('width', $(this).attr('data-width') + '%')
+  });
+
+  status();
   loadstarcolor();
   $.ajaxSetup({
     headers: {
@@ -107,6 +113,7 @@ $(function () {
     loadlesson($value, $id);
   })
 
+ 
   $('#takecourse').on('click', function(e) {
     e.preventDefault();
     var id = $('#courseId').val()
@@ -165,11 +172,26 @@ $(function () {
       })
     }
   })
+
+  $('.update-status').on('click', function(e) {
+    var id = $(this).attr('data-id');
+    $.ajax({
+      type: "post",
+      url: "/storeDocument",
+      data: {'id': id},
+      dataType: "json",
+      success: function (response) {
+        console.log(response)
+        if (response == 1) {
+          status();
+        }
+      }
+    });
+  })
 });
 
 $("#photo").on('change', function () {
   console.log($(this).val())
-  $('#modalupload').modal('show')
   var countFiles = $(this)[0].files.length;
 
   var imgPath = $(this)[0].value;
@@ -179,6 +201,7 @@ $("#photo").on('change', function () {
 
   if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
       if (typeof (FileReader) != "undefined") {
+        $('#modalupload').modal('show')
           for (var i = 0; i < countFiles; i++) {
               var reader = new FileReader();
               reader.onload = function (e) {
@@ -283,7 +306,7 @@ function loadlesson($value, $id) {
         $('.list-lessons .item-lesson .link-lesson').css('display', 'none');
       }
       else { 
-        $('.list-lessons .item-lesson .link-lesson').css('display', 'block');
+        $('.list-lessons .item-lesson .link-lesson').css('display', 'flex');
       }
     }
   });
@@ -299,6 +322,9 @@ function generateLessonHtml(lessonData, i, course_id) {
   html += '<a href="#">' + lessonData.title +  '</a>';
   html += '</div>'
   html += '<div class="text-right link-lesson">';
+  html += '<div class="progress mx-2">'
+  html += '<div class="progress-bar progress-bar-striped" style="width:' + ((lessonData.learned_docs/lessonData.total_docs)*100) + '% " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'
+  html += '</div>'
   html += '<a href="/home/course/' + course_id + '/lesson/' + lessonData.id + '" class="btn link-course">Learn</a>'
   html += '</div>'
   html += '</div>'
@@ -338,6 +364,27 @@ function loadstarcolor () {
     var n = $(this).attr('data-rate');
     for(var i = 0; i < n; i++) {
       $(this).find('span').eq(i).css('color', '#FFD567')
+    }
+  });
+}
+
+function status() {
+  var lessonID = $('#lessonID').val()
+  $.ajax({
+    type: "get",
+    url: "/statusDocument",
+    data: {'lessonID': lessonID},
+    dataType: "json",
+    success: function (response) {
+      console.log(response)
+      response.documents.forEach( document => {
+        $('.item-documents').each( function (index) {
+          var data_id = $(this).find('.link-lesson a').attr('data-id');
+          if (document.id == data_id) {
+            $(this).find('.link-lesson .status-docx').html('<i class="far fa-check-circle mx-2">');
+          }
+        })
+      })
     }
   });
 }

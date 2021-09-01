@@ -159,10 +159,13 @@
     }
 
     .link-lesson {
-      width: 20%;
       display: flex;
       align-items: center;
       justify-content: flex-end;
+
+      i {
+        color: darkcyan
+      }
     }
   }
 
@@ -211,6 +214,10 @@
     .info-data {
       flex: 1;
       font-weight: 700;
+
+      a {
+        color: $color_footer;
+      }
     }
 
     .color-tags {
@@ -357,11 +364,9 @@
     margin: 10px 0;
 
     .bar {
-      border: 2px solid $color_border_row;
-      border-radius: 10px;
       width: 80%;
     }
-
+    
     .number {
       width: 15%;
     }
@@ -520,4 +525,13 @@
   .desc-lesson {
     @include font-size-18-22();
   }
+}
+
+.progress{
+  height: 1em;
+  width: 35px;
+}
+
+.rating-detail .progress-bar {
+  background-color: $warning_color;
 }
