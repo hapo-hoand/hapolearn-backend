@@ -16,6 +16,6 @@ class ReviewController extends Controller
         $course = Course::find($data['id']);
         $user = Auth()->user();
         $course->reviews()->attach($user, ['content' => $data['content'], 'time' => $time, 'rate' => $data['vote']]);
-        return response()->json(1);
+        return response()->json(true);
     }
 }

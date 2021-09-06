@@ -15,7 +15,9 @@ use Response;
 
 class LessonController extends Controller
 {
-    public function index($courseID, $id)
+    const PUBLIC_PATH = "public/document/";
+    const LOCAL_PATH = 'storage/document/';
+    public function index($courseId, $id)
     {
         $lesson = Lesson::with(['course' => function ($query) {
             $query->with('teachers', 'reviews')->getnumberreviews();
@@ -23,8 +25,8 @@ class LessonController extends Controller
             $query->with('users');
         }])->find($id);
         $otherCourse = Course::inRandomOrder()->take(5)->get();
-        $result = Course::CheckJoined($courseID);
-        if ($result == 1) {
+        $result = Course::isJoined($courseId);
+        if ($result == true) {
             return view('lesson.index', compact('lesson', 'otherCourse', 'result'));
         }
         return redirect()->back();
@@ -49,7 +51,7 @@ class LessonController extends Controller
             $file = $request->file('document');
             $type = $file->getClientOriginalExtension();
             $name = time() . '.' .$type;
-            Storage::putFileAs("public/document/".$request->id."/", $file, $name);
+            Storage::putFileAs(self::PUBLIC_PATH . $request->id . "/", $file, $name);
 
             $lesson = Lesson::find($request->id);
             $lesson->documents()->create(['name' => $name, 'type' => $type]);
@@ -59,12 +61,12 @@ class LessonController extends Controller
 
     public function download($id, $name)
     {
-        return response()->download(public_path('storage/document/' . $id . '/' . $name));
+        return response()->download(public_path(self::LOCAL_PATH . $id . '/' . $name));
     }
 
     public function preview($id, $name)
     {
-        $path = public_path('storage/document/' . $id . '/' . $name);
+        $path = public_path(self::LOCAL_PATH . $id . '/' . $name);
         return response()->file($path);
     }
 }

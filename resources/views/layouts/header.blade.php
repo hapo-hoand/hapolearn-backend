@@ -26,12 +26,19 @@
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link item-menu" id="logout" href="{{ route('account.signout') }}">Logout</a>
+                                <a class="nav-link item-menu {{ Route::currentRouteName() == 'profile' ? 'item-active' : '' }}" href="/profile">Profile</a>
+                            </li>
+                            <li class="nav-item dropdown" id="dropdownMenuButton" data-toggle="dropdown">
+                                <img src="{{ asset('images/'.Auth()->user()->avatar) }}" alt="">
+                                <i class="fas fa-sort-down"></i>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" id="logout" href="{{ route('account.signout') }}">Logout</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                             
                             </li>
                         @endif
-                        <li class="nav-item">
-                            <a class="nav-link item-menu {{ Route::currentRouteName() == 'profile' ? 'item-active' : '' }}" href="/profile">Profile</a>
-                        </li>
                     </ul>
                 </div>
             </div>

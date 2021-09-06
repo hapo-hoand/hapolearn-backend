@@ -8,6 +8,7 @@ use App\Models\Document;
 use App\Models\Lesson;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -30,17 +31,16 @@ class UserController extends Controller
         return view('user.profile', compact('courses'));
     }
 
-    public function update(Request $request)
+    public function update(UserUpdateRequest $request)
     {
+        $validatedData = $request->validated();
         $id = Auth()->user()->id;
         $user = User::find($id);
-        if ($request['username'] != null || $request['email'] != null
-            || $request['phone'] != null || $request['address'] != null
-            || $request['birthday'] != null || $request['desc'] != null) {
+        if ($validatedData) {
             if ($request['username'] != null) {
-                $user->name = $request['username'];
+                    $user->name = $request['username'];
             }
-    
+        
             if ($request['email'] != null) {
                 $user->email = $request['email'];
             }
@@ -60,9 +60,9 @@ class UserController extends Controller
             if ($request['desc'] != null) {
                 $user->desc = $request['desc'];
             }
-            $user->save();
-            Alert::success('Success', 'Update Success');
         }
+        $user->save();
+        Alert::success('Success', 'Update Success');
         return redirect()->back();
     }
 
@@ -72,12 +72,11 @@ class UserController extends Controller
         $type = $file->getClientOriginalExtension();
         $name = time() . '.' .$type;
         $file->move('images/', $name);
-        // Storage::putFileAs("public/images/", $file, $name);
         $id = Auth()->user()->id;
         $user = User::find($id);
         $user->avatar = $name;
         $user->save();
-        return response()->json(1);
+        return response()->json(true);
     }
 
     public function storeDocument(Request $request)
@@ -91,9 +90,9 @@ class UserController extends Controller
         if ($checkexits->row == 0) {
             $document = Document::find($request->id);
             $user->documents()->attach($document);
-            return response()->json(1);
+            return response()->json(true);
         }
-        return response()->json(0);
+        return response()->json(false);
     }
 
     public function statusDocument(Request $request)

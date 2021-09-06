@@ -3,7 +3,7 @@
 @section('content')
     <div class="allcourse">
         <div class="container path">
-            Home > All courses > Course detail > Lesson detail
+            <a href="{{ route('home') }}">Home</a>  > <a href="{{ route('allcourse') }}">All courses</a> > <a href="{{ route('course.detail', ['id' => $lesson->course->id]) }}">Course detail</a> > Lesson detail
         </div>
     </div>
     <div class="course">
@@ -127,7 +127,7 @@
                                                 <input type="file" id="document" name="document" />
                                                 <button type="submit">upload</button>
                                             </form>
-                                            <iframe src="{{ asset('storage/document/5/1630293697.pdf') }}" frameborder="0" width="100%" height="100%"></iframe>
+                                            <iframe src="{{ asset('storage/document/5/1630292934.pdf') }}" frameborder="0" width="100%" height="100%"></iframe>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-href">
@@ -153,7 +153,7 @@
                                                     <div class="item-lesson other-courses item-rate">
                                                         <div class="number text-center"> 5 star </div>
                                                         <span class="progress bar">
-                                                            <div class="progress-bar" role="progressbar" data-width="{{ ($lesson->course->five_star/$lesson->course->totalrating)*100 }}" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" data-width="{{ $lesson->course->totalrating ==  null ? 0 :($lesson->course->five_star/$lesson->course->totalrating)*100 }}" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </span>
                                                         
                                                         <div class="number text-center vote-number"> {{ $lesson->course->five_star == null ? 0 : $lesson->course->five_star ;  }} </div>
@@ -161,28 +161,28 @@
                                                     <div class="item-lesson other-courses item-rate">
                                                         <div class="number text-center"> 4 star </div>
                                                         <span class="progress bar">
-                                                            <div class="progress-bar" role="progressbar" data-width="{{ ($lesson->course->four_star/$lesson->course->totalrating)*100 }}" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" data-width="{{ $lesson->course->totalrating ==  null ? 0 : ($lesson->course->four_star/$lesson->course->totalrating)*100 }}" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </span>
                                                         <div class="number text-center vote-number">{{ $lesson->course->four_star == null ? 0 : $lesson->course->four_star ;  }} </div>
                                                     </div>
                                                     <div class="item-lesson other-courses item-rate">
                                                         <div class="number text-center"> 3 star </div>
                                                         <span class="progress bar">
-                                                            <div class="progress-bar" role="progressbar" data-width="{{ ($lesson->course->three_star/$lesson->course->totalrating)*100 }}" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" data-width="{{ $lesson->course->totalrating ==  null ? 0 : ($lesson->course->three_star/$lesson->course->totalrating)*100 }}" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </span>
                                                         <div class="number text-center vote-number"> {{ $lesson->course->three_star == null ? 0 : $lesson->course->three_star ;  }} </div>
                                                     </div>
                                                     <div class="item-lesson other-courses item-rate">
                                                         <div class="number text-center"> 2 star </div>
                                                         <span class="progress bar">
-                                                            <div class="progress-bar" role="progressbar" data-width="{{ ($lesson->course->two_star/$lesson->course->totalrating)*100 }}" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" data-width="{{ $lesson->course->totalrating ==  null ? 0 : ($lesson->course->two_star/$lesson->course->totalrating)*100 }}" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </span>
                                                         <div class="number text-center vote-number"> {{ $lesson->course->two_star == null ? 0 : $lesson->course->two_star ;  }} </div>
                                                     </div>
                                                     <div class="item-lesson other-courses item-rate">
                                                         <div class="number text-center"> 1 star </div>
                                                         <span class="progress bar">
-                                                            <div class="progress-bar" role="progressbar" data-width="{{ ($lesson->course->one_star/$lesson->course->totalrating)*100 }}" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" data-width="{{ $lesson->course->totalrating ==  null ? 0 : ($lesson->course->one_star/$lesson->course->totalrating)*100 }}" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </span>
                                                         <div class="number text-center vote-number"> {{ $lesson->course->one_star == null ? 0 : $lesson->course->one_star ;  }} </div>
                                                     </div>
@@ -263,9 +263,9 @@
                                         :
                                         @foreach ($lesson->course->tags as $tag)
                                             @if ($loop->last)
-                                                #{{ $tag->name }}
+                                                <a href="/search?tags={{ $tag->id }}">#{{ $tag->name }}</a> 
                                             @else
-                                                #{{ $tag->name }},
+                                                <a href="/search?tags={{ $tag->id }}">#{{ $tag->name }}</a> ,
                                             @endif
                                         @endforeach
                                     </span>
@@ -277,6 +277,9 @@
                                     <span class="info-data" data-value = "{{ number_format($lesson->course->price) }}">
                                         :&ensp; {{ ($lesson->course->price > 0) ? number_format($lesson->course->price).'$' : 'Free' }}
                                     </span>
+                                </div>
+                                <div class="get-this-course text-center view-all">
+                                    <a href="{{ route('allcourse') }}" class="btn link-course">End of course</a>
                                 </div>
                             </div>
                         </div>

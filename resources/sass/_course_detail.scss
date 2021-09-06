@@ -2,6 +2,10 @@
   padding: 10px 15px;
   font-family: $font_utm;
   @include font-size-16-20();
+
+  a {
+    color: $color_footer;
+  }
 }
 
 .course {
@@ -204,7 +208,6 @@
     padding: 40px 0;
     font-weight: 400;
     border-bottom: 1px solid $color_line;
-    margin-bottom: -11px;
     @include font-size-25-30;
 
     .icon {
@@ -221,7 +224,9 @@
     }
 
     .color-tags {
-      color: $color_tag;
+      a {
+        color: $color_tag;
+      }
     }
 
     i {

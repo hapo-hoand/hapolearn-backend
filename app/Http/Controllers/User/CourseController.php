@@ -30,33 +30,33 @@ class CourseController extends Controller
         return view('course.index', compact('courses', 'teachers', 'tags'));
     }
 
-    public function detail($id)
+    public function show($id)
     {
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->status()->getnumberreviews()->find($id);
-        $otherCourse = Course::inRandomOrder()->take(5)->get();
-        $result = Course::checkjoined($id);
+        $otherCourse = Course::inRandomOrder()->take(config('variable.random'))->get();
+        $result = Course::isJoined($id);
         return view('course.detail', compact('course', 'otherCourse', 'result'));
     }
 
-    public function following($id)
+    public function join($id)
     {
-        $courseID = Course::find($id);
+        $course = Course::find($id);
         $userID = Auth()->user()->id;
-        $courseID->students()->attach($userID);
+        $course->students()->attach($userID);
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
-        $otherCourse = Course::inRandomOrder()->take(5)->get();
-        $result = Course::checkJoined($id);
+        $otherCourse = Course::inRandomOrder()->take(config('variable.random'))->get();
+        $result = Course::isJoined($id);
         return redirect()->back()->with(compact('course', 'otherCourse', 'result'));
     }
 
-    public function unfollow($id)
+    public function leave($id)
     {
-        $courseID = Course::find($id);
+        $course = Course::find($id);
         $userID = Auth()->user()->id;
-        $courseID->students()->detach($userID);
+        $course->students()->detach($userID);
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
-        $otherCourse = Course::inRandomOrder()->take(5)->get();
-        $result = Course::checkJoined($id);
+        $otherCourse = Course::inRandomOrder()->take(config('variable.random'))->get();
+        $result = Course::isJoined($id);
         return redirect()->back()->with(compact('course', 'otherCourse', 'result'));
     }
 

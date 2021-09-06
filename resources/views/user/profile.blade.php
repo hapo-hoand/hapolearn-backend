@@ -39,7 +39,7 @@
                     <div class="list-course-joined">
                         @foreach ($courses as $course)
                             <span class="item-course">
-                                <a href="{{ route('course.detail', ['id' => $course->id]) }}"><img src="{{ asset('images/'.$course->image) }}" alt=""></a>
+                                <a href="{{ route('course.detail', ['id' => $course->id]) }}"><img src="{{ asset('images/acourse_angular.png') }}" alt=""></a>
                                 <p>{{ $course->name }}</p>
                             </span>
                         @endforeach
@@ -56,15 +56,15 @@
                             </div>
                             <div class="form-group col-6">
                                 <label for="password" class="form-label custom-label font-weight-bold">Email:</label>
-                                <input type="email" class="form-control custom-input-text"  placeholder="Email..." id="email" name="email">
+                                <input type="email" class="form-control custom-input-text @error('email') is-invalid @enderror"  placeholder="Email..." id="email" name="email">
                             </div>
                             <div class="form-group col-6">
                                 <label for="birthday" class="form-label custom-label font-weight-bold">Date of birthday:</label>
-                                <input type="datetime-local" class="form-control custom-input-text"  id="birthday" name="birthday">
+                                <input type="datetime-local" class="form-control custom-input-text @error('birthday') is-invalid @enderror"  id="birthday" name="birthday">
                             </div>
                             <div class="form-group col-6">
                                 <label for="phone" class="form-label custom-label font-weight-bold">Phone:</label>
-                                <input type="text" class="form-control custom-input-text"  placeholder="Phone..." id="phone" name="phone">
+                                <input type="text" class="form-control custom-input-text @error('phone') is-invalid @enderror"  placeholder="Phone..." id="phone" name="phone">
                             </div>
                             <div class="form-group col-6">
                                 <label for="address" class="form-label custom-label font-weight-bold">Address:</label>

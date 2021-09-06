@@ -216,16 +216,16 @@ class Course extends Model
         ]);
     }
 
-    public static function checkJoined($id)
+    public static function isJoined($id)
     {
         if (Auth()->check()) {
             $user = Auth()->user()->id;
             $checkused = Course::Joined($user)->find($id);
             if ($checkused->used > 0) {
-                return 1;
+                return true;
             }
         }
-        return 0;
+        return false;
     }
 
     public function scopeStatus($query)

@@ -94,6 +94,9 @@ $(function () {
     $(this).css('width', $(this).attr('data-width') + '%')
   });
 
+  $('#logout').on('click', function() {
+    window.location.href = '/signout'
+  })
   status();
   loadstarcolor();
   $.ajaxSetup({
@@ -182,7 +185,7 @@ $(function () {
       dataType: "json",
       success: function (response) {
         console.log(response)
-        if (response == 1) {
+        if (response == true) {
           status();
         }
       }
@@ -239,7 +242,7 @@ $('#btn-update-avt').on('click', function() {
     dataType: "json",
     success: function (response) {
       console.log(response);
-      if (response == 1) {
+      if (response == true) {
         $('#modalupload').modal('hide');
         swal.fire({
           position: 'center',
@@ -271,6 +274,14 @@ function loadreviews($id) {
       })
       $('#listReviews').html(html);
       $('#numberReview').html(data.number_review + ' Reviews')
+      if (data.totalrating == null)
+      { 
+        data.totalrating = 0;
+      }
+      if (data.avg_rate == null)
+      { 
+        data.avg_rate = 0;
+      }
       $('#number-vote').html(data.totalrating + ' rating')
       $('#number-rate').html(parseFloat(data.avg_rate).toFixed(1));
       loadstarcolor();

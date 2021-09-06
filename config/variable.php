@@ -23,5 +23,7 @@ return [
         'three_star' => 3,
         'four_star' => 4,
         'five_star' => 5,
-    ]
+    ],
+
+    'random' => 5,
 ];
