@@ -300,7 +300,7 @@ function loadlesson($value, $id) {
     dataType: 'json',
     context: this,
     success:function(data) {
-      console.log("DATA::: ", data);
+      console.log("DATA::lesson", data);
       let html = '';
       let i = 1;
       data.lessons.forEach(lesson => {

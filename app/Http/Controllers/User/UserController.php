@@ -81,12 +81,12 @@ class UserController extends Controller
 
     public function storeDocument(Request $request)
     {
-        $userID = Auth()->user()->id;
-        $documentID = $request->id;
-        $user = User::find($userID);
-        $checkexits = User::withCount(['documents as row' => function ($query) use ($documentID) {
-            $query->where('document_id', $documentID);
-        }])->find($userID);
+        $userId = Auth()->user()->id;
+        $documentId = $request->id;
+        $user = User::find($userId);
+        $checkexits = User::withCount(['documents as row' => function ($query) use ($documentId) {
+            $query->where('document_id', $documentId);
+        }])->find($userId);
         if ($checkexits->row == 0) {
             $document = Document::find($request->id);
             $user->documents()->attach($document);
@@ -97,11 +97,11 @@ class UserController extends Controller
 
     public function statusDocument(Request $request)
     {
-        $userID = Auth()->user()->id;
-        $lessonID = $request->lessonID;
-        $status = User::with(['documents' => function ($query) use ($lessonID) {
-            $query->with('lessons')->where('lesson_id', $lessonID);
-        }])->find($userID);
+        $userId = Auth()->user()->id;
+        $lessonId = $request->lessonID;
+        $status = User::with(['documents' => function ($query) use ($lessonId) {
+            $query->with('lessons')->where('lesson_id', $lessonId);
+        }])->find($userId);
 
         return response()->json($status);
     }

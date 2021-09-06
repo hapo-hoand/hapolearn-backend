@@ -39,7 +39,7 @@ class LessonController extends Controller
         if ($name == '') {
             $course = course::with('lessons')->status()->find($id);
         } else {
-            $course = course::filterlesson($name)->status()->find($id);
+            $course = course::status()->filterlesson($name)->find($id);
         }
 
         return response()->json($course);

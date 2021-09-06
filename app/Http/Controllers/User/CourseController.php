@@ -41,8 +41,8 @@ class CourseController extends Controller
     public function join($id)
     {
         $course = Course::find($id);
-        $userID = Auth()->user()->id;
-        $course->students()->attach($userID);
+        $user = Auth()->user();
+        $course->students()->attach($user);
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
         $otherCourse = Course::inRandomOrder()->take(config('variable.random'))->get();
         $result = Course::isJoined($id);
@@ -52,8 +52,8 @@ class CourseController extends Controller
     public function leave($id)
     {
         $course = Course::find($id);
-        $userID = Auth()->user()->id;
-        $course->students()->detach($userID);
+        $user = Auth()->user();
+        $course->students()->detach($user);
         $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->find($id);
         $otherCourse = Course::inRandomOrder()->take(config('variable.random'))->get();
         $result = Course::isJoined($id);
