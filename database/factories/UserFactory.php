@@ -33,10 +33,10 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'avatar' => 'avt_1.png',
             'birthday' => Carbon::createFromFormat(config('app.date_format'), '11/22/2000')->format('Y-m-d'),
-            'phone' => '061649815',
+            'phone' => $this->faker->phoneNumber(),
             'address' => 'Ha Noi',
             'desc' => $this->faker->paragraph,
-            'role' => '1',
+            'role' => rand(0, 1),
         ];
     }
 

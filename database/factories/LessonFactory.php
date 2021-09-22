@@ -25,7 +25,8 @@ class LessonFactory extends Factory
         return [
             'course_id' => Course::all()->random()->id,
             'title' => $this->faker->title,
-            'desc' => $this->faker->text()
+            'desc' => $this->faker->text(),
+            'time' => 1
         ];
     }
 }

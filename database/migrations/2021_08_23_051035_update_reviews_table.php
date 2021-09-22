@@ -12,8 +12,6 @@ class UpdateReviewsTable extends Migration
             $table->renameColumn('id_user', 'user_id');
             $table->renameColumn('id_course', 'course_id');
             $table->text('content')->change();
-            $table->dropColumn('location_type');
-            $table->dropColumn('location_id');
         });
     }
 
@@ -23,8 +21,6 @@ class UpdateReviewsTable extends Migration
             $table->renameColumn('user_id', 'id_user');
             $table->renameColumn('course_id', 'id_course');
             $table->text('content')->change();
-            $table->integer('location_type')->nullable();
-            $table->integer('location_id')->nullable();
         });
     }
 }

@@ -20,8 +20,7 @@ class CreateReviewsTable extends Migration
             $table->string('content')->nullable();
             $table->date('time')->nullable();
             $table->float('rate', 8, 2)->nullable();
-            $table->integer('location_type')->nullable();
-            $table->integer('location_id')->nullable();
+            $table->integer('parent_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
