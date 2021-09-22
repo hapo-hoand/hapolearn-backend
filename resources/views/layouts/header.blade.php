@@ -30,9 +30,11 @@
                             </li>
                             <li class="nav-item dropdown" id="dropdownMenuButton" data-toggle="dropdown">
                                 <img src="{{ asset('images/'.Auth()->user()->avatar) }}" alt="">
+                                <input type="hidden" id="loginId" value="{{ Auth()->user()->id }}">
                                 <i class="fas fa-sort-down"></i>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" id="logout" href="{{ route('account.signout') }}">Logout</a>
+                                    <a class="dropdown-item" id="reset-pass" href="{{ route('reset.password') }}">ForgetPassword</a>
                                 </div>
                             </li>
                             <li class="nav-item">
