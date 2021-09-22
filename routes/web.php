@@ -36,11 +36,19 @@ Route::get('/lesson/dowload/{id}/{name}', [LessonController::class, 'download'])
 Route::get('/lesson/preview/{id}/{name}', [LessonController::class, 'preview'])->name('lesson.preview');
 Route::get('/learned', [UserController::class, 'leared']);
 
+Route::get('/resetpassword', [UserController::class, 'forgetPassword'])->name('reset.password');
+Route::post('/sendmail', [UserController::class, 'sendMail'])->name('sendmail');
+Route::get('/reset/{email}', [UserController::class, 'resetPassword'])->name('reset');
+Route::post('/confirm-reset', [UserController::class, 'confirmReset'])->name('confirm.reset');
+
 Route::group(['middleware' => 'checksigin'], function () {
     Route::get('/takethiscourse/{id}', [CourseController::class, 'join'])->name('course.takethiscourse');
     Route::get('/cancelingcourse/{id}', [CourseController::class, 'leave'])->name('course.cancelingcourse');
     Route::get('/home/course/{course_id}/lesson/{id}', [LessonController::class, 'index'])->name('course.lesson');
 
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('/update', [UserController::class, 'update'])->name('user.update');
+    Route::post('/updateimg', [UserController::class, 'updateImg'])->name('user.update.img');
     Route::post('/storeDocument', [UserController::class, 'storeDocument'])->name('user.store.document');
     Route::get('/statusDocument', [UserController::class, 'statusDocument'])->name('user.status.document');
 
