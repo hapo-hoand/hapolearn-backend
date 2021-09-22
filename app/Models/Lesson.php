@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Lesson extends Model
 {
@@ -25,5 +26,10 @@ class Lesson extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'lessons_user', 'lesson_id', 'user_id');
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
     }
 }

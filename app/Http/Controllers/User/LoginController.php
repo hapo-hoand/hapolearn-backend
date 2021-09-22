@@ -36,7 +36,7 @@ class LoginController extends Controller
     {
         if ($request->validated()) {
             if ($this->verificationAccount($request->all())) {
-                Auth::login(Auth::user(), true);
+                Auth::login(Auth::user());
                 return redirect()->back();
             } else {
                 Alert::error('Error Login', 'Invalid username or password');
@@ -52,7 +52,7 @@ class LoginController extends Controller
         if ($request->validated()) {
             $this->create($request->all());
             Alert::success('Success', 'Sign Up Success');
-            return redirect(route('home'));
+            return redirect()->back();
         } else {
             return redirect()->back()->withInput();
         }

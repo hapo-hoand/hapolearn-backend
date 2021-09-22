@@ -1,6 +1,6 @@
 @if ($paginator->hasPages())
-    <div class="pull-right pagination d-flex justify-content-sm-end align-item-center justify-content-center">
-        <ul class="pagination">
+    <div class="pull-right pagination">
+        <ul class="pagination-course d-flex w-100 justify-content-sm-end align-item-center justify-content-center list-unstyled">
             <li class="page-item">
                 <a href="{{ $paginator->previousPageUrl() }}">
                     <span class="previous next-link page-link"><i class="fas fa-long-arrow-alt-left"></i></span>

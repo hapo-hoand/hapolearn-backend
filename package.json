@@ -29,7 +29,7 @@
     "dependencies": {
         "slick": "^1.12.2",
         "slick-carousel": "^1.8.1",
-        "sweetalert2": "^11.1.2",
+        "sweetalert2": "^11.1.4",
         "ui": "^0.2.4"
     }
 }

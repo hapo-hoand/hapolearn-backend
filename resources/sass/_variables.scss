@@ -48,6 +48,21 @@ $color_border_filter: #ced4da;
 $color_shadow_custom: #9bc9fb;
 $color_border_label_filter: #E5E6E7;
 $color_star: #FFD567;
+$color_text_desc: #949292;
+$color_border_row: #D1D1D1;
+$color_line: #E2E0E0;
+$color_tag: #5D8BD0;
+$color_experience: #BDB9B9;
+$color_border_google: #F44336;
+$color_border_face: #1976D2;
+$color_border_slack: #E91E63;
+$color_vote_number: #9BA1A1;
+$color_border_rating: #F3F0F0;
+$color_border_detail: #DCDCDC;
+$color_icon_birthday: #F26525;
+$color_icon_address: #662E93;
+$color_profile_desc:  #787B7B;
+$bg_modal: #1a344e;
 $font_utm: "utm_bryantlgregular";
 $font_san_serif: sans-serif;
 $font_ui: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -63,4 +78,39 @@ $font_open_san: 'Open Sans', sans-serif;
   height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+@mixin font-size-25-30 {
+  font-size: 25px;
+  line-height: 30px;
+}
+
+@mixin font-size-20-25 {
+  font-size: 20px;
+  line-height: 25px;
+}
+
+@mixin font-size-18-25 {
+  font-size: 18px;
+  line-height: 25px;
+}
+
+@mixin font-size-18-22 {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+@mixin font-size-16-20 {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+@mixin font-size-15-18 {
+  font-size: 15px;
+  line-height: 18px;
+}
+
+@mixin font-size-14-17 {
+  font-size: 14px;
+  line-height: 18px;
 }

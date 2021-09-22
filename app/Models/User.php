@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Course::class, 'reviews', 'user_id', 'course_id')->withPivot('content', 'time', 'rate');
     }
+
+    public function documents()
+    {
+        return $this->belongsToMany(Document::class, 'users_documents', 'user_id', 'document_id');
+    }
 }
