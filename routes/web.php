@@ -29,6 +29,8 @@ Route::get('/home/allcourses', [CourseController::class, 'index'])->name('allcou
 Route::get('/search', [CourseController::class, 'search'])->name('search');
 Route::get('/home/course/{id}', [CourseController::class, 'show'])->name('course.detail');
 Route::post('/searchlesson', [LessonController::class, 'search'])->name('course.filter.lesson');
+Route::post('/getreviews', [CourseController::class, 'getreviews'])->name('course.get.reviews');
+Route::post('/upfile', [LessonController::class, 'uploadfile'])->name('lesson.upfile');
 
 Route::get('/lesson/dowload/{id}/{name}', [LessonController::class, 'download'])->name('lesson.download');
 Route::get('/lesson/preview/{id}/{name}', [LessonController::class, 'preview'])->name('lesson.preview');
@@ -41,5 +43,9 @@ Route::group(['middleware' => 'checksigin'], function () {
 
     Route::post('/storeDocument', [UserController::class, 'storeDocument'])->name('user.store.document');
     Route::get('/statusDocument', [UserController::class, 'statusDocument'])->name('user.status.document');
+
+    Route::post('/storereview', [ReviewController::class, 'store']);
+    Route::post('/updatereview', [ReviewController::class, 'update']);
+    Route::post('/destroy', [ReviewController::class, 'destroy']);
 });
 Auth::routes();
