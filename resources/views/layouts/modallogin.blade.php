@@ -40,7 +40,7 @@
                                 <label class="form-check-label font-weight-bold" for="remenber-me">Remenber me</label>
                             </div>
                             <div class="col-6 forgot pl-0">
-                                <label class="font-weight-bold"><a href="#">Forgot password</a></span>
+                                <label class="font-weight-bold"><a href="{{ route('reset.password') }}">Forgot password</a></span>
                             </div>
                         </div>
                         <div class="form-group text-center">
