@@ -80,6 +80,11 @@ $font_open_san: 'Open Sans', sans-serif;
   background-repeat: no-repeat;
 }
 
+@mixin font-size-30-36 {
+  font-size: 30px;
+  line-height: 36px;
+}
+
 @mixin font-size-25-30 {
   font-size: 25px;
   line-height: 30px;
