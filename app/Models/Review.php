@@ -16,7 +16,8 @@ class Review extends Model
         'user_id',
         'content',
         'time',
-        'rate'
+        'rate',
+        'parent_id'
     ];
 
     public function users()
@@ -27,5 +28,10 @@ class Review extends Model
     public function courses()
     {
         return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Review::class, 'parent_id');
     }
 }

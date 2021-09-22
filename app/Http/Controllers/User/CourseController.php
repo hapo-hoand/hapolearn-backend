@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Review;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,7 +18,6 @@ class CourseController extends Controller
         $courses = Course::query()->paginate(config('variable.pagination'));
         $teachers = User::where('role', User::ROLE['teacher'])->get();
         $tags = Tag::all();
-
         return view('course.index', compact('courses', 'teachers', 'tags'));
     }
 
@@ -32,7 +32,7 @@ class CourseController extends Controller
 
     public function show($id)
     {
-        $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->status()->getnumberreviews()->find($id);
+        $course = Course::with('lessons', 'tags', 'teachers', 'reviews')->getnumberreviews()->find($id);
         $otherCourse = Course::inRandomOrder()->take(config('variable.random'))->get();
         $result = Course::isJoined($id);
         return view('course.detail', compact('course', 'otherCourse', 'result'));

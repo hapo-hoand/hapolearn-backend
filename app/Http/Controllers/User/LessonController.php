@@ -17,6 +17,7 @@ class LessonController extends Controller
 {
     const PUBLIC_PATH = "public/document/";
     const LOCAL_PATH = 'storage/document/';
+    
     public function index($courseId, $id)
     {
         $lesson = Lesson::with(['course' => function ($query) {
@@ -26,8 +27,15 @@ class LessonController extends Controller
         }])->find($id);
         $otherCourse = Course::inRandomOrder()->take(5)->get();
         $result = Course::isJoined($courseId);
+        $progress = Lesson::status()->find($id);
+        if ($progress->total_docs == 0) {
+            $ratio = 0;
+        }
+        else {
+            $ratio = ($progress->learned_docs/$progress->total_docs)*100;
+        }
         if ($result == true) {
-            return view('lesson.index', compact('lesson', 'otherCourse', 'result'));
+            return view('lesson.index', compact('lesson', 'otherCourse', 'result', 'ratio'));
         }
         return redirect()->back();
     }
@@ -36,10 +44,10 @@ class LessonController extends Controller
     {
         $id = $request->id;
         $name = $request->name;
-        if ($name == '') {
-            $course = course::with('lessons')->status()->find($id);
+        if (isset($name)) {
+            $course = course::filterlesson($name)->find($id);
         } else {
-            $course = course::status()->filterlesson($name)->find($id);
+            $course = course::with('lessons')->find($id);
         }
 
         return response()->json($course);

@@ -90,12 +90,25 @@ $(function () {
     }
   });
 
+  $('.edit-profile .input-profile').attr('disabled', 'disabled')
+  $('.edit-icon').on('click', function () {
+    if ($(this).parent('.info-user').find('.input-profile').attr('disabled')) {
+      $(this).parent('.info-user').find('.input-profile').removeAttr('disabled', false)
+    } else {
+      $(this).parent('.info-user').find('.input-profile').attr('disabled', 'disabled')
+    }
+  })
+
   $('.progress-bar').each(function (index, value){
     $(this).css('width', $(this).attr('data-width') + '%')
   });
 
   $('#logout').on('click', function() {
     window.location.href = '/signout'
+  })
+
+  $('#reset-pass').on('click', function() {
+    window.location.href = '/resetpassword'
   })
   status();
   loadstarcolor();
@@ -154,19 +167,24 @@ $(function () {
     e.preventDefault();
     var content = $('#content').val();
     var vote = $("input[name='vote']:checked").val();
+    let parent_id = 0;
     if (content || vote) {
+      if (vote === undefined) {
+        vote = 0
+      }
       $.ajax({
         type: 'POST',
         url: "/storereview",
         data: {
           'id': $id,
+          'parent_id': parent_id,
           'content': content,
           'vote': vote
         },
         dataType: 'json',
         success:function(data) {
-          console.log(data)
-          if (data == 1) {
+          console.log("Review::"+data)
+          if (data == true) {
             loadreviews($id);
           }
           $('#content').val("");
@@ -193,71 +211,6 @@ $(function () {
   })
 });
 
-$("#photo").on('change', function () {
-  console.log($(this).val())
-  var countFiles = $(this)[0].files.length;
-
-  var imgPath = $(this)[0].value;
-  var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
-  var image_holder = $("#image");
-  image_holder.empty();
-
-  if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
-      if (typeof (FileReader) != "undefined") {
-        $('#modalupload').modal('show')
-          for (var i = 0; i < countFiles; i++) {
-              var reader = new FileReader();
-              reader.onload = function (e) {
-                  $("<img />", {
-                      "src": e.target.result,
-                          "class": "thumb-image"
-                  }).appendTo(image_holder);
-              }
-              image_holder.show();
-              reader.readAsDataURL($(this)[0].files[i]);
-          }
-      } else {
-          alert("This browser does not support FileReader.");
-      }
-  } else {
-      alert("Pls select only images");
-  }
-});
-
-$('#modalupload').on('hidden.bs.modal', function () {
-  $("#photo").val('');
-});
-
-$('#btn-update-avt').on('click', function() {
-  var file = $('#photo').prop('files')[0];
-  console.log(file);
-  var form_data = new FormData();
-  form_data.append('file', file);
-  $.ajax({
-    type: "post",
-    url: "/updateimg",
-    data: form_data,
-    processData: false,
-    contentType: false,
-    dataType: "json",
-    success: function (response) {
-      console.log(response);
-      if (response == true) {
-        $('#modalupload').modal('hide');
-        swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Your work has been saved',
-          showConfirmButton: false,
-          timer: 1500
-        }).then((result) => {
-        location.reload();
-        })
-      }
-    }
-  });
-})
-
 function loadreviews($id) {
   $.ajax({
     type: 'POST',
@@ -269,9 +222,11 @@ function loadreviews($id) {
     success:function(data) {
       console.log("DATA::: ", data);
       let html = '';
+
       data.reviews.forEach(reviews => {
-        html += generateReviews(reviews)
+          html += generateReviews(reviews, data.reviews)
       })
+      console.log('REply::'+html)
       $('#listReviews').html(html);
       $('#numberReview').html(data.number_review + ' Reviews')
       if (data.totalrating == null)
@@ -285,9 +240,83 @@ function loadreviews($id) {
       $('#number-vote').html(data.totalrating + ' rating')
       $('#number-rate').html(parseFloat(data.avg_rate).toFixed(1));
       loadstarcolor();
+      $('.delete-comment').on('click', function(e) {
+        e.preventDefault();
+       let id = $(this).closest('.reviews').attr('data-id');
+       $.ajax({
+         type: "post",
+         url: "/destroy",
+         data: {id: id},
+         dataType: "json",
+         success: function (response) {
+          loadreviews($id)
+         }
+       });
+      })
+      
+      $('.edit-comment').on('click', function(e) {
+        e.preventDefault();
+        $(this).closest('.reviews').find('.tool').css('display', 'none')
+        let data =  $(this).closest('.reviews').find('.content').text()
+        $(this).closest('.reviews').find('.content-describe-course').html('')
+        $(this).closest('.reviews').find('.content-describe-course').append('<div class="edit-content"><textarea class="form-control content" name="" id="" class="w-100" rows="2"></textarea><span class="reply edit-comment-tool save-tool btn-danger"><i class="fas fa-save"></i> Save</span><span class="reply edit-comment-tool cancel-tool btn-dark">Cancle</span></div>')
+        $(this).closest('.reviews').find('.content-describe-course textarea').val(data)
+      });
     }
   })
 }
+
+$(document).on("click", ".cancel-tool" , function(e) {
+  e.preventDefault();
+  loadreviews($id)
+});
+
+$(document).on("click", ".save-tool" , function(e) {
+  e.preventDefault();
+  let id = $(this).closest('.reviews').attr('data-id')
+  let content = $(this).closest('.reviews').find('.content-describe-course .content').val()
+  if (content != '') {
+    $.ajax({
+      type: 'POST',
+      url: "/updatereview",
+      data: {
+        'id': id,
+        'content': content,
+      },
+      dataType: 'json',
+      success:function(data) {
+        console.log("Review::"+data)
+        if (data == true) {
+          loadreviews($id);
+        }
+      }
+    })
+  }
+});
+
+$(document).on("click", ".save-reply-tool" , function(e) {
+  e.preventDefault();
+  let parent_id = $(this).closest('.reviews').attr('data-id')
+  let content = $(this).closest('.reviews').find('.collapse textarea').val()
+  if (content != '') {
+    $.ajax({
+      type: 'POST',
+      url: "/storereview",
+      data: {
+        'id': $id,
+        'parent_id': parent_id,
+        'content': content,
+      },
+      dataType: 'json',
+      success:function(data) {
+        console.log("Review::"+data)
+        if (data == true) {
+          loadreviews($id);
+        }
+      }
+    })
+  }
+});
 
 function loadlesson($value, $id) {
   $.ajax({
@@ -332,20 +361,18 @@ function generateLessonHtml(lessonData, i, course_id) {
   html += '<div class="desc-lesson">'
   html += '<a href="#">' + lessonData.title +  '</a>';
   html += '</div>'
-  html += '<div class="text-right link-lesson">';
-  html += '<div class="progress mx-2">'
-  html += '<div class="progress-bar progress-bar-striped" style="width:' + ((lessonData.learned_docs/lessonData.total_docs)*100) + '% " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'
-  html += '</div>'
+  html += '<div class="link-lesson col-lesson">';
   html += '<a href="/home/course/' + course_id + '/lesson/' + lessonData.id + '" class="btn link-course">Learn</a>'
   html += '</div>'
   html += '</div>'
   return html;
 }
 
-function generateReviews(reviewData) {
+function generateReviews(reviewData, arrayData) {
   var n = reviewData.pivot.rate;
   let html = '';
-  html += '<div class="mentor reviews">'
+  if (reviewData.pivot.parent_id == 0) {
+  html += '<div class="mentor reviews" data-id = ' + reviewData.pivot.id + '>'
   html += '<div class="info">';
   html += '<div class="avt">'
   html += '<img src="http://127.0.0.1:8000/images/' + reviewData.avatar + '" alt="">';
@@ -364,9 +391,27 @@ function generateReviews(reviewData) {
   if (reviewData.pivot.content == null) {
     reviewData.pivot.content = '';
   }
-  html += '<p>' + reviewData.pivot.content + '</p>'
+  html += '<div class="form-group">'
+  html += '<p class="content">' + reviewData.pivot.content + '</p>'
   html += '</div>'
   html += '</div>'
+  html += '<div class="form-group tool">'
+  html += '<a class="reply mx-2" data-toggle="collapse" href="#reply' + reviewData.pivot.id + '" role="button" value="' + reviewData.pivot.id + '" aria-expanded="false">Reply</a>'
+  if ($('#loginId').val() == reviewData.pivot.user_id) {
+    html += '<a class="reply mx-2 edit-comment" href="#edit' + reviewData.pivot.id + '" role="button" value="' + reviewData.pivot.id + '" aria-expanded="false">edit</a>'
+    html += '<a class="reply mx-2 delete-comment" href="#delete' + reviewData.pivot.id + '" role="button" value="' + reviewData.pivot.id + '" aria-expanded="false">delete</a>'  
+  }
+  html += '</div>'
+  html += '<div class="collapse" id="reply' + reviewData.pivot.id + '">'
+  html += '<div class="form-group">'
+  html += '<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>'
+  html += '<span class="reply edit-comment-tool save-reply-tool btn-danger"><i class="fas fa-save"></i> Save</span>'
+  html += '</div>'
+  html += '</div>'
+  html += '</div>'
+  html += generateReplies(arrayData, reviewData.pivot.id)
+  html += '</div>'
+  }
   return html;
 }
 
@@ -377,6 +422,62 @@ function loadstarcolor () {
       $(this).find('span').eq(i).css('color', '#FFD567')
     }
   });
+}
+
+function generateReplies(data, parent_id, marginleft = 0)
+{
+  let html='';
+  marginleft = marginleft + 48;
+  data.forEach(item => {
+    if (parent_id == item.pivot.parent_id) {
+      html += replies(item, marginleft)
+      html += generateReplies(data, item.pivot.id, marginleft)
+    }
+  });
+  return html;
+}
+
+function replies(reviewData, marginleft)
+{
+  var n = reviewData.pivot.rate;
+  let html = '';
+  html += '<div class="mentor reviews" style="margin-left:'+ marginleft +'px;" data-id = ' + reviewData.pivot.id + '>'
+  html += '<div class="info">';
+  html += '<div class="avt">'
+  html += '<img src="http://127.0.0.1:8000/images/' + reviewData.avatar + '" alt="">';
+  html += '</div>'
+  html += '<div class="detail d-block d-lg-flex w-100">';
+  html += '<span class="name custom-font-bold">' + reviewData.name + '</span>'
+  html += '<div class="star" data-rate="' + reviewData.pivot.rate + '">';
+  for (var i = 0; i < n; i++) {
+    html += '<span><i class="fas fa-star"></i></span>';
+  }
+  html += '</div>'
+  html += '<div class="time">' + new Date(reviewData.pivot.time).toDateString() + '</div>'
+  html += '</div>'
+  html += '</div>'
+  html += '<div class="content-describe-course describe-mentor">'
+  if (reviewData.pivot.content == null) {
+    reviewData.pivot.content = '';
+  }
+  html += '<div class="form-group">'
+  html += '<p class="content">' + reviewData.pivot.content + '</p>'
+  html += '</div>'
+  html += '</div>'
+  html += '<a class="reply mx-2" data-toggle="collapse" href="#reply' + reviewData.pivot.id + '" role="button" value="' + reviewData.pivot.id + '" aria-expanded="false">Reply</a>'
+  if ($('#loginId').val() == reviewData.pivot.user_id) {
+    html += '<a class="reply mx-2 edit-comment" href="#edit' + reviewData.pivot.id + '" role="button" value="' + reviewData.pivot.id + '" aria-expanded="false">edit</a>'
+    html += '<a class="reply mx-2 delete-comment" href="#delete' + reviewData.pivot.id + '" role="button" value="' + reviewData.pivot.id + '" aria-expanded="false">delete</a>'  
+  }
+  html += '<div class="collapse" id="reply' + reviewData.pivot.id + '">'
+  html += '<div class="form-group">'
+  html += '<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>'
+  html += '<span class="reply edit-comment-tool save-reply-tool btn-danger"><i class="fas fa-save"></i> Save</span>'
+  html += '</div>'
+  html += '</div>'
+  html += '</div>'
+  html += '</div>'
+  return html;
 }
 
 function status() {
