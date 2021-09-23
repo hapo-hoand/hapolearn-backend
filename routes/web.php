@@ -6,6 +6,7 @@ use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\User\LessonController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -55,5 +56,9 @@ Route::group(['middleware' => 'checksigin'], function () {
     Route::post('/storereview', [ReviewController::class, 'store']);
     Route::post('/updatereview', [ReviewController::class, 'update']);
     Route::post('/destroy', [ReviewController::class, 'destroy']);
+
 });
+
+Route::get('/admin/index', [AdminController::class, 'index'])->name('admin.show');
+
 Auth::routes();
