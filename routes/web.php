@@ -60,5 +60,6 @@ Route::group(['middleware' => 'checksigin'], function () {
 });
 
 Route::get('/admin/index', [AdminController::class, 'index'])->name('admin.show');
+Route::get('/admin/course/create', [AdminController::class, 'create'])->name('admin.course.create');
 
 Auth::routes();

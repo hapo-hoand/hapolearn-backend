@@ -209,6 +209,11 @@ $(function () {
       }
     });
   })
+
+  $('.nav-item').on('click', function (e) {
+    e.preventDefault();
+    $(this).find('.submenu').slideToggle()
+  })
 });
 
 
@@ -325,7 +330,7 @@ function loadreviews($id) {
         $(this).closest('.reviews').find('.tool').css('display', 'none')
         let data =  $(this).closest('.reviews').find('.content').text()
         $(this).closest('.reviews').find('.content-describe-course').html('')
-        $(this).closest('.reviews').find('.content-describe-course').append('<div class="edit-content"><textarea class="form-control content" name="" id="" class="w-100" rows="2"></textarea><span class="reply edit-comment-tool save-tool btn-danger"><i class="fas fa-save"></i> Save</span><span class="reply edit-comment-tool cancel-tool btn-dark">Cancle</span></div>')
+        $(this).closest('.reviews').find('.content-describe-course').append('<div class="edit-content form-group"><textarea class="form-control content mb-3" name="" id="" class="w-100" rows="2"></textarea><span class="reply edit-comment-tool save-tool btn-danger"><i class="fas fa-save"></i> Save</span><span class="reply edit-comment-tool cancel-tool btn-dark">Cancle</span></div>')
         $(this).closest('.reviews').find('.content-describe-course textarea').val(data)
       });
     }
@@ -470,7 +475,7 @@ function generateReviews(reviewData, arrayData) {
   html += '</div>'
   html += '<div class="collapse" id="reply' + reviewData.pivot.id + '">'
   html += '<div class="form-group">'
-  html += '<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>'
+  html += '<textarea class="form-control mb-3" id="exampleFormControlTextarea1" rows="3"></textarea>'
   html += '<span class="reply edit-comment-tool save-reply-tool btn-danger"><i class="fas fa-save"></i> Save</span>'
   html += '</div>'
   html += '</div>'
@@ -530,11 +535,13 @@ function replies(reviewData, marginleft)
   html += '<p class="content">' + reviewData.pivot.content + '</p>'
   html += '</div>'
   html += '</div>'
+  html += '<div class="form-group tool">'
   html += '<a class="reply mx-2" data-toggle="collapse" href="#reply' + reviewData.pivot.id + '" role="button" value="' + reviewData.pivot.id + '" aria-expanded="false">Reply</a>'
   if ($('#loginId').val() == reviewData.pivot.user_id) {
     html += '<a class="reply mx-2 edit-comment" href="#edit' + reviewData.pivot.id + '" role="button" value="' + reviewData.pivot.id + '" aria-expanded="false">edit</a>'
     html += '<a class="reply mx-2 delete-comment" href="#delete' + reviewData.pivot.id + '" role="button" value="' + reviewData.pivot.id + '" aria-expanded="false">delete</a>'  
   }
+  html += '</div>'
   html += '<div class="collapse" id="reply' + reviewData.pivot.id + '">'
   html += '<div class="form-group">'
   html += '<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>'

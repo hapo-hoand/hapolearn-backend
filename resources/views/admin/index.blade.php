@@ -13,50 +13,73 @@
 
     <body>
         <div class="wrapper">
-            <div class="container-fluid p-0">
-                <div class="menu">
-                    <a href="#" class="brand-link">
-                        <img src="./Public/Interface/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                             style="opacity: .8">
-                        <span class="brand-text font-weight-light">AdminLTE 3</span>
-                    </a>
-                    <div class="collapse collapse-horizontal" id="collapseWidthExample">
-                        <div class="card card-body" style="width: 300px;">
-                            <ul class="navbar-nav">
-                                <li class="nav-item active">
-                                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="nav-item">
-                                  <a class="nav-link" href="#">Features</a>
-                                </li>
-                                <li class="nav-item">
-                                  <a class="nav-link" href="#">Pricing</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Dropdown link
-                                  </a>
-                                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                  </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="container-fluid p-0 d-flex">
+                <div class="logo-admin bg-dark">
+                    <a class="navbar-brand"><img class="" src="{{ asset('images/owl_mess.png') }}" alt=""> HapoLearn</a>
                 </div>
-                <div class="top-bar">
-
-                </div>
-                <div class="content">
-
-                </div>
-                <div class="footer">
-
+                <div class="bar px-4 d-flex align-items-center">
+                    <a class="navbar-brand"><i class="fas fa-bars"></i></a>
+                    <ul class="d-flex justify-content-end align-items-center w-100 m-0">
+                        <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Features</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link disabled">Disabled</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
+            <div class="main d-flex">
+                <div class="menu-admin bg-dark">
+                    <div class="name d-flex align-items-center">
+                        <img src="{{ asset('images/owl_mess.png') }}" alt="">
+                        <span class="mx-2">Hao</span>
+                    </div>
+                    <ul class="w-100 m-0 p-0">
+                        <li class="nav-item">
+                          <a class="nav-link" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" href="#">Features <i class="fas fa-caret-down float-right my-1"></i></a>
+
+                            <ul class="w-100 m-0 p-0 submenu">
+                                <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#"><i class="far fa-circle nav-icon"></i> Home</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Features <i class="fas fa-caret-down float-right my-1"></i></a>
+  
+                              <ul class="w-100 m-0 p-0 submenu">
+                                  <li class="nav-item">
+                                  <a class="nav-link" aria-current="page" href="#"><i class="far fa-circle nav-icon"></i> Home</a>
+                                  </li>
+                              </ul>
+                          </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link disabled">Disabled</a>
+                        </li>
+                    </ul>
+                </div>
+
+                @yield('content')
+                
+            </div>
         </div>
+        @if (!@Auth::check())
+            @include('layouts.modallogin')
+        @endif
+
        
         <script src="{{ asset('js/app.js') }}"></script>
         @include('sweetalert::alert')

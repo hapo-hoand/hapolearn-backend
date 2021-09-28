@@ -12,7 +12,7 @@
                         <span class="text-motto">Learn AnyTime, AnyWhere</span>
                         <span class="text-add">at HapoLearn <img src="{{ asset('images/owl.png') }}" class="img-fluid" alt="img">!</span>
                         <small>Interective lessons, "on-the-go" <br> practice, peer support</small>
-                        <span class="text-time">Start Learning Now!</span>
+                        <a href="{{ route('allcourse') }}"><span class="text-time">Start Learning Now!</span></a>
                     </div>
                 </div>
             </div>
@@ -22,42 +22,20 @@
     <div class="top-content"></div>
     <div class="main-content container p-md-0">
         <div class="row">
+            @foreach ($courses as $course)
             <div class="col-lg col-md-4 col-sm-12 col-courses">
                 <div class="card">
                     <div class="logo thumbnail lg-html">
                         <img class="card-img-top" src="{{ asset('images/html.png') }}" class="img-fluid" alt="Card image cap">
                     </div>
                     <div class="card-body">
-                        <span class="card-title">HTML/CSS/JS Tutorial</span>
-                        <p class="card-text">I knew hardly anything about HTML, JS, and CSS before entering New Media. I had coded quite a bit, but never touched anything in regards to web development.</p>
-                        <a href="#" class="btn link-course">Take This Course</a>
+                        <span class="card-title">{{ $course->name }}</span>
+                        <p class="card-text">{{ $course->desc }}</p>
+                        <a href="{{ route('course.detail', ['id' => $course->id]) }}" class="btn link-course">Take This Course</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg col-md-4 col-sm-12 col-courses">
-                <div class="card">
-                    <div class="logo thumbnail lg-laravel">
-                        <img class="card-img-top" src="{{ asset('images/laravel.png') }}" alt="Card image cap">
-                    </div>
-                    <div class="card-body">
-                        <span class="card-title">LARAVEL Tutorial</span>
-                        <p class="card-text">I knew hardly anything about HTML, JS, and CSS before entering New Media. I had coded quite a bit, but never touched anything in regards to web development.</p>
-                        <a href="#" class="btn link-course">Take This Course</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg col-md-4 col-sm-12 col-courses">
-                <div class="card" >
-                    <div class="logo thumbnail lg-php">
-                        <img class="card-img-top" src="{{ asset('images/php.png') }}" alt="Card image cap">
-                    </div>
-                    <div class="card-body">
-                        <span class="card-title">PHP Tutorial</span>
-                        <p class="card-text">I knew hardly anything about HTML, JS, and CSS before entering New Media. I had coded quite a bit, but never touched anything in regards to web development.</p>
-                        <a href="#" class="btn link-course">Take This Course</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
 
         <div class="courses">
@@ -68,47 +46,25 @@
         </div>
 
         <div class="row">
-            <div class="col-lg col-md-4 col-sm-12 col-courses">
-                <div class="card" >
-                    <div class="logo thumbnail lg-css">
-                        <img class="card-img-top" src="{{ asset('images/css.png') }}" alt="Card image cap">
-                    </div>
-                    <div class="card-body">
-                        <span class="card-title">CSS Tutorial</span>
-                        <p class="card-text">I knew hardly anything about HTML, JS, and CSS before entering New Media,...</p>
-                        <a href="#" class="btn link-course">Take This Course</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg col-md-4 col-sm-12 col-courses">
-                <div class="card" >
-                    <div class="logo thumbnail lg-rails">
-                        <img class="card-img-top" src="{{ asset('images/rails.png') }}" alt="Card image cap">
-                    </div>
-                    <div class="card-body">
-                        <span class="card-title">Ruby on rails Tutorial</span>
-                        <p class="card-text">I knew hardly anything about HTML, JS, and CSS before entering New Media,...</p>
-                        <a href="#" class="btn link-course">Take This Course</a>
+            @foreach ($otherCourse as $course)
+                <div class="col-lg col-md-4 col-sm-12 col-courses">
+                    <div class="card" >
+                        <div class="logo thumbnail lg-css">
+                            <img class="card-img-top" src="{{ asset('images/css.png') }}" alt="Card image cap">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-title">{{ $course->name}}</span>
+                            <p class="card-text">{{ $course->desc }}</p>
+                            <a href="{{ route('course.detail', ['id' => $course->id]) }}" class="btn link-course">Take This Course</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg col-md-4 col-sm-12 col-courses">
-                <div class="card" >
-                    <div class="logo thumbnail lg-java">
-                        <img class="card-img-top" src="{{ asset('images/java.png') }}" alt="Card image cap">
-                    </div>
-                    <div class="card-body">
-                        <span class="card-title">Java Tutorial</span>
-                        <p class="card-text">I knew hardly anything about HTML, JS, and CSS before entering New Media,...</p>
-                        <a href="#" class="btn link-course">Take This Course</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
 
         <div class="courses course-view">
             <span class="other-course view">
-                <a href="#" class="link-view">View All Our Courses <span class="icon-arrow"></span></a>
+                <a href="{{ route('allcourse') }}" class="link-view">View All Our Courses <span class="icon-arrow"></span></a>
             </span>
         </div>
     </div>
@@ -306,15 +262,15 @@
             <div class="row content-statistic">
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                     <span class="title">Courses</span>
-                    <span class="number">1,586</span>
+                    <span class="number">{{ $allCourse->count() }}</span>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                     <span class="title">Lessons</span>
-                    <span class="number">2,689</span>
+                    <span class="number">{{ $numberLesson }}</span>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                     <span class="title">Learners</span>
-                    <span class="number">16,882</span>
+                    <span class="number">{{ $numberLearner }}</span>
                 </div>
             </div>
         </div>
