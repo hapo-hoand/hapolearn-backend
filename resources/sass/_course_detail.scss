@@ -292,6 +292,7 @@
     img {
       width: 100px;
       height: 100px;
+      border-radius: 50%;
     }
   }
 
@@ -546,10 +547,13 @@
 }
 
 .edit-comment-tool {
-  border-radius: 5px;
+  padding: 2px 5px;
+  margin: 10px 10px 10px 0;
+  font-size: 17px;
+  border-radius: 2px;
   cursor: pointer;
-  display: inline-block;
-  margin:5px 10px 5px 0;
-  padding: 3px 8px;
-  font-size: 14px;
+}
+
+.edit-content {
+  padding-bottom: 10px;
 }

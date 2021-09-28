@@ -1,6 +1,7 @@
 @extends('master')
 
 @section('content')
+
     <div class="allcourse">
         <div class="container">
             <form action="{{ route('search') }}" method="get" name="advance_search">

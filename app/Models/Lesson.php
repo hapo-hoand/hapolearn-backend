@@ -32,4 +32,19 @@ class Lesson extends Model
     {
         return $this->hasMany(Document::class);
     }
+
+    public function scopeStatus($query)
+    {
+        if (Auth::check()) {
+            $query->withCount(['documents as learned_docs' => function ($query) {
+                $query->whereHas('users', function ($query) {
+                    $query->where('user_id', Auth()->user()->id);
+                });
+            },'documents as total_docs' => function ($query) {
+                $query->groupBy('lessons.id');
+            }]);
+        }
+
+        return null;
+    }
 }

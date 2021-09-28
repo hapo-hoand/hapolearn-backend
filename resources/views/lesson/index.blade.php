@@ -121,13 +121,13 @@
                                                 @endforeach                            
                                             </div>
                                         
-                                            <form action="{{ route('lesson.upfile') }}" method="post" enctype="multipart/form-data">
+                                            {{-- <form action="{{ route('lesson.upfile') }}" method="post" enctype="multipart/form-data">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $lesson->id }}">
                                                 <input type="file" id="document" name="document" />
                                                 <button type="submit">upload</button>
                                             </form>
-                                            <iframe src="{{ asset('storage/document/5/1630292934.pdf') }}" frameborder="0" width="100%" height="100%"></iframe>
+                                            <iframe src="{{ asset('storage/document/5/1630292934.pdf') }}" frameborder="0" width="100%" height="100%"></iframe> --}}
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-href">
@@ -278,6 +278,17 @@
                                         :&ensp; {{ ($lesson->course->price > 0) ? number_format($lesson->course->price).'$' : 'Free' }}
                                     </span>
                                 </div>
+                                <div class="data-course d-flex align-items-center">
+                                    <span class="icon">
+                                       Progress
+                                    </span>
+                                    <span class="info-data">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" data-width="{{ $ratio }}" aria-valuenow="{{ $ratio }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </span>
+                                </div>
+                               
                                 <div class="get-this-course text-center view-all">
                                     <a href="{{ route('allcourse') }}" class="btn link-course">End of course</a>
                                 </div>
