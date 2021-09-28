@@ -9,8 +9,12 @@ use App\Models\Lesson;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -104,5 +108,40 @@ class UserController extends Controller
         }])->find($userId);
 
         return response()->json($status);
+    }
+
+    public function forgetPassword()
+    {
+        return view('user._forget_password');
+    }
+
+    public function resetPassword($email)
+    {
+        return view('user.reset_password', ['email' => $email]);
+    }
+
+    public function sendMail(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        if($user) {
+            $data = ['email' => $request->email];
+            Mail::send('auth.verify', $data , function($message) use ($request){
+                $message->to($request->email, 'itsFromMe')
+                        ->subject('verify');
+            });
+            return redirect()->back()->with(['success' => 'success'])->withInput();
+        }
+        return redirect()->back()->withErrors(['error' => 'error'])->withInput();
+    }
+
+    public function confirmReset(PasswordReset $request)
+    {
+        if ($request->validated()) {
+            $user = User::where('email', $request['email'])->first();
+            $user->password = Hash::make($request['reset_password']);
+            $user->save();
+            Alert::success('Success', 'Update Success');
+            return redirect()->route('home');
+        }
     }
 }

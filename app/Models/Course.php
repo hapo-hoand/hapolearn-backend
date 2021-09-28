@@ -52,7 +52,7 @@ class Course extends Model
 
     public function reviews()
     {
-        return $this->belongsToMany(User::class, 'reviews', 'course_id', 'user_id')->withPivot('content', 'time', 'rate');
+        return $this->belongsToMany(User::class, 'reviews', 'course_id', 'user_id')->withPivot('content', 'time', 'rate', 'parent_id', 'id')->wherePivotNull('deleted_at');
     }
 
     public function getLessonNumberAttribute()
@@ -72,7 +72,7 @@ class Course extends Model
 
     public function getRateAttribute()
     {
-        return $this->reviews()->avg('rate');
+        return $this->reviews()->wherePivot('rate', '<>', 0)->avg('rate');
     }
 
     public function getNumberReviewAttribute()
@@ -82,7 +82,7 @@ class Course extends Model
 
     public function getRateNumberAttribute()
     {
-        return $this->reviews()->wherePivot('rate', '<>', null)->count();
+        return $this->reviews()->wherePivot('rate', '<>', 0)->count();
     }
 
     public function scopeFilter($query, $data)
@@ -136,6 +136,7 @@ class Course extends Model
             $query->withCount([
                 'reviews AS courese_rate' => function ($query) {
                     $query->select(DB::raw("AVG(reviews.rate)"))
+                    ->where('rate', '<>', 0)
                     ->groupBy('courses.id');
                 }
             ]);
@@ -176,11 +177,11 @@ class Course extends Model
         return $query->withCount([
             'reviews as avg_rate' => function ($query) {
                 $query->select(DB::raw('AVG(reviews.rate)'))
-                ->where('rate', '<>', null)
+                ->where('rate', '<>', 0)
                 ->groupBy('courses.id');
             },
             'reviews as totalrating' => function ($query) {
-                $query->where('rate', '<>', null)
+                $query->where('rate', '<>', 0)
                 ->groupBy('courses.id');
             },
             'reviews AS number_review' => function ($query) {
@@ -226,22 +227,5 @@ class Course extends Model
             }
         }
         return false;
-    }
-
-    public function scopeStatus($query)
-    {
-        if (Auth::check()) {
-            $query->with(['lessons' => function ($query) {
-                $query->withCount(['documents as learned_docs' => function ($query) {
-                    $query->whereHas('users', function ($query) {
-                        $query->where('user_id', Auth()->user()->id);
-                    });
-                },'documents as total_docs' => function ($query) {
-                    $query->groupBy('lessons.id');
-                }]);
-            }]);
-        }
-
-        return null;
     }
 }
